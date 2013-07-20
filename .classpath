@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/mapdb-0.9.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/swingext-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/twinkle-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/WebLookAndFeel.jar" sourcepath="/WebLookAndFeel"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_43"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WebQQCore"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
