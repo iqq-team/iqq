@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config> 
+	<appName>IQQ</appName>  
+	<appWidth>300</appWidth>  
+	<appHeight>620</appHeight>  
+	<chatWidth>700</chatWidth>  
+	<chatHeight>550</chatHeight>  
+	<i18nBundle>i18n/appBundle.properties</i18nBundle>  
+	<skin>skin/default/skin.xml</skin>  
+	<userFace>32,32</userFace>  
+	<groupFace>32,32</groupFace>  
+	<recentFace>32,32</recentFace>  
+	<sentMsgKey>0</sentMsgKey>  
+	<desktopNotification>1</desktopNotification>  
+	<trayNotification>1</trayNotification> 
+</config>

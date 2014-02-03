@@ -1,0 +1,22 @@
+<ResourceMap>
+    <entry>
+        <string>selected</string>
+        <ResourceFile location="filePath" source="{$skinDir}/npicons/state/s.9.png" className="com.alee.examples.groups.android.AndroidButtonsExample" />
+    </entry>
+    <entry>
+        <string>pressed</string>
+        <ResourceFile location="filePath" source="{$skinDir}/npicons/state/p.9.png" className="com.alee.examples.groups.android.AndroidButtonsExample" />
+    </entry>
+    <entry>
+        <string>normal</string>
+        <ResourceFile location="filePath" source="{$skinDir}/npicons/state/n.9.png" className="com.alee.examples.groups.android.AndroidButtonsExample" />
+    </entry>
+    <entry>
+        <string>focused</string>
+        <ResourceFile location="filePath" source="{$skinDir}/npicons/state/f.9.png" className="com.alee.examples.groups.android.AndroidButtonsExample" />
+    </entry>
+    <entry>
+        <string>disabled</string>
+        <ResourceFile location="filePath" source="{$skinDir}/npicons/state/d.9.png" className="com.alee.examples.groups.android.AndroidButtonsExample" />
+    </entry>
+</ResourceMap>
