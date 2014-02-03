@@ -33,7 +33,21 @@
 			<artifactId>weblaf</artifactId>
 			<version>2.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/weblaf-1.26.jar</systemPath>
+			<systemPath>${project.basedir}/lib/weblaf-simple-1.26.jar</systemPath>
+		</dependency>
+		<!-- weblaf dependency-->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.5</version>
+		</dependency>
+		<!-- weblaf dependency-->
+		<dependency>
+			<groupId>imagescaling</groupId>
+			<artifactId>imagescaling</artifactId>
+			<version>0.8.5</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/java-image-scaling-0.8.5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>ch.swingfx</groupId>

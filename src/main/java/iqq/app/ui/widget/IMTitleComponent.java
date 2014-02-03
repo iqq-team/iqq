@@ -107,13 +107,13 @@ public class IMTitleComponent extends BackgroundPanel {
 			 * 解决LINUX兼容问题
 			 */
 			if (SystemUtils.isLinux()) {
-				//if(!frame.isUndecorated()) {
+				if(frame.isUndecorated()) {
 					frame.setUndecorated(false);
 					this.setVisible(false);
 					if(resizeWindow) {
 						frame.setSize(f.getWidth() - 40, f.getHeight());
 					}
-				//}
+				}
 			}
 		} else {
 			WebDialog d = (WebDialog) window;
@@ -123,13 +123,13 @@ public class IMTitleComponent extends BackgroundPanel {
 			 * 解决LINUX兼容问题
 			 */
 			if (SystemUtils.isLinux()) {
-				//if(!d.isUndecorated()) {
+				if(d.isUndecorated()) {
 					d.setUndecorated(false);
 					this.setVisible(false);
 					if(resizeWindow) {
 						d.setSize(d.getWidth() - 40, d.getHeight());
 					}
-				//}
+				}
 			}
 		}
 
