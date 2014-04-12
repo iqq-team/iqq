@@ -38,7 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 事件服务实现
@@ -49,7 +50,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class IMEventServiceImpl extends AbstractServiceImpl implements IMEventService {
-	private static final Logger LOG = Logger.getLogger(IMEventServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMEventServiceImpl.class);
 
 	/**Type => list<listener> **/
 	private Map<IMEventType, List<IMEventListener>> lookup;

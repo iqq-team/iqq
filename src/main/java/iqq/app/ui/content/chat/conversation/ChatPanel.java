@@ -77,7 +77,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import javax.swing.KeyStroke;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.panel.GroupPanel;
@@ -103,7 +104,7 @@ import com.alee.utils.ImageUtils;
  * @create-time 2013-3-21
  */
 public class ChatPanel extends BackgroundPanel implements IChat {
-	private static final Logger LOG = Logger.getLogger(ChatPanel.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ChatPanel.class);
 	private static final long serialVersionUID = -1361072898693239839L;
 	private static final ImageIcon nullIcon = SkinUtils.getImageIcon("transparent");
 	private static final Set<Object> appendFrom = new HashSet<Object>();

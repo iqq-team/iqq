@@ -45,7 +45,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.extended.image.WebImage;
 import com.alee.extended.panel.GroupPanel;
@@ -60,7 +61,7 @@ import com.alee.extended.progress.WebProgressOverlay;
  */
 public class UILoaderPicItem extends UIBasicItem {
 	private static final long serialVersionUID = 1L;
-	private static final Logger LOG = Logger.getLogger(UILoaderPicItem.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UILoaderPicItem.class);
 	private PicLoader picLoader;
 	public UILoaderPicItem(PicLoader picLoader){
 		this.picLoader = picLoader; 

@@ -53,7 +53,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -63,7 +64,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class UIMsgUtils {
-	private static final Logger LOG = Logger.getLogger(UIMsgUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIMsgUtils.class);
 	private static final String LINK_REGXP = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 	public static QQMsg toQQMsg(UIMsg uiMsg, QQAccount self) throws Exception{
 		QQMsg qqMsg = new QQMsg();

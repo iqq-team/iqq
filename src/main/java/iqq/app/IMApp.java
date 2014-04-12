@@ -54,7 +54,8 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.rootpane.WebWindow;
 
@@ -65,7 +66,7 @@ import com.alee.laf.rootpane.WebWindow;
  * @create-time 2013-3-12
  */
 public class IMApp implements IMContext {
-	private static final Logger LOG = Logger.getLogger(IMApp.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMApp.class);
 	private Map<IMService.Type, IMServiceEntry> services;
 	private boolean appExiting;
 	private WebWindow startWin;
@@ -181,7 +182,7 @@ public class IMApp implements IMContext {
 				}
 			}
 		}catch (Exception e) {
-			LOG.fatal("IMApp exit error!!!", e);
+			LOG.error("IMApp exit error!!!", e);
 		} finally {
 			LOG.info("IMApp exit!!!");
 			System.exit(0);

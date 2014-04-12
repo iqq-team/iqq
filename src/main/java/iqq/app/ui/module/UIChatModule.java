@@ -33,7 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.panel.WebPanel;
 
@@ -45,7 +46,7 @@ import com.alee.laf.panel.WebPanel;
  */
 public class UIChatModule extends IMFrameView {
 	private static final long serialVersionUID = -3177027375988433502L;
-	private static final Logger LOG = Logger.getLogger(UIChatModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIChatModule.class);
 	private static final Map<Object, IChat> chatEntities = new HashMap<Object, IChat>();
 	private static ChatTabList chatTabList;
 	private QQAccount self;

@@ -52,7 +52,8 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -62,7 +63,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class QQAccountModule extends AbstractModule{
-	private static final Logger LOG = Logger.getLogger(QQAccountModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(QQAccountModule.class);
 	private static final String SALT = "~HelloWord~";
 	private static final String FILE = "Account.dat";
 	private Map<String, QQAccountEntry> entryMap;

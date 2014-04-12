@@ -45,7 +45,8 @@ import javax.swing.text.View;
 import javax.swing.text.ViewFactory;
 import javax.swing.text.html.HTML;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.text.WebTextPane;
 
@@ -55,7 +56,7 @@ import com.alee.laf.text.WebTextPane;
  */
 public class RichTextPane extends WebTextPane {
 	private static final long serialVersionUID = -4363522393708478690L;
-	private static final Logger LOG = Logger.getLogger(RichTextPane.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RichTextPane.class);
 	/**
 	 * 编辑面板的默认样式
 	 */

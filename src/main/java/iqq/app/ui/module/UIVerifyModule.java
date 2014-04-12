@@ -27,7 +27,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.extended.image.WebImage;
 import com.alee.extended.label.WebLinkLabel;
@@ -45,7 +46,7 @@ import com.alee.laf.text.WebTextField;
  * @create-time 2013-3-18
  */
 public class UIVerifyModule extends IMDialogView {
-	private static final Logger LOG = Logger.getLogger(UIVerifyModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIVerifyModule.class);
 
 	private IMEventService eventHub;
 	private QQNotifyEventArgs.ImageVerify verify;

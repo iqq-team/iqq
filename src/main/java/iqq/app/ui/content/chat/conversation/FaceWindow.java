@@ -16,7 +16,8 @@ import java.awt.event.WindowFocusListener;
 
 import javax.swing.BorderFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.button.WebButton;
 import com.alee.laf.label.WebLabel;
@@ -27,7 +28,7 @@ import com.alee.laf.panel.WebPanel;
  * @create-time 2013-3-25
  */
 public class FaceWindow extends IMWindowView {
-	private static final Logger LOG = Logger.getLogger(FaceWindow.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FaceWindow.class);
 	private static final long serialVersionUID = 651992619157145784L;
 	private static final int[] FACE_ID_TABLE = {
 		14, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 0, 50, 

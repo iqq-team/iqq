@@ -62,7 +62,8 @@ import java.util.concurrent.ConcurrentNavigableMap;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 
@@ -75,7 +76,7 @@ import org.mapdb.DBMaker;
  *
  */
 public class QQMsgHistoryModule extends AbstractModule{
-	private static final Logger LOG = Logger.getLogger(QQMsgHistoryModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(QQMsgHistoryModule.class);
 	private IMResourceService resources;
 	private long uin;
 	private DB msgDb;

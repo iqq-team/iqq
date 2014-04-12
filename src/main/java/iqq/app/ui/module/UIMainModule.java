@@ -1,11 +1,25 @@
 package iqq.app.ui.module;
 
-import iqq.app.bean.DefaultUINamedObject;
-import iqq.app.bean.UICategory;
-import iqq.app.bean.UIDiscuz;
-import iqq.app.bean.UIGroup;
-import iqq.app.bean.UINamedObject;
-import iqq.app.bean.UIUser;
+import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowStateListener;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alee.laf.optionpane.WebOptionPane;
+import com.alee.laf.panel.WebPanel;
+import com.alee.utils.ImageUtils;
+
+import iqq.app.bean.*;
 import iqq.app.core.IMContext;
 import iqq.app.core.IMException;
 import iqq.app.core.IMService;
@@ -22,47 +36,8 @@ import iqq.app.ui.content.main.MainPanel;
 import iqq.app.ui.content.main.MiddlePanel;
 import iqq.app.ui.content.main.MiddlePanel.Action;
 import iqq.app.ui.content.main.SearchBuddyPanel;
-import iqq.app.ui.renderer.IMBuddySearchRenderer;
-import iqq.app.util.Benchmark;
-import iqq.app.util.I18NUtil;
-import iqq.app.util.LocationUtil;
-import iqq.app.util.SettingUtils;
-import iqq.app.util.SkinUtils;
-import iqq.app.util.UIUtils;
-import iqq.im.bean.QQBuddy;
-import iqq.im.bean.QQCategory;
-import iqq.im.bean.QQDiscuz;
-import iqq.im.bean.QQGroup;
-import iqq.im.bean.QQStatus;
-import iqq.im.bean.QQUser;
-
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Window;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
-import java.awt.event.WindowStateListener;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-
-import org.apache.log4j.Logger;
-
-import sun.security.x509.FreshestCRLExtension;
-
-import com.alee.laf.label.WebLabel;
-import com.alee.laf.list.WebList;
-import com.alee.laf.optionpane.WebOptionPane;
-import com.alee.laf.panel.WebPanel;
-import com.alee.laf.scroll.WebScrollPane;
-import com.alee.utils.ImageUtils;
+import iqq.app.util.*;
+import iqq.im.bean.*;
 
 /**
  * @author ChenZhiHui <6208317@qq.com>
@@ -70,7 +45,7 @@ import com.alee.utils.ImageUtils;
  */
 public class UIMainModule extends IMFrameView {
 	private static final long serialVersionUID = 2990417326989970378L;
-	private static final Logger LOG = Logger.getLogger(UIMainModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIMainModule.class);
 	
 	private static final BuddyListComparator BUDDY_LIST_COMPARATOR = new BuddyListComparator();
 	private MainPanel mainPanel;

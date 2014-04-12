@@ -51,7 +51,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -62,7 +63,7 @@ import org.apache.log4j.Logger;
 public class IMI18nServiceImpl extends AbstractServiceImpl implements
 		IMI18nService {
 
-	private static final Logger LOG = Logger.getLogger(IMI18nServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMI18nServiceImpl.class);
 
 	/**
 	 * Thread-local containing the general Locale for the current thread

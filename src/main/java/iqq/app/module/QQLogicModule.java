@@ -65,7 +65,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -76,7 +77,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class QQLogicModule extends AbstractModule{
-	private static final Logger LOG = Logger.getLogger(QQLogicModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(QQLogicModule.class);
 	private QQClient client;
 	private QQActionFuture loginFuture;
 	private boolean buddyListFetched;

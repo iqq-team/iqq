@@ -28,7 +28,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -44,7 +45,7 @@ import com.alee.utils.ninepatch.NinePatchIcon;
  */
 public class IMSkinServiceImpl extends AbstractServiceImpl implements
 		IMSkinService {
-	private static final Logger LOG = Logger.getLogger(IMSkinServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMSkinServiceImpl.class);
 	private static final String SKIN_CACHE_KEY = "SKIN_CACHE";// 配置文件缓存Key
 	private static final String SKIN_DIR_MATCHING = "{$skinDir}";// 配置文件缓存Key
 	private static Map<String, Object> CACHE = new HashMap<String, Object>();

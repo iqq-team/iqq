@@ -58,7 +58,8 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.utils.ImageUtils;
 
@@ -70,7 +71,7 @@ import com.alee.utils.ImageUtils;
  *
  */
 public class UITrayModule extends AbstractModule {
-	private static final Logger LOG = Logger.getLogger(UITrayModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UITrayModule.class);
 	public static boolean isLogin = false;
 	private SystemTray tray;
 	private TrayIcon icon;

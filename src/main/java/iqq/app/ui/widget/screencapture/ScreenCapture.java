@@ -15,7 +15,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.rootpane.WebWindow;
 
@@ -29,7 +30,7 @@ import com.alee.laf.rootpane.WebWindow;
  */
 public class ScreenCapture extends WebWindow {
 	private static final long serialVersionUID = 4330980461564059448L;
-	private static final Logger LOG = Logger.getLogger(ScreenCapture.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ScreenCapture.class);
 	private List<ScreenCaptureListener> screenListeners = new ArrayList<ScreenCaptureListener>();
 	private Canvas canvas;
 	private BufferedImage screenImage;
@@ -51,7 +52,7 @@ public class ScreenCapture extends WebWindow {
 		try {
 			screenImage = new Robot().createScreenCapture(new Rectangle(getSize()));
 		} catch (AWTException e) {
-			LOG.fatal("Screen Capture Error !!!", e);
+			LOG.error("Screen Capture Error !!!", e);
 			dispose();
 		}
 		canvas = new Canvas(this, screenImage);
@@ -62,7 +63,7 @@ public class ScreenCapture extends WebWindow {
 		try {
 			screenImage = new Robot().createScreenCapture(new Rectangle(getSize()));
 		} catch (AWTException e) {
-			LOG.fatal("Screen Capture Error !!!", e);
+			LOG.error("Screen Capture Error !!!", e);
 			dispose();
 		}
 		canvas.setScreenBackground(screenImage);

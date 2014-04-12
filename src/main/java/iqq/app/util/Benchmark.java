@@ -29,7 +29,8 @@ import java.util.Date;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -40,7 +41,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class Benchmark {
-	private static final Logger LOG = Logger.getLogger(Benchmark.class);
+	private static final Logger LOG = LoggerFactory.getLogger(Benchmark.class);
 	private static Deque<BenchEntry> benchStack = new LinkedList<BenchEntry>();
 	
 	

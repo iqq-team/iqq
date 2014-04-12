@@ -48,7 +48,8 @@ import java.util.concurrent.ConcurrentNavigableMap;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 
@@ -64,7 +65,7 @@ import org.mapdb.DBMaker;
  *
  */
 public class QQCacheModule extends AbstractModule {
-	private static final Logger LOG = Logger.getLogger(QQCacheModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(QQCacheModule.class);
 	private IMResourceService resources;
 	private IMTaskService tasks;
 	private long uin;

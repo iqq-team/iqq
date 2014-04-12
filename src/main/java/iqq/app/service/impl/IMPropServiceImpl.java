@@ -12,7 +12,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -25,7 +26,7 @@ import com.alee.laf.WebLookAndFeel;
  */
 public class IMPropServiceImpl extends AbstractServiceImpl implements
 		iqq.app.service.IMPropService {
-	private static final Logger LOG = Logger.getLogger(IMPropServiceImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMPropServiceImpl.class);
 	private static final String CONFIG_XML_FILE_NAME = "config.xml";// config.xml配置文件名称
 	private static final String SETTING_CACHE_KEY = "CONFIG_SETTING";// 配置文件缓存Key
 	private static Map<String, Object> CACHE = new HashMap<String, Object>();

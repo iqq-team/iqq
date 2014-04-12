@@ -55,7 +55,8 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.checkbox.WebCheckBox;
 import com.alee.laf.combobox.WebComboBox;
@@ -70,7 +71,7 @@ import com.alee.laf.text.WebPasswordField;
  * 
  */
 public class UILoginModule extends IMFrameView {
-	private static final Logger LOG = Logger.getLogger(UILoginModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UILoginModule.class);
 
 	private LoginPanel loginPanel;
 	private boolean isVerifyCode = false;

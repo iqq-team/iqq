@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="." />
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%X{traceId}][%d{yyyy/MM/dd HH:mm:ss.SSS}][%p][%logger{0}:%L] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="iqqAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/iqq.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/iqq.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%logger{0}:%L] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
+    <logger name="com.qunar.hotel" level="INFO">
+        <appender-ref ref="iqqAppender" />
+    </logger>
+
+</configuration>

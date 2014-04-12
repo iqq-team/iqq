@@ -9,7 +9,8 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.SourceDataLine;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /***
  *
@@ -20,7 +21,7 @@ import org.apache.log4j.Logger;
  */
 
 public class AePlayWave implements Runnable {
-	private static final Logger LOG = Logger.getLogger(AePlayWave.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AePlayWave.class);
     private File wavFile;
     private Position curPosition;
  

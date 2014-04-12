@@ -50,7 +50,8 @@ import java.util.Map;
 import javax.swing.ListModel;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.extended.progress.WebProgressOverlay;
 import com.alee.laf.StyleConstants;
@@ -70,8 +71,7 @@ import com.alee.laf.text.WebTextField;
  */
 public class UIGroupMemberModule extends IMDialogView {
 	private static final long serialVersionUID = -5092777399603286098L;
-	private static final Logger LOG = Logger
-			.getLogger(UIGroupMemberModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIGroupMemberModule.class);
 
 	private UINamedObject namedObject;
 	private WebPanel content;

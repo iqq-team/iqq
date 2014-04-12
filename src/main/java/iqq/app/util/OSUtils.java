@@ -3,7 +3,8 @@ package iqq.app.util;
 import java.net.URI;
 import java.net.URL;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.laf.optionpane.WebOptionPane;
 
@@ -14,7 +15,7 @@ import com.alee.laf.optionpane.WebOptionPane;
  * 
  */
 public class OSUtils {
-	private static final Logger LOG = Logger.getLogger(OSUtils.class);
+	private static final Logger LOG = LoggerFactory.getLogger(OSUtils.class);
 	/**
 	 * from:
 	 * http://www.syntacticsugr.com/22-java/sugr_cubes/97-open-a-browser-from

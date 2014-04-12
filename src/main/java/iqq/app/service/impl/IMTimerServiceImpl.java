@@ -36,7 +36,8 @@ import java.util.TimerTask;
 
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -47,7 +48,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class IMTimerServiceImpl implements IMTimerService{
-	private static Logger LOG =Logger.getLogger(IMTimerServiceImpl.class);
+	private static Logger LOG =LoggerFactory.getLogger(IMTimerServiceImpl.class);
 	private Timer timer;
 	private Map<Runnable, TimerAdapter> map;
 	@Override

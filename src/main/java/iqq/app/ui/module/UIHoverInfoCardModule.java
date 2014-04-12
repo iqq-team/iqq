@@ -32,7 +32,8 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.painter.ColorPainter;
@@ -48,7 +49,7 @@ import com.alee.laf.panel.WebPanel;
  */
 public class UIHoverInfoCardModule extends IMWindowView {
 	private static final long serialVersionUID = -2757256296223203617L;
-	private static final Logger LOG = Logger.getLogger(UIHoverInfoCardModule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UIHoverInfoCardModule.class);
 
 	private HoverInfoCardPanel contentPane;
 	private boolean isMouseEntered;

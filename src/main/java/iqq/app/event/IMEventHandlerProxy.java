@@ -34,7 +34,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -45,7 +46,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class IMEventHandlerProxy implements IMEventListener{
-	private static final Logger LOG = Logger.getLogger(IMEventHandlerProxy.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IMEventHandlerProxy.class);
 	private static Map<Object, IMEventHandlerProxy> REGISTRY = new HashMap<Object, IMEventHandlerProxy>();
 	private Object proxyObject;
 	private Map<IMEventType, Method> methodMap;

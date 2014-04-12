@@ -58,7 +58,8 @@ import java.util.Queue;
 
 import javax.swing.SwingUtilities;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -68,7 +69,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class QQMsgManagerModule extends AbstractModule{
-	private static Logger LOG = Logger.getLogger(QQMsgManagerModule.class);
+	private static Logger LOG = LoggerFactory.getLogger(QQMsgManagerModule.class);
 	//有图片，待发送的消息内容
 	private List<UIMsg> pendSendUIMsgs = new ArrayList<UIMsg>();
 	private List<UIMsg> recvUIMsgs = new ArrayList<UIMsg>();

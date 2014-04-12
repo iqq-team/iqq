@@ -47,7 +47,8 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -60,7 +61,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractPicLoader implements PicLoader{
 	private static final long serialVersionUID = 6204208580780118359L;
-	private static final Logger LOG = Logger.getLogger(AbstractPicLoader.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractPicLoader.class);
 	/**上下文*/
 	protected transient IMContext context;
 	/**加载进度回调,使用弱引用保证内存可以被释放*/

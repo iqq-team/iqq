@@ -8,9 +8,9 @@
 	<chatHeight>550</chatHeight>  
 	<i18nBundle>i18n/appBundle.properties</i18nBundle>  
 	<skin>skin/default/skin.xml</skin>  
-	<userFace>32,32</userFace>  
-	<groupFace>32,32</groupFace>  
-	<recentFace>32,32</recentFace>  
+	<userFace>20,20</userFace>  
+	<groupFace>45,45</groupFace>  
+	<recentFace>20,20</recentFace>  
 	<sentMsgKey>0</sentMsgKey>  
 	<desktopNotification>1</desktopNotification>  
 	<trayNotification>1</trayNotification> 
