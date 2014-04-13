@@ -14,7 +14,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<commons-lang3.version>3.2</commons-lang3.version>
 		<mapdb.version>0.9.8</mapdb.version>
-        <lib.path>${project.basedir}/main/lib</lib.path>
 	</properties>
 
     <dependencyManagement>
@@ -30,26 +29,10 @@
                 <artifactId>webqq-core</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
-            <!-- weblaf dependency-->
-            <dependency>
-                <groupId>pinyin4j</groupId>
-                <artifactId>pinyin4j</artifactId>
-                <version>2.0</version>
-                <scope>system</scope>
-                <systemPath>${lib.path}/pinyin4j.jar</systemPath>
-            </dependency>
-            <dependency>
-                <groupId>weblaf</groupId>
-                <artifactId>weblaf</artifactId>
-                <version>1.27</version>
-                <scope>system</scope>
-                <systemPath>${lib.path}/weblaf-1.27.jar</systemPath>
-            </dependency>
-            <!-- weblaf dependency-->
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
-                <version>1.4.5</version>
+                <version>1.4.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

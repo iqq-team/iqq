@@ -1,4 +1,5 @@
-package iqq.im.core.service; /*
+package iqq.im.core.module;
+ /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,14 +16,19 @@ package iqq.im.core.service; /*
  * limitations under the License.
  */
 
-import iqq.im.core.annotation.IMService;
+import iqq.im.core.annotation.IMModule;
+import iqq.im.core.query.BuddyQuery;
+import iqq.im.core.query.GroupQuery;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 /**
+ * QQ主模块，负责底层和QQ核心通信，如QQ登陆，发送消息，接受消息等
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-@IMService
-public interface I18nService {
+@IMModule
+@IocBean
+public class QQLogicModule implements BuddyQuery, GroupQuery {
 }

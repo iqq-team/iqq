@@ -1,4 +1,5 @@
-package iqq.im.core.service; /*
+package iqq.im.core.annotation;
+ /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,14 +16,21 @@ package iqq.im.core.service; /*
  * limitations under the License.
  */
 
-import iqq.im.core.annotation.IMService;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
+ *
+ * 用户操作时间处理注解，可以快速的完成操作的分发
+ *
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-@IMService
-public interface I18nService {
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface UIActionHandler {
 }

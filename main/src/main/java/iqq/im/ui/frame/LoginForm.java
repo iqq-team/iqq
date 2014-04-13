@@ -1,4 +1,5 @@
-package iqq.im.core.service; /*
+package iqq.im.ui.frame;
+ /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,7 +16,7 @@ package iqq.im.core.service; /*
  * limitations under the License.
  */
 
-import iqq.im.core.annotation.IMService;
+import javax.swing.*;
 
 /**
  * Project  : iqq
@@ -23,6 +24,6 @@ import iqq.im.core.annotation.IMService;
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-@IMService
-public interface I18nService {
+public class LoginForm {
+    private JPanel panel1;
 }

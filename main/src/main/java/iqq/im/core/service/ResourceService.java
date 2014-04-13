@@ -1,4 +1,5 @@
-package iqq.im.core.service; /*
+package iqq.im.core.service;
+ /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,14 +16,11 @@ package iqq.im.core.service; /*
  * limitations under the License.
  */
 
-import iqq.im.core.annotation.IMService;
-
 /**
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-@IMService
-public interface I18nService {
+public interface ResourceService {
 }

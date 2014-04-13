@@ -14,6 +14,9 @@
     <artifactId>iqq-main</artifactId>
     <packaging>jar</packaging>
     <name>iqq主要代码模块</name>
+    <properties>
+        <lib.path>${project.basedir}/lib</lib.path>
+    </properties>
 
 
     <dependencies>
@@ -27,17 +30,19 @@
             <artifactId>webqq-core</artifactId>
         </dependency>
 
-        <!-- weblaf dependency-->
         <dependency>
             <groupId>pinyin4j</groupId>
             <artifactId>pinyin4j</artifactId>
-            <systemPath>${project.basedir}/lib/pinyin4j.jar</systemPath>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${lib.path}/pinyin4j.jar</systemPath>
         </dependency>
-
         <dependency>
             <groupId>weblaf</groupId>
             <artifactId>weblaf</artifactId>
-            <systemPath>${project.basedir}/lib/weblaf-1.27.jar</systemPath>
+            <version>1.27</version>
+            <scope>system</scope>
+            <systemPath>${lib.path}/weblaf-1.27.jar</systemPath>
         </dependency>
 
         <!-- weblaf dependency-->
