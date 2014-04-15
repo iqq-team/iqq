@@ -1,6 +1,5 @@
 /target
-/iqq.log
-/iqq.log.1
+/iqq.log*
 /user
 *.iml
 /idea

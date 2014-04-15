@@ -24,12 +24,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
+<!--
         <dependency>
             <groupId>iqq.im</groupId>
             <artifactId>webqq-core</artifactId>
         </dependency>
-
+-->
         <dependency>
             <groupId>pinyin4j</groupId>
             <artifactId>pinyin4j</artifactId>

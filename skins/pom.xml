@@ -10,7 +10,7 @@
         <version>3.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>iqq-skin-default</artifactId>
+    <artifactId>iqq-skins</artifactId>
     <packaging>jar</packaging>
     <name>iqq默认皮肤资源模块</name>
 

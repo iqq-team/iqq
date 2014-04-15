@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin>
+    <window>
+        <titleIcon>window/title_icon.png</titleIcon>
+        <close>window/close.png</close>
+        <closeActive>window/close_active.png</closeActive>
+        <minimize>window/title_icon.png</minimize>
+    </window>
+    <login>
+        <background type="np">background/login_bg.9.png</background>
+    </login>
+</skin>

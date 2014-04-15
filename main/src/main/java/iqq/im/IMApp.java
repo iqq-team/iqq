@@ -16,7 +16,9 @@ package iqq.im;
  * limitations under the License.
  */
 
+import com.alee.laf.WebLookAndFeel;
 import iqq.im.core.context.IMContext;
+import iqq.im.ui.frame.LoginFrame;
 
 /**
  * IQQ客户主类
@@ -28,5 +30,8 @@ import iqq.im.core.context.IMContext;
 public class IMApp {
     public static void main(String[] args){
         IMContext.getIoc();
+
+        WebLookAndFeel.install();
+        LoginFrame login = new LoginFrame();
     }
 }
