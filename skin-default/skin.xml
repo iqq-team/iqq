@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skin>
+    <config>
+        <enable>false</enable>
+        <customDir>skins/myskin</customDir>
+    </config>
     <window>
         <titleIcon>window/title_icon.png</titleIcon>
         <close>window/close.png</close>
