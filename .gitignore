@@ -1,6 +1,11 @@
-/target
+# iqq working dir
 /iqq.log*
 /user
-*.iml
-/idea
 
+# Build artifacts
+artifacts
+target
+
+# IntelliJ IDEA project & module files
+.idea
+*.iml
