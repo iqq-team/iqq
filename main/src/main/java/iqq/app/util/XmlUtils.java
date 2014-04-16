@@ -7,6 +7,8 @@ import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +25,7 @@ import java.util.Map;
  * License  : Apache License 2.0
  */
 public class XmlUtils {
+    private static final Logger LOG = LoggerFactory.getLogger(XmlUtils.class);
     private static Map<String, Document> xmlCache = new HashMap<String, Document>();
 
     /**
@@ -37,6 +40,25 @@ public class XmlUtils {
         return getNode(filename, key).getText();
     }
 
+
+    /**
+     * 写入数据到XML
+     *
+     * @param filename
+     * @param key
+     * @param Value
+     */
+    public static void setNodeText(String filename, String key, String value) throws DocumentException, IOException {
+        Document document = readXml(filename);
+        Element rootElement = document.getRootElement();
+        Node node = rootElement.selectSingleNode(key);
+        if (node == null) {
+            node = rootElement.addElement(key);
+        }
+        node.setText(value);
+        writeXml(filename, document);
+    }
+
     /**
      * 获取XML节点
      *
@@ -46,7 +68,7 @@ public class XmlUtils {
      * @throws DocumentException
      */
     public static Node getNode(String filename, String key) throws DocumentException {
-        return getElement(filename).selectSingleNode(key);
+        return getRootElement(filename).selectSingleNode(key);
     }
 
     /**
@@ -56,7 +78,7 @@ public class XmlUtils {
      * @return
      * @throws DocumentException
      */
-    public static Element getElement(String filename) throws DocumentException {
+    public static Element getRootElement(String filename) throws DocumentException {
         return readXml(filename).getRootElement();
     }
 
@@ -68,16 +90,17 @@ public class XmlUtils {
      * @throws DocumentException
      */
     public static Document readXml(String filename) throws DocumentException {
-        Document document = null;
+        LOG.debug("读入XML: " + filename);
         if(xmlCache.get(filename) == null) {
             // 创建SAXReader读取器
             SAXReader saxReader = new SAXReader();
             // 读取xml
-            document = saxReader.read(new File(filename));
+            Document document = saxReader.read(new File(filename));
             // 放到缓存中
             xmlCache.put(filename, document);
+            return document;
         }
-        return document;
+        return xmlCache.get(filename);
     }
 
     /**
@@ -87,15 +110,17 @@ public class XmlUtils {
      * @param xmlFile
      * @throws IOException
      */
-    public static void writeXml(Document document, String filename) throws IOException {
+    public static void writeXml(String filename, Document document) throws IOException {
+        LOG.debug("写入XML: " + filename);
         OutputFormat outputFormat = OutputFormat.createPrettyPrint();// 设置XML文档输出格式
         outputFormat.setEncoding("UTF-8");// 设置XML文档的编码类型
         outputFormat.setIndent(true);// 设置是否缩进
         outputFormat.setIndent("	");// 以TAB方式实现缩进
         outputFormat.setNewlines(true);// 设置是否换行
-        XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(filename), outputFormat);
-        xmlWriter.write(document);
-        xmlWriter.close();
+        synchronized (document) {
+            XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(filename), outputFormat);
+            xmlWriter.write(document);
+            xmlWriter.close();
+        }
     }
-
 }

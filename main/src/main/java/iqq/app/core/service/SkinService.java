@@ -2,6 +2,7 @@ package iqq.app.core.service;
 
 import com.alee.extended.painter.Painter;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -20,12 +21,27 @@ public interface SkinService {
     public Color getColorByKey(String key);
 
     /**
+     * 获取图标
+     *
+     * @param key
+     * @return
+     */
+    public ImageIcon getIconByKey(String key);
+
+    /**
      * 获取点9图的Painter
      *
      * @param key
      * @return
      */
     public Painter getPainterByKey(String key);
+
+    /**
+     * 获取默认的皮肤配置文件
+     *
+     * @return
+     */
+    public String getDefaultConfig();
 
     /**
      * 获取自定义皮肤目录

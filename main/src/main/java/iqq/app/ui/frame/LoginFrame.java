@@ -21,6 +21,7 @@ import org.nutz.ioc.loader.annotation.IocBean;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
  * 这只是一个登录界面模型，使用代码布局，如果使用IDE部分是不可以的，不好控制和使用组件
@@ -38,14 +39,12 @@ import java.awt.*;
 @IMModule
 @IocBean()
 public class LoginFrame extends IMFrame {
-    @Inject
-    private SkinService skinService;
 
     public LoginFrame() {
         super();
         setContentPane(new ContentPanel(this));
         setTitle("iQQ");
-        //setIconImage(ImageUtils.loadImage(this.getClass(), getAppDir() + "skins/default/window/title_icon.png").getImage());
+        setIconImage(skinService.getIconByKey("window/titleIcon").getImage());
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);                      // 居中
         setUndecorated(true);                             // 去了默认边框
@@ -54,14 +53,7 @@ public class LoginFrame extends IMFrame {
         pack();
         // 把窗口设置为透明
         AWTUtilities.setWindowOpaque(this, false);
-        setVisible(true);
     }
-
-    public static void main(String[] args) {
-        WebLookAndFeel.install();
-        new LoginFrame();
-    }
-
 
     // 登录界面主要是在这里面实现，包括背景
     class ContentPanel extends WebComponentPanel {
@@ -71,10 +63,10 @@ public class LoginFrame extends IMFrame {
         ContentPanel(LoginFrame ui) {
             this.ui = ui;
             // 登录界面的背景，可以处理QQ印象图片
-            //this.setPainter(new NinePatchIconPainter(getAppDir() + "skins/default/background/login_bg.9.png"));
-            //this.add(createHeader(), BorderLayout.NORTH);
-            //this.add(createMiddle(), BorderLayout.CENTER);
-            //this.add(createFooter(), BorderLayout.SOUTH);
+            this.setPainter(ui.getSkinService().getPainterByKey("login/background"));
+            this.add(createHeader(), BorderLayout.NORTH);
+            this.add(createMiddle(), BorderLayout.CENTER);
+            this.add(createFooter(), BorderLayout.SOUTH);
             this.add(new WebLabel(""));
         }
 
@@ -103,7 +95,7 @@ public class LoginFrame extends IMFrame {
             middlePanel.add(right, BorderLayout.EAST);
 
             // 头像
-            ImageIcon icon = ImageUtils.loadImage(this.getClass(), getAppDir() + "resources/avatar.jpg");
+            ImageIcon icon = new ImageIcon(new File("resources/avatar.jpg").getAbsolutePath());
             WebDecoratedImage face = new WebDecoratedImage(icon.getImage().getScaledInstance(88, 88, 100));
             face.setShadeWidth(2);
             face.setRound(3);

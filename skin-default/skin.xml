@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<skin>
-    <config>
-        <enable>false</enable>
-        <customDir>skins/myskin</customDir>
-    </config>
-    <window>
-        <titleIcon>window/title_icon.png</titleIcon>
-        <close>window/close.png</close>
-        <closeActive>window/close_active.png</closeActive>
-        <minimize>window/title_icon.png</minimize>
-    </window>
-    <login>
-        <background type="np">background/login_bg.9.png</background>
-    </login>
+
+<skin> 
+	<config> 
+		<enable>false</enable>  
+		<customDir>skins/test</customDir> 
+	</config>  
+	<window>
+        <titleColor>#FFFFFF</titleColor>
+		<titleIcon>window/icons/title_icon.png</titleIcon>
+		<close>window/icons/close.png</close>
+		<closeActive>window/icons/close_active.png</closeActive>
+		<minimize>window/icons/minimize.png</minimize>
+        <minimizeActive>window/icons/minimize_active.png</minimizeActive>
+        <maximize>window/icons/maximize.png</maximize>
+        <maximizeActive>window/icons/maximize_active.png</maximizeActive>
+        <restore>window/icons/restore.png</restore>
+        <restoreActive>window/icons/restore_active.png</restoreActive>
+        <background>window/bg/window_bg.9.png</background>
+	</window>  
+	<login>
+		<background>login/bg/login_bg.9.png</background>
+	</login> 
 </skin>

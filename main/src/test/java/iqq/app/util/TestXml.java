@@ -30,7 +30,7 @@ public class TestXml {
 
         // 测试XmlUtils
         try {
-            XmlUtils.writeXml(doc, xmlFile);
+            XmlUtils.writeXml(xmlFile, doc);
         } catch (IOException e) {
             e.printStackTrace();
         }

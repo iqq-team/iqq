@@ -4,7 +4,9 @@ package iqq.app.ui;/**
 
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
+import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
+import iqq.app.core.service.impl.SkinServiceImpl;
 import org.nutz.ioc.loader.annotation.Inject;
 
 import java.awt.*;
@@ -18,14 +20,12 @@ import java.awt.*;
 public abstract class IMFrame extends WebFrame {
 
     @Inject
-    private SkinService skinService;
+    protected SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
     protected WebPanel contentPanel = new WebPanel();
 
     public IMFrame() {
         // 背景只带了阴影，就只是一个底而已
-        String filePath = getAppDir() + "skins/default/background/window_bg.9.png";
-
-        //contentPanel.setPainter(new NinePatchIconPainter(filePath));
+        contentPanel.setPainter(skinService.getPainterByKey("window/background"));
         super.setContentPane(contentPanel);
     }
 
@@ -34,9 +34,7 @@ public abstract class IMFrame extends WebFrame {
         contentPanel.add(contentPane);
     }
 
-    protected String getAppDir() {
-        String filePath = IMFrame.class.getResource("").getPath();
-        filePath = filePath.replace("main/target/classes/iqq/im/ui/", "");
-        return filePath;
+    public SkinService getSkinService() {
+        return skinService;
     }
 }

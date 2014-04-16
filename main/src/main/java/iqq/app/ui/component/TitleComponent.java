@@ -9,6 +9,10 @@ import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebRootPaneStyle;
 import com.alee.utils.ImageUtils;
 import com.alee.utils.SwingUtils;
+import iqq.app.core.context.IMContext;
+import iqq.app.core.service.SkinService;
+import iqq.app.core.service.impl.SkinServiceImpl;
+import iqq.app.ui.IMFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,14 +25,14 @@ public class TitleComponent extends WebPanel {
     /**
      * Root pane styling icons.
      */
-    public static ImageIcon minimizeIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/minimize.png" ) );
-    public static ImageIcon minimizeActiveIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/minimize_active.png" ) );
-    public static ImageIcon maximizeIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/maximize.png" ) );
-    public static ImageIcon maximizeActiveIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/maximize_active.png" ) );
-    public static ImageIcon restoreIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/restore.png" ) );
-    public static ImageIcon restoreActiveIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/restore_active.png" ) );
-    public static ImageIcon closeIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/close.png" ) );
-    public static ImageIcon closeActiveIcon = new ImageIcon ( TitleComponent.class.getResource ( "icons/titlebar/close_active.png" ) );
+    public static ImageIcon minimizeIcon = null;
+    public static ImageIcon minimizeActiveIcon = null;
+    public static ImageIcon maximizeIcon = null;
+    public static ImageIcon maximizeActiveIcon = null;
+    public static ImageIcon restoreIcon = null;
+    public static ImageIcon restoreActiveIcon = null;
+    public static ImageIcon closeIcon = null;
+    public static ImageIcon closeActiveIcon = null;
 
     /**
      * Style settings.
@@ -63,12 +67,27 @@ public class TitleComponent extends WebPanel {
         frame = window instanceof Frame ? ( Frame ) window : null;
         dialog = window instanceof Dialog ? ( Dialog ) window : null;
 
+        loadIcons();
         setOpaque(false);
         updateButtons();
 
         // Title
         titleComponent = createDefaultTitleComponent ();
         this.add(titleComponent, BorderLayout.WEST);
+    }
+
+    private void loadIcons() {
+        SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
+        if(minimizeIcon == null) {
+            minimizeIcon = skinService.getIconByKey("window/minimize");
+            minimizeActiveIcon = skinService.getIconByKey("window/minimizeActive");
+            maximizeIcon = skinService.getIconByKey("window/maximize");
+            maximizeActiveIcon = skinService.getIconByKey("window/maximizeActive");
+            restoreIcon = skinService.getIconByKey("window/restore");
+            restoreActiveIcon = skinService.getIconByKey("window/restoreActive");
+            closeIcon = skinService.getIconByKey("window/close");
+            closeActiveIcon = skinService.getIconByKey("window/closeActive");
+        }
     }
 
     protected void updateButtons()
@@ -88,6 +107,7 @@ public class TitleComponent extends WebPanel {
             minimize.setName ( "minimize" );
             minimize.setRolloverIcon(minimizeActiveIcon);
             minimize.setOpaque(false);
+            minimize.setVerticalAlignment(SwingConstants.TOP);
             minimize.setPainter(new ColorPainter(new Color(0,0,0,0)));
             minimize.addActionListener ( new ActionListener()
             {
@@ -118,6 +138,7 @@ public class TitleComponent extends WebPanel {
             maximize.setName ( "maximize" );
             maximize.setRolloverIcon(maximizeActiveIcon);
             maximize.setOpaque(false);
+            maximize.setVerticalAlignment(SwingConstants.TOP);
             maximize.setPainter(new ColorPainter(new Color(0,0,0,0)));
             maximize.addActionListener ( new ActionListener ()
             {
@@ -145,6 +166,7 @@ public class TitleComponent extends WebPanel {
             close.setName ( "close" );
             close.setRolloverIcon(closeActiveIcon);
             close.setOpaque(false);
+            close.setVerticalAlignment(SwingConstants.TOP);
             close.setPainter(new ColorPainter(new Color(0,0,0,0)));
             close.addActionListener ( new ActionListener ()
             {
@@ -159,6 +181,7 @@ public class TitleComponent extends WebPanel {
 
         windowButtons = new WebButtonGroup( buttons );
         windowButtons.setOpaque(false);
+        windowButtons.setMargin(-1,0, 0, 0);
         updateWindowButtonsStyle();
         this.add(windowButtons, BorderLayout.EAST);
     }
@@ -346,8 +369,8 @@ public class TitleComponent extends WebPanel {
         if ( windowButtons != null )
         {
             windowButtons.setButtonsDrawFocus ( false );
-            windowButtons.setButtonsShadeWidth ( WebRootPaneStyle.buttonsShadeWidth );
-            windowButtons.setButtonsRound ( round );
+            windowButtons.setButtonsShadeWidth (0);
+            windowButtons.setButtonsRound ( 0 );
             windowButtons.setButtonsMargin(0);
         }
     }
