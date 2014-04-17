@@ -14,6 +14,7 @@
 	<window>
         <titleColor>#FFFFFF</titleColor>
 		<titleIcon>window/icons/title_icon.png</titleIcon>
+		<titleWIcon>window/icons/title_w_icon.png</titleWIcon>
 		<close>window/icons/close.png</close>
 		<closeActive>window/icons/close_active.png</closeActive>
 		<minimize>window/icons/minimize.png</minimize>
@@ -25,8 +26,12 @@
         <background>window/bg/window_bg.9.png</background>
 	</window>  
 	<login>
-		<labelColor>#06406c</labelColor>
+		<labelColor>#006dcc</labelColor>
         <checkBoxColor>#666666</checkBoxColor>
-		<background>login/bg/login_bg.9.png</background>
+        <keyIcon>login/icons/key.png</keyIcon>
+        <settingIcon>login/icons/setting.png</settingIcon>
+        <settingActvie>login/icons/setting_active.png</settingActvie>
+		<background>login/bg/login_bg2.9.png</background>
+		<FooterPackground>login/bg/footer_bg.9.png</FooterPackground>
 	</login>
 </skin>

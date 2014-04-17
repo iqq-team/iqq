@@ -181,7 +181,7 @@ public class TitleComponent extends WebPanel {
 
         windowButtons = new WebButtonGroup( buttons );
         windowButtons.setOpaque(false);
-        windowButtons.setMargin(-1,0, 0, 0);
+        //windowButtons.setMargin(-1,0, 0, 0);
         updateWindowButtonsStyle();
         this.add(windowButtons, BorderLayout.EAST);
     }

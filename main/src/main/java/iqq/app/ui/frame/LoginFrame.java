@@ -3,12 +3,14 @@ package iqq.app.ui.frame;/**
  */
 
 import com.alee.extended.image.WebDecoratedImage;
-import com.alee.extended.panel.BorderPanel;
-import com.alee.extended.panel.GroupPanel;
-import com.alee.extended.panel.WebComponentPanel;
+import com.alee.extended.image.WebImage;
+import com.alee.extended.layout.WrapFlowLayout;
+import com.alee.extended.painter.ColorPainter;
+import com.alee.extended.panel.*;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.checkbox.WebCheckBox;
+import com.alee.laf.combobox.WebComboBox;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
@@ -26,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.io.File;
 
@@ -49,7 +53,7 @@ public class LoginFrame extends IMFrame {
         super();
         setContentPane(new ContentPanel(this));
         setTitle("iQQ");
-        setIconImage(skinService.getIconByKey("window/titleIcon").getImage());
+        setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
@@ -94,47 +98,54 @@ public class LoginFrame extends IMFrame {
 
             WebPanel middlePanel = new WebPanel();
             middlePanel.setOpaque(false);
-            middlePanel.setPreferredSize(new Dimension(320, 100));
+            middlePanel.setPreferredSize(new Dimension(320, 120));
             //middlePanel.setBackground(Color.BLUE);
 
             WebPanel left = new WebPanel();
             WebPanel right = new WebPanel();
             left.setOpaque(false);
-            left.setMargin(5, 18, 10, 8);
-            right.setMargin(22, 0, 10, 0);
+            left.setMargin(10, 18, 10, 8);
+            right.setMargin(16, 0, 10, 0);
             right.setOpaque(false);
 
             // 头像
             ImageIcon icon = ui.getResourceService().getIcon("login/avatar.jpg");
-            WebDecoratedImage face = new WebDecoratedImage(icon.getImage().getScaledInstance(88, 88, 100));
+            WebDecoratedImage face = new WebDecoratedImage(icon.getImage().getScaledInstance(80, 80, 100));
             face.setShadeWidth(2);
             face.setRound(3);
             face.setBorderColor(Color.WHITE);
             left.add(face);
 
             // 账号输入一行
+            String[] items = { "6208317", "917362009"};
             WebLabel regLbl = new WebLabel("注册账号");
-            WebTextField accountFld = new WebTextField();
-            accountFld.setPreferredSize(dimFld);
+            WebComboBox accoutCbx = new WebComboBox(items);
+            accoutCbx.setEditable(true);
+            accoutCbx.setPreferredSize(dimFld);
             regLbl.setForeground(ui.getSkinService().getColorByKey("login/labelColor"));
-            // 间隔5, 水平true，排为一组过去
-            GroupPanel accountGroup = new GroupPanel(5, true, accountFld, regLbl);
+
+            // 间隙5, 水平true，排为一组过去
+            GroupPanel accountGroup = new GroupPanel(5, true, accoutCbx, regLbl);
             accountGroup.setOpaque(false);
 
             // 密码输入一行
             WebLabel findPwdLbl = new WebLabel("找回密码");
             WebPasswordField pwdFld = new WebPasswordField();
             pwdFld.setPreferredSize(dimFld);
+            WebImage keyIcon = new WebImage(ui.getSkinService().getIconByKey("login/keyIcon"));
+            pwdFld.setTrailingComponent(keyIcon);
             findPwdLbl.setForeground(ui.getSkinService().getColorByKey("login/labelColor"));
-            // 间隔5, 水平true，排为一组过去
+            // 间隙5, 水平true，排为一组过去
             GroupPanel pwdGroup = new GroupPanel(5, true, pwdFld, findPwdLbl);
 
             // 选项一行
             WebCheckBox rePwdCkb = new WebCheckBox("记住密码");
             WebCheckBox autoLoginCkb = new WebCheckBox("自动登录");
+            rePwdCkb.setFontSize(12);
+            autoLoginCkb.setFontSize(12);
             rePwdCkb.setForeground(ui.getSkinService().getColorByKey("login/checkBoxColor"));
             autoLoginCkb.setForeground(ui.getSkinService().getColorByKey("login/checkBoxColor"));
-            // 间隔5, 水平true，排为一组过去
+            // 间隙5, 水平true，排为一组过去
             GroupPanel optionGroup = new GroupPanel(5, true, rePwdCkb, autoLoginCkb);
 
             // 把三行，垂直来放进去
@@ -147,9 +158,29 @@ public class LoginFrame extends IMFrame {
 
         private WebPanel createFooter() {
             WebPanel footerPanel = new WebPanel();
-            footerPanel.setOpaque(false);
-            footerPanel.setPreferredSize(new Dimension(-1, 30));
-            footerPanel.add(new WebButton("LOGIN"));
+            //footerPanel.setOpaque(false);
+            footerPanel.setPainter(ui.getSkinService().getPainterByKey("login/FooterPackground"));
+            footerPanel.setPreferredSize(new Dimension(-1, 40));
+
+            WebButton loginBtn = new WebButton("登录");
+            loginBtn.setPreferredHeight(30);
+            loginBtn.setPreferredWidth(150);
+            loginBtn.setMargin(5);
+            WebButton leftBtn = new WebButton(ui.getSkinService().getIconByKey("login/settingIcon"));
+            leftBtn.setRolloverIcon(ui.getSkinService().getIconByKey("login/settingActvie"));
+            leftBtn.setPreferredHeight(30);
+            leftBtn.setPreferredWidth(30);
+            leftBtn.setOpaque(false);
+            leftBtn.setVerticalAlignment(SwingConstants.TOP);
+            leftBtn.setPainter(new ColorPainter(new Color(0,0,0,0)));
+            WebLabel rightLbl = new WebLabel("ABC");
+            rightLbl.setPreferredHeight(30);
+            rightLbl.setPreferredWidth(30);
+
+            //footerPanel.add(leftBtn, BorderLayout.WEST);
+            //footerPanel.add(rightLbl, BorderLayout.EAST);
+            footerPanel.add(new CenterPanel(loginBtn), BorderLayout.CENTER);
+
             return footerPanel;
         }
 
