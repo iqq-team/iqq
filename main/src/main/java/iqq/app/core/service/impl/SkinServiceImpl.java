@@ -2,6 +2,7 @@ package iqq.app.core.service.impl;
 
 import com.alee.extended.painter.NinePatchIconPainter;
 import com.alee.extended.painter.Painter;
+import com.alee.laf.WebLookAndFeel;
 import iqq.app.core.service.SkinService;
 import iqq.app.util.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -12,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 
 /**
  * 皮肤读取服务，提供皮肤目录获取、自定义皮肤目录获取
@@ -27,12 +28,21 @@ import java.io.IOException;
  * Created  : 14-4-15
  * License  : Apache License 2.0
  */
-@IocBean
+@IocBean(create = "init")
 public class SkinServiceImpl implements SkinService {
     private static final Logger LOG = LoggerFactory.getLogger(SkinServiceImpl.class);
     public static final String SKIN_CONFIG_FILE = "skin.xml";
     public static final String DEFAULT_SKIN_DIR = System.getProperty("app.dir",
                                System.getProperty("user.dir")) + File.separator + "skin-default" + File.separator;
+
+    /**
+     * 初始化入口
+     */
+    public void init() {
+        // 配置默认字体
+        loadDefaultFont();
+        LOG.debug("skin init...");
+    }
 
     /**
      * 获取颜色
@@ -216,7 +226,7 @@ public class SkinServiceImpl implements SkinService {
         try {
             // 直接读取默认配置文件
             isEnable = XmlUtils.getNodeText(getDefaultConfig(), "config/enable");
-            LOG.debug("启用自定义皮肤：" + isEnable);
+            // LOG.debug("启用自定义皮肤：" + isEnable);
         } catch (DocumentException e) {
             LOG.error("获取是否启用自定义皮肤选项错误", e);
             return false;
@@ -239,5 +249,100 @@ public class SkinServiceImpl implements SkinService {
         } catch (IOException e) {
             LOG.error("写入自定义目录到皮肤配置IO错误", e);
         }
+    }
+
+    /**
+     * 载入默认字体
+     */
+    private void loadDefaultFont() {
+        Font globalFont = null;
+        try {
+            String fontName = XmlUtils.getNodeText(getDefaultConfig(), "font/name");
+            String fontSource = XmlUtils.getNodeText(getDefaultConfig(), "font/source");
+            String fontFile = XmlUtils.getNodeText(getDefaultConfig(), "font/file");
+            int fontSize = Integer.parseInt(XmlUtils.getNodeText(getSkinConfig(), "font/size"));
+            if (fontSource.equals("file")) {
+                Font font = loadFontFromFile(new File(DEFAULT_SKIN_DIR + fontFile));
+                if (font != null) {
+                    globalFont = font.deriveFont((float) fontSize);
+                    setDefaultFont(globalFont);
+                }
+            } else if (fontSource.equals("system")) {
+                globalFont = new Font(fontName, Font.PLAIN, fontSize);
+                setDefaultFont(globalFont);
+            } else {
+                LOG.warn("unknown font source :" + fontSource);
+            }
+        } catch (DocumentException e) {
+            LOG.warn("获取字体文件错误", e);
+        }
+    }
+
+    private Font loadFontFromFile(File file) {
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(file));
+            Font font = Font.createFont(Font.TRUETYPE_FONT, in);
+            return font;
+        } catch (FileNotFoundException e) {
+            LOG.warn("font " + file + "not found!", e);
+        } catch (FontFormatException e) {
+            LOG.warn("invalid font file!", e);
+        } catch (IOException e) {
+            LOG.warn("read font error!", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    LOG.warn("close font file error!", e);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void setDefaultFont(Font vFont) {
+        UIManager.put("ToolTip.font", vFont);
+        UIManager.put("Table.font", vFont);
+        UIManager.put("TableHeader.font", vFont);
+        UIManager.put("TextField.font", vFont);
+        UIManager.put("ComboBox.font", vFont);
+        UIManager.put("TextField.font", vFont);
+        UIManager.put("PasswordField.font", vFont);
+        UIManager.put("TextArea.font", vFont);
+        UIManager.put("TextPane.font", vFont);
+        UIManager.put("EditorPane.font", vFont);
+        UIManager.put("FormattedTextField.font", vFont);
+        UIManager.put("Button.font", vFont);
+        UIManager.put("CheckBox.font", vFont);
+        UIManager.put("RadioButton.font", vFont);
+        UIManager.put("ToggleButton.font", vFont);
+        UIManager.put("ProgressBar.font", vFont);
+        UIManager.put("DesktopIcon.font", vFont);
+        UIManager.put("TitledBorder.font", vFont);
+        UIManager.put("Label.font", vFont);
+        UIManager.put("List.font", vFont);
+        UIManager.put("TabbedPane.font", vFont);
+        UIManager.put("MenuBar.font", vFont);
+        UIManager.put("Menu.font", vFont);
+        UIManager.put("MenuItem.font", vFont);
+        UIManager.put("PopupMenu.font", vFont);
+        UIManager.put("CheckBoxMenuItem.font", vFont);
+        UIManager.put("RadioButtonMenuItem.font", vFont);
+        UIManager.put("Spinner.font", vFont);
+        UIManager.put("Tree.font", vFont);
+        UIManager.put("ToolBar.font", vFont);
+        UIManager.put("OptionPane.messageFont", vFont);
+        UIManager.put("OptionPane.buttonFont", vFont);
+
+        WebLookAndFeel.globalTextFont = vFont;
+        WebLookAndFeel.globalTitleFont = vFont;
+        WebLookAndFeel.globalTooltipFont = vFont;
+        WebLookAndFeel.globalAcceleratorFont = vFont;
+        WebLookAndFeel.menuItemAcceleratorFont = vFont;
+        WebLookAndFeel.globalAlertFont = vFont;
+        WebLookAndFeel.globalMenuFont = vFont;
     }
 }

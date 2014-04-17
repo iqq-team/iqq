@@ -69,4 +69,11 @@ public interface SkinService {
      * @param enable
      */
     public void setEnableCustom(boolean enable);
+
+    /**
+     * 设置默认字体
+     *
+     * @param vFont
+     */
+    public void setDefaultFont(Font vFont);
 }

@@ -4,7 +4,13 @@
 	<config> 
 		<enable>false</enable>  
 		<customDir>skins/test</customDir> 
-	</config>  
+	</config>
+    <font>
+        <name>文泉驿微米黑</name>
+        <source>file</source>
+        <size>13</size>
+        <file>font/wqy-microhei.ttc</file>
+    </font>
 	<window>
         <titleColor>#FFFFFF</titleColor>
 		<titleIcon>window/icons/title_icon.png</titleIcon>
@@ -19,6 +25,8 @@
         <background>window/bg/window_bg.9.png</background>
 	</window>  
 	<login>
+		<labelColor>#06406c</labelColor>
+        <checkBoxColor>#666666</checkBoxColor>
 		<background>login/bg/login_bg.9.png</background>
-	</login> 
+	</login>
 </skin>

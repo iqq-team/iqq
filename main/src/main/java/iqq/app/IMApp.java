@@ -28,14 +28,8 @@ import iqq.app.ui.frame.LoginFrame;
  * License  : Apache License 2.0
  */
 public class IMApp {
-    public static void main(String[] args){
+
+    public void launch() {
         IMContext.getIoc();
-
-        launch();
-    }
-
-    private static void launch() {
-        WebLookAndFeel.install();
-        new LoginFrame().setVisible(true);
     }
 }

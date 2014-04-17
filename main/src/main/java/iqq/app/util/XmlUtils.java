@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * XML操作类 读取/写入/获取值
+ * XML操作类 读取/写入/获取值/写入值
  *
  * Project  : iqq
  * Author   : 承∮诺 < 6208317@qq.com >
@@ -90,8 +90,8 @@ public class XmlUtils {
      * @throws DocumentException
      */
     public static Document readXml(String filename) throws DocumentException {
-        LOG.debug("读入XML: " + filename);
         if(xmlCache.get(filename) == null) {
+            LOG.debug("读入XML: " + filename);
             // 创建SAXReader读取器
             SAXReader saxReader = new SAXReader();
             // 读取xml

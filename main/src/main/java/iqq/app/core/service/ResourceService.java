@@ -16,11 +16,39 @@ package iqq.app.core.service;
  * limitations under the License.
  */
 
+import javax.swing.*;
+import java.io.File;
+
 /**
+ * 资源文件获取服务
+ *
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
 public interface ResourceService {
+    /**
+     * 获取绝对资源目录
+     *
+     * @return
+     */
+    public String getResourcePath();
+
+    /**
+     * 获取资源文件
+     *
+     * @param filename
+     * @return
+     */
+    public File getFile(String filename);
+
+
+    /**
+     * 获取资源文件图片
+     *
+     * @param filename
+     * @return
+     */
+    public ImageIcon getIcon(String filename);
 }

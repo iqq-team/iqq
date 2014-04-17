@@ -5,7 +5,9 @@ package iqq.app.ui;/**
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
 import iqq.app.core.context.IMContext;
+import iqq.app.core.service.ResourceService;
 import iqq.app.core.service.SkinService;
+import iqq.app.core.service.impl.ResourceServiceImpl;
 import iqq.app.core.service.impl.SkinServiceImpl;
 import org.nutz.ioc.loader.annotation.Inject;
 
@@ -19,8 +21,8 @@ import java.awt.*;
  */
 public abstract class IMFrame extends WebFrame {
 
-    @Inject
     protected SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
+    protected ResourceService resourceService = IMContext.getIoc().get(ResourceServiceImpl.class);
     protected WebPanel contentPanel = new WebPanel();
 
     public IMFrame() {
@@ -34,7 +36,21 @@ public abstract class IMFrame extends WebFrame {
         contentPanel.add(contentPane);
     }
 
+    /**
+     * 获取皮肤服务
+     *
+     * @return
+     */
     public SkinService getSkinService() {
         return skinService;
+    }
+
+    /**
+     * 获取资源文件服务
+     *
+     * @return
+     */
+    public ResourceService getResourceService() {
+        return resourceService;
     }
 }
