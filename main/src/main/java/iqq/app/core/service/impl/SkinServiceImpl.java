@@ -31,7 +31,15 @@ import java.net.URL;
 @IocBean(create = "init")
 public class SkinServiceImpl implements SkinService {
     private static final Logger LOG = LoggerFactory.getLogger(SkinServiceImpl.class);
+
+    /**
+     * 皮肤配置文件
+     */
     public static final String SKIN_CONFIG_FILE = "skin.xml";
+
+    /**
+     * 默认皮肤目录
+     */
     public static final String DEFAULT_SKIN_DIR = System.getProperty("app.dir",
                                System.getProperty("user.dir")) + File.separator + "skin-default" + File.separator;
 
@@ -139,7 +147,9 @@ public class SkinServiceImpl implements SkinService {
                 iconPath += XmlUtils.getNodeText(getSkinConfig(), key);
                 return new NinePatchIconPainter(iconPath);
             } catch (NullPointerException ex) {
-                // 获取不到，到默认皮肤目录下获取
+                // 获取不到，到默
+                //
+                // 认皮肤目录下获取
                 String iconPath = DEFAULT_SKIN_DIR;
                 try {
                     // 改用getDefaultConfig()，直接获取默认配置文件
