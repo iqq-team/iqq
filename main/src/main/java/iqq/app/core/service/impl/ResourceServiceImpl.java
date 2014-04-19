@@ -55,4 +55,17 @@ public class ResourceServiceImpl implements ResourceService {
     public ImageIcon getIcon(String filename) {
         return new ImageIcon(getFile(filename).getAbsolutePath());
     }
+
+    /**
+     * 获取资源文件图片，调整为固定大小
+     *
+     * @param filename
+     * @param width
+     * @param height
+     * @return
+     */
+    @Override
+    public ImageIcon getIcon(String filename, int width, int height) {
+        return new ImageIcon(getIcon(filename).getImage().getScaledInstance(width, height, 100));
+    }
 }

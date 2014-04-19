@@ -110,8 +110,9 @@ public class I18nServiceImpl implements I18nService {
         BufferedInputStream bis = null;
         try {
             // 自定义名_语言代码_国别代码.properties
-            String filename = I18N_DIR + I18N_BUNDLE + "_" + locale.getLanguage() + "_" + locale.getCountry() + ".properties";
-            ResourceBundle resourceBundle = resourceBundleMap.get(filename);
+            String flag = locale.getLanguage() + "_" + locale.getCountry();
+            String filename = I18N_DIR + I18N_BUNDLE + "_" + flag + ".properties";
+            ResourceBundle resourceBundle = resourceBundleMap.get(flag);
             // 如果已经读取过该文件，直接从缓存中取
             if(resourceBundle != null) return resourceBundle;
             if(!new File(filename).exists()) {
@@ -120,12 +121,14 @@ public class I18nServiceImpl implements I18nService {
             LOG.debug(filename);
             bis = new BufferedInputStream(new FileInputStream(filename));
             resourceBundle = new PropertyResourceBundle(bis);
+            resourceBundleMap.put(flag, resourceBundle);
             return resourceBundle;
         } catch (FileNotFoundException e) {
             LOG.error("国际化资源文件没有找到", e);
         } catch (IOException e) {
             LOG.error("读取国际化资源文件出错", e);
         } finally {
+            if(bis != null)
             try {
                 bis.close();
             } catch (IOException e) {

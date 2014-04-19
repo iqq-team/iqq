@@ -51,4 +51,15 @@ public interface ResourceService {
      * @return
      */
     public ImageIcon getIcon(String filename);
+
+
+    /**
+     * 获取资源文件图片，调整为固定大小
+     *
+     * @param filename
+     * @param width
+     * @param height
+     * @return
+     */
+    public ImageIcon getIcon(String filename, int width, int height);
 }

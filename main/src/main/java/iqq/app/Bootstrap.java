@@ -5,6 +5,7 @@ import com.alee.utils.SwingUtils;
 import iqq.app.ui.frame.LoginFrame;
 
 import javax.swing.*;
+import java.util.Locale;
 
 /**
  * 引导启动类
@@ -39,6 +40,7 @@ public final class Bootstrap {
         // 配置weblaf
         WebLookAndFeel.setDecorateAllWindows(false);
         WebLookAndFeel.install();
+        Locale.setDefault(Locale.CHINA);
     }
 
     /**
