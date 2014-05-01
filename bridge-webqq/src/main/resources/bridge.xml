@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf8"?>
+<bridge>
+    <name>bridge-webqq</name>
+    <description>基于webQQ协议的实现</description>
+    <class>iqq.bridge.webqq.WebQQBridge</class>
+    <feature>TEXTCHAT, OFFLINEMSG</feature>
+</bridge>

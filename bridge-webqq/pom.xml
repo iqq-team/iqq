@@ -11,6 +11,20 @@
     </parent>
     <artifactId>iqq-bridge-webqq</artifactId>
     <version>3.0.0-SNAPSHOT</version>
+    <name>WebQQ协议的实现</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>iqq.app</groupId>
+            <artifactId>iqq-api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>iqq.im</groupId>
+            <artifactId>webqq-core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     
 </project>

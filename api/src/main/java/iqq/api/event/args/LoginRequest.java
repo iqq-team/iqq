@@ -1,4 +1,5 @@
-package iqq.app.core.annotation; /*
+package iqq.api.event.args;
+ /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,20 +16,40 @@ package iqq.app.core.annotation; /*
  * limitations under the License.
  */
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import iqq.api.bean.IMStatus;
 
 /**
- * 事件处理注解，如果在方法上写上了这个注解，则说明此方法处理对应的消息
- *
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 4/13/14
+ * Created  : 5/1/14
  * License  : Apache License 2.0
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface IMEventHandler {
+public class LoginRequest {
+    private String username;
+    private String password;
+    private IMStatus status;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public IMStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(IMStatus status) {
+        this.status = status;
+    }
 }

@@ -87,6 +87,12 @@
                 <version>1.b.49</version>
             </dependency>
 
+            <dependency>
+                <groupId>iqq.app</groupId>
+                <artifactId>iqq-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

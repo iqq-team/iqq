@@ -1,5 +1,4 @@
-package iqq.app.core.query;
- /*
+package iqq.api.bridge; /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -16,18 +15,14 @@ package iqq.app.core.query;
  * limitations under the License.
  */
 
-import iqq.api.bean.IMBuddy;
-
-import java.util.List;
+import iqq.api.event.IMEventListener;
 
 /**
- * 好友列表查询接口
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 4/13/14
+ * Created  : 5/1/14
  * License  : Apache License 2.0
  */
-public interface BuddyQuery {
-    public IMBuddy findById(long id);
-    public List<IMBuddy> findAll();
+public interface IMBridge extends IMEventListener {
+    public void setApp(IMApp imApp);
 }

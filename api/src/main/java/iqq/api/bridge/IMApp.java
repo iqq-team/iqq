@@ -1,4 +1,4 @@
-package iqq.app.core.module;
+package iqq.api.bridge;
  /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,19 +16,14 @@ package iqq.app.core.module;
  * limitations under the License.
  */
 
-import iqq.app.core.annotation.IMModule;
-import iqq.app.core.query.GroupQuery;
-import iqq.app.core.query.BuddyQuery;
-import org.nutz.ioc.loader.annotation.IocBean;
+import iqq.api.event.IMEvent;
 
 /**
- * QQ主模块，负责底层和QQ核心通信，如QQ登陆，发送消息，接受消息等
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 4/13/14
+ * Created  : 5/1/14
  * License  : Apache License 2.0
  */
-@IMModule
-@IocBean
-public class QQLogicModule implements BuddyQuery, GroupQuery {
+public interface IMApp {
+    public void broadcastEvent(IMEvent imEvent);
 }

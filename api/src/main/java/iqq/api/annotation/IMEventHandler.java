@@ -1,5 +1,4 @@
-package iqq.app.core.query;
- /*
+package iqq.api.annotation; /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -16,18 +15,23 @@ package iqq.app.core.query;
  * limitations under the License.
  */
 
-import iqq.api.bean.IMBuddy;
+import iqq.api.event.IMEventType;
 
-import java.util.List;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 好友列表查询接口
+ * 事件处理注解，如果在方法上写上了这个注解，则说明此方法处理对应的消息
+ *
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-public interface BuddyQuery {
-    public IMBuddy findById(long id);
-    public List<IMBuddy> findAll();
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface IMEventHandler {
+    public IMEventType value();
 }

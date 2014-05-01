@@ -1,4 +1,4 @@
-package iqq.app.core.query;
+package iqq.app.core.module;
  /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,17 +17,30 @@ package iqq.app.core.query;
  */
 
 import iqq.api.bean.IMBuddy;
+import iqq.app.core.annotation.IMModule;
+import iqq.app.core.query.GroupQuery;
+import iqq.app.core.query.BuddyQuery;
+import org.nutz.ioc.loader.annotation.IocBean;
 
 import java.util.List;
 
 /**
- * 好友列表查询接口
+ * QQ主模块，负责底层和QQ核心通信，如QQ登陆，发送消息，接受消息等
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-public interface BuddyQuery {
-    public IMBuddy findById(long id);
-    public List<IMBuddy> findAll();
+@IMModule
+@IocBean
+public class LogicModule implements BuddyQuery, GroupQuery {
+    @Override
+    public IMBuddy findById(long id) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<IMBuddy> findAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
