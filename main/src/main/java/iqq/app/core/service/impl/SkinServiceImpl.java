@@ -132,6 +132,11 @@ public class SkinServiceImpl implements SkinService {
         return null;
     }
 
+    @Override
+    public ImageIcon getIconByKey(String key, int width, int height) {
+        return new ImageIcon(getIconByKey(key).getImage().getScaledInstance(width, height, 100));
+    }
+
     /**
      * 获取点9图的Painter
      *

@@ -10,10 +10,7 @@ import iqq.app.ui.skin.Skin;
  * Created  : 14-5-4
  * License  : Apache License 2.0
  */
-public class IMContentWrap extends WebPanel implements Skin {
+public abstract class IMContentPanel extends WebPanel implements Skin {
 
-    @Override
-    public void installSkin(SkinService skinService) {
 
-    }
 }

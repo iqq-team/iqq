@@ -15,6 +15,7 @@ import iqq.app.ui.skin.Skin;
 public class IMFrameWrap extends WebPanel implements Skin {
 
     public IMFrameWrap(IMContext context) {
+
     }
 
     @Override

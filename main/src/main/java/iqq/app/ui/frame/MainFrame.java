@@ -5,6 +5,7 @@ import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
+import iqq.app.ui.frame.panel.MainPanel;
 
 import java.awt.*;
 
@@ -16,6 +17,7 @@ import java.awt.*;
  */
 public class MainFrame extends IMFrame {
 
+    private MainPanel contentPanel;
     public MainFrame(IMContext context) {
         super(context);
 
@@ -24,9 +26,10 @@ public class MainFrame extends IMFrame {
     }
 
     private void initUI() {
+        contentPanel = new MainPanel(this);
+
         setTitle(getI18nService().getMessage("app.name"));
-        // 登录面板
-        // setContentPane(new ContentPanel(this));
+        setContentPane(contentPanel);
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
@@ -39,6 +42,7 @@ public class MainFrame extends IMFrame {
     @Override
     public void installSkin(SkinService skinService) {
         super.installSkin(skinService);
+        this.contentPanel.installSkin(skinService);
         setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
     }
 }

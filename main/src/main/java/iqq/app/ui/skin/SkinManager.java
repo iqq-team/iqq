@@ -1,6 +1,8 @@
 package iqq.app.ui.skin;
 
 import iqq.app.core.service.SkinService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
  * License  : Apache License 2.0
  */
 public class SkinManager {
+    private static final Logger LOG = LoggerFactory.getLogger(SkinManager.class);
     private static List<Skin> skinList = new LinkedList<Skin>();
 
     /**
@@ -23,6 +26,7 @@ public class SkinManager {
      */
     public static void register(Skin skin) {
         skinList.add(skin);
+        LOG.debug("register " + skin.getClass().getName());
     }
 
     /**
@@ -32,6 +36,7 @@ public class SkinManager {
      */
     public static void unregister(Skin skin) {
         skinList.remove(skin);
+        LOG.debug("unregister " + skin.getClass().getName());
     }
 
     /**
@@ -42,6 +47,7 @@ public class SkinManager {
     public static void installAll(SkinService skinService) {
         for(Skin skin : skinList) {
             skin.installSkin(skinService);
+            LOG.debug("install " + skin.getClass().getName());
         }
     }
 }

@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<skin> 
+<skins> 
 	<config> 
 		<enable>false</enable>  
 		<customDir>skins/test</customDir> 
-	</config>
-    <font>
-        <name>文泉驿微米黑</name>
-        <source>file</source>
-        <size>13</size>
-        <file>font/wqy-microhei.ttc</file>
-    </font>
-	<window>
-        <titleColor>#FFFFFF</titleColor>
-		<titleIcon>window/icons/title_icon.png</titleIcon>
-		<titleWIcon>window/icons/title_w_icon.png</titleWIcon>
-		<close>window/icons/close.png</close>
-		<closeActive>window/icons/close_active.png</closeActive>
-		<minimize>window/icons/minimize.png</minimize>
-        <minimizeActive>window/icons/minimize_active.png</minimizeActive>
-        <maximize>window/icons/maximize.png</maximize>
-        <maximizeActive>window/icons/maximize_active.png</maximizeActive>
-        <restore>window/icons/restore.png</restore>
-        <restoreActive>window/icons/restore_active.png</restoreActive>
-        <background>window/bg/window_bg.9.png</background>
+	</config>  
+	<font> 
+		<name>文泉驿微米黑</name>  
+		<source>file</source>  
+		<size>13</size>  
+		<file>font/wqy-microhei.ttc</file> 
+	</font>  
+	<window> 
+		<titleColor>#FFFFFF</titleColor>  
+		<titleIcon>window/icons/title_icon.png</titleIcon>  
+		<titleWIcon>window/icons/title_w_icon.png</titleWIcon>  
+		<skin>window/icons/skin.png</skin>  
+		<skinActive>window/icons/skin_active.png</skinActive>  
+		<setting>window/icons/setting.png</setting>  
+		<settingActive>window/icons/setting_active.png</settingActive>  
+		<close>window/icons/close.png</close>  
+		<closeActive>window/icons/close_active.png</closeActive>  
+		<minimize>window/icons/minimize.png</minimize>  
+		<minimizeActive>window/icons/minimize_active.png</minimizeActive>  
+		<maximize>window/icons/maximize.png</maximize>  
+		<maximizeActive>window/icons/maximize_active.png</maximizeActive>  
+		<restore>window/icons/restore.png</restore>  
+		<restoreActive>window/icons/restore_active.png</restoreActive>  
+		<background>window/bg/window_bg.9.png</background> 
 	</window>  
-	<login>
-		<labelColor>#006dcc</labelColor>
-        <checkBoxColor>#666666</checkBoxColor>
-        <keyIcon>login/icons/key.png</keyIcon>
-        <settingIcon>login/icons/setting.png</settingIcon>
-        <settingActvie>login/icons/setting_active.png</settingActvie>
-		<background>login/bg/login_bg2.9.png</background>
-		<FooterPackground>login/bg/footer_bg.9.png</FooterPackground>
-	</login>
-</skin>
+	<login> 
+		<labelColor>#006dcc</labelColor>  
+		<checkBoxColor>#666666</checkBoxColor>  
+		<keyIcon>login/icons/key.png</keyIcon>  
+		<settingIcon>login/icons/setting.png</settingIcon>  
+		<settingActvie>login/icons/setting_active.png</settingActvie>  
+		<background>login/bg/login_bg2.9.png</background>  
+		<footerBackground>login/bg/footer_bg.9.png</footerBackground> 
+	</login>  
+	<skin> 
+		<skinIcon>skin/icons/skin_icon.png</skinIcon>  
+		<background>skin/bg/1.9.png</background> 
+	</skin> 
+</skins>

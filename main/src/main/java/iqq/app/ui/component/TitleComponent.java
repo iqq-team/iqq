@@ -25,6 +25,10 @@ public class TitleComponent extends WebPanel {
     /**
      * Root pane styling icons.
      */
+    public static ImageIcon skinIcon = null;
+    public static ImageIcon skinActiveIcon = null;
+    public static ImageIcon settingIcon = null;
+    public static ImageIcon settingActiveIcon = null;
     public static ImageIcon minimizeIcon = null;
     public static ImageIcon minimizeActiveIcon = null;
     public static ImageIcon maximizeIcon = null;
@@ -47,7 +51,11 @@ public class TitleComponent extends WebPanel {
     protected boolean showMaximizeButton = WebRootPaneStyle.showMaximizeButton;
     protected boolean showCloseButton = WebRootPaneStyle.showCloseButton;
     protected boolean groupButtons = WebRootPaneStyle.groupButtons;
+    protected boolean showSkinButton = true;
+    protected boolean showSettingButton = true;
 
+    protected WebButton skinButton;
+    protected WebButton settingButton;
 
     /**
      * Runtime variables
@@ -79,6 +87,10 @@ public class TitleComponent extends WebPanel {
     private void loadIcons() {
         SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
         if(minimizeIcon == null) {
+            skinIcon = skinService.getIconByKey("window/skin");
+            skinActiveIcon = skinService.getIconByKey("window/skinActive");
+            settingIcon = skinService.getIconByKey("window/setting");
+            settingActiveIcon = skinService.getIconByKey("window/settingActive");
             minimizeIcon = skinService.getIconByKey("window/minimize");
             minimizeActiveIcon = skinService.getIconByKey("window/minimizeActive");
             maximizeIcon = skinService.getIconByKey("window/maximize");
@@ -100,7 +112,30 @@ public class TitleComponent extends WebPanel {
 
         // Creating new buttons
         final boolean isFrame = isFrame();
-        final JComponent[] buttons = new JComponent[ 3 ];
+        final JComponent[] buttons = new JComponent[ 5 ];
+
+        if ( showSkinButton )
+        {
+            final WebButton skin = new WebButton ( skinIcon );
+            skin.setName("skin");
+            skin.setRolloverIcon(skinActiveIcon);
+            skin.setOpaque(false);
+            skin.setVerticalAlignment(SwingConstants.TOP);
+            skin.setPainter(new ColorPainter(new Color(0, 0, 0, 0)));
+            buttons[ 0 ] = skinButton = skin;
+        }
+
+        if ( showSettingButton )
+        {
+            final WebButton setting = new WebButton ( settingIcon );
+            setting.setName ( "setting" );
+            setting.setRolloverIcon(settingActiveIcon);
+            setting.setOpaque(false);
+            setting.setVerticalAlignment(SwingConstants.TOP);
+            setting.setPainter(new ColorPainter(new Color(0,0,0,0)));
+            buttons[ 1 ] = settingButton = setting;
+        }
+
         if ( showMinimizeButton && isFrame )
         {
             final WebButton minimize = new WebButton ( minimizeIcon );
@@ -117,7 +152,7 @@ public class TitleComponent extends WebPanel {
                     iconify();
                 }
             } );
-            buttons[ 0 ] = minimize;
+            buttons[ 2 ] = minimize;
         }
         if ( showMaximizeButton && isResizable() && isFrame )
         {
@@ -158,7 +193,7 @@ public class TitleComponent extends WebPanel {
                     }
                 }
             } );
-            buttons[ 1 ] = maximize;
+            buttons[ 3 ] = maximize;
         }
         if ( showCloseButton )
         {
@@ -176,7 +211,7 @@ public class TitleComponent extends WebPanel {
                     close ();
                 }
             } );
-            buttons[ 2 ] = close;
+            buttons[ 4 ] = close;
         }
 
         windowButtons = new WebButtonGroup( buttons );
@@ -224,7 +259,7 @@ public class TitleComponent extends WebPanel {
                     }
                     else
                     {
-                        maximize ();
+                        //maximize ();
                     }
                 }
             }
@@ -524,5 +559,33 @@ public class TitleComponent extends WebPanel {
         this.updateButtons();
         this.revalidate();
         this.repaint();
+    }
+
+    public boolean isShowSkinButton() {
+        return showSkinButton;
+    }
+
+    public void setShowSkinButton(boolean showSkinButton) {
+        this.showSkinButton = showSkinButton;
+        this.updateButtons();
+        this.revalidate();
+    }
+
+    public boolean isShowSettingButton() {
+        return showSettingButton;
+    }
+
+    public void setShowSettingButton(boolean showSettingButton) {
+        this.showSettingButton = showSettingButton;
+        this.updateButtons();
+        this.revalidate();
+    }
+
+    public WebButton getSkinButton() {
+        return skinButton;
+    }
+
+    public WebButton getSettingButton() {
+        return settingButton;
     }
 }

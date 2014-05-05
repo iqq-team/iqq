@@ -23,10 +23,11 @@ import java.awt.event.WindowEvent;
 public abstract class IMFrame extends WebFrame implements Skin {
 
     protected IMContext context;
+    protected IMFrameWrap contentWrap;
+
     protected I18nService i18nService;
     protected SkinService skinService;
     protected ResourceService resourceService;
-    protected IMFrameWrap contentWrap;
 
     public IMFrame(IMContext context) {
         this.context = context;
@@ -37,6 +38,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
 
         // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
         contentWrap = new IMFrameWrap(context);
+        contentWrap.installSkin(skinService);
         super.setContentPane(contentWrap);
         // 注册皮肤管理
         SkinManager.register(this);
@@ -66,7 +68,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
      */
     @Override
     public void installSkin(SkinService skinService) {
-        contentWrap.installSkin(skinService);
+
     }
 
     /**
@@ -75,7 +77,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
     @Override
     public void dispose() {
         super.dispose();
-        // 取法注册皮肤管理
+        // 取消注册皮肤管理
         SkinManager.unregister(this);
     }
 

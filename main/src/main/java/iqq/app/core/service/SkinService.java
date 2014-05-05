@@ -29,6 +29,16 @@ public interface SkinService {
     public ImageIcon getIconByKey(String key);
 
     /**
+     * 获取资源文件图片，调整为固定大小
+     *
+     * @param filename
+     * @param width
+     * @param height
+     * @return
+     */
+    public ImageIcon getIconByKey(String key, int width, int height);
+
+    /**
      * 获取点9图的Painter
      *
      * @param key
