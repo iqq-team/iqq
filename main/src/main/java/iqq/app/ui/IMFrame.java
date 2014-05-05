@@ -1,17 +1,18 @@
-package iqq.app.ui;/**
- * Created by zhihui_chen on 14-4-15.
- */
-
-import com.alee.laf.panel.WebPanel;
+package iqq.app.ui;
 import com.alee.laf.rootpane.WebFrame;
 import iqq.app.core.context.IMContext;
+import iqq.app.core.service.I18nService;
 import iqq.app.core.service.ResourceService;
 import iqq.app.core.service.SkinService;
+import iqq.app.core.service.impl.I18nServiceImpl;
 import iqq.app.core.service.impl.ResourceServiceImpl;
 import iqq.app.core.service.impl.SkinServiceImpl;
-import org.nutz.ioc.loader.annotation.Inject;
+import iqq.app.ui.skin.Skin;
+import iqq.app.ui.skin.SkinManager;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Project  : iqq-projects
@@ -19,21 +20,63 @@ import java.awt.*;
  * Created  : 14-4-15
  * License  : Apache License 2.0
  */
-public abstract class IMFrame extends WebFrame {
+public abstract class IMFrame extends WebFrame implements Skin {
 
-    protected SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
-    protected ResourceService resourceService = IMContext.getIoc().get(ResourceServiceImpl.class);
-    protected WebPanel contentPanel = new WebPanel();
+    protected IMContext context;
+    protected I18nService i18nService;
+    protected SkinService skinService;
+    protected ResourceService resourceService;
+    protected IMFrameWrap contentWrap;
 
-    public IMFrame() {
-        // 背景只带了阴影，就只是一个底而已
-        contentPanel.setPainter(skinService.getPainterByKey("window/background"));
-        super.setContentPane(contentPanel);
+    public IMFrame(IMContext context) {
+        this.context = context;
+
+        i18nService = context.getIoc().get(I18nServiceImpl.class);
+        skinService = context.getIoc().get(SkinServiceImpl.class);
+        resourceService = context.getIoc().get(ResourceServiceImpl.class);
+
+        // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
+        contentWrap = new IMFrameWrap(context);
+        super.setContentPane(contentWrap);
+        // 注册皮肤管理
+        SkinManager.register(this);
     }
 
+    /**
+     * 获取Context
+     * @return
+     */
+    public IMContext getContext() {
+        return context;
+    }
+
+    /**
+     * 设置窗口内容面板
+     * @param contentPane
+     */
     @Override
     public void setContentPane(Container contentPane) {
-        contentPanel.add(contentPane);
+        contentWrap.add(contentPane);
+    }
+
+    /**
+     * 安装窗口需要的皮肤
+     *
+     * @param skinService
+     */
+    @Override
+    public void installSkin(SkinService skinService) {
+        contentWrap.installSkin(skinService);
+    }
+
+    /**
+     * 释放窗口
+     */
+    @Override
+    public void dispose() {
+        super.dispose();
+        // 取法注册皮肤管理
+        SkinManager.unregister(this);
     }
 
     /**
@@ -52,5 +95,14 @@ public abstract class IMFrame extends WebFrame {
      */
     public ResourceService getResourceService() {
         return resourceService;
+    }
+
+    /**
+     * 获取I18N服务
+     *
+     * @return
+     */
+    public I18nService getI18nService() {
+        return i18nService;
     }
 }

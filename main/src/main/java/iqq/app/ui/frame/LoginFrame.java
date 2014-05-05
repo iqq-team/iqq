@@ -12,6 +12,10 @@ import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
 import com.alee.laf.text.WebPasswordField;
 import com.sun.awt.AWTUtilities;
+import iqq.api.bean.IMAccount;
+import iqq.app.core.context.IMContext;
+import iqq.app.core.service.SkinService;
+import iqq.app.ui.IMContentWrap;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.StatusButton;
 import iqq.app.ui.component.TitleComponent;
@@ -38,16 +42,20 @@ import java.awt.event.ActionListener;
  */
 public class LoginFrame extends IMFrame {
     private static final Logger LOG = LoggerFactory.getLogger(LoginFrame.class);
-    public LoginFrame() {
-        super();
+    private IMContentWrap contentWrap;
+
+    public LoginFrame(IMContext context) {
+        super(context);
         initUI();
+        installSkin(getSkinService());
     }
 
     private void initUI() {
-        setTitle("iQQ");
-        setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
+        contentWrap = new ContentPanel(this);
+
         // 登录面板
-        setContentPane(new ContentPanel(this));
+        setContentPane(contentWrap);
+        setTitle(getI18nService().getMessage("app.name"));
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
@@ -57,31 +65,40 @@ public class LoginFrame extends IMFrame {
         pack();
     }
 
-
-
-    /*
-    private void login(UIAccount account) {
-        System.out.println("username: " + account.getUsername());
-        System.out.println("password: " + account.getPassword());
-        System.out.println("status: " + account.getStatus());
-        System.out.println("isRememPwd: " + account.isRememPwd());
-        System.out.println("isAutoLogin: " + account.isAutoLogin());
+    @Override
+    public void installSkin(SkinService skinService) {
+        setIconImage(getSkinService().getIconByKey("window/titleWIcon").getImage());
+        this.contentWrap.installSkin(skinService);
+        super.installSkin(skinService);
     }
-    */
+
+    private void login(IMAccount account) {
+        System.out.println("username: " + account.getLoginName());
+        System.out.println("password: " + account.getPassword());
+        new MainFrame(getContext()).setVisible(true);
+        dispose();
+    }
 
     // 登录界面主要是在这里面实现，包括背景
-    class ContentPanel extends WebComponentPanel {
+    class ContentPanel extends IMContentWrap {
 
         LoginFrame ui;
         WebButton loginBtn;
+        WebComboBox accountCbx;
+        WebPasswordField pwdFld;
 
         ContentPanel(LoginFrame ui) {
             this.ui = ui;
-            // 登录界面的背景，可以处理QQ印象图片
-            this.setPainter(ui.getSkinService().getPainterByKey("login/background"));
             this.add(createHeader(), BorderLayout.NORTH);
             this.add(createFooter(), BorderLayout.SOUTH);
             this.add(createMiddle(), BorderLayout.CENTER);
+        }
+
+        @Override
+        public void installSkin(SkinService skinService) {
+            // 登录界面的背景，可以处理QQ印象图片
+            this.setPainter(skinService.getPainterByKey("login/background"));
+            super.installSkin(skinService);
         }
 
         // 上面部分在里面添加上去的
@@ -124,19 +141,19 @@ public class LoginFrame extends IMFrame {
 
             // 账号输入一行
             String[] items = { "6208317", "917362009"};
-            WebLabel regLbl = new WebLabel("注册账号");
-            final WebComboBox accoutCbx = new WebComboBox(items);
-            accoutCbx.setEditable(true);
-            accoutCbx.setPreferredSize(dimFld);
+            WebLabel regLbl = new WebLabel(ui.getI18nService().getMessage("login.regAccount"));
+            accountCbx = new WebComboBox(items);
+            accountCbx.setEditable(true);
+            accountCbx.setPreferredSize(dimFld);
             regLbl.setForeground(ui.getSkinService().getColorByKey("login/labelColor"));
 
             // 间隙5, 水平true，排为一组过去
-            GroupPanel accountGroup = new GroupPanel(5, true, accoutCbx, regLbl);
+            GroupPanel accountGroup = new GroupPanel(5, true, accountCbx, regLbl);
             accountGroup.setOpaque(false);
 
             // 密码输入一行
-            WebLabel findPwdLbl = new WebLabel("找回密码");
-            final WebPasswordField pwdFld = new WebPasswordField();
+            WebLabel findPwdLbl = new WebLabel(ui.getI18nService().getMessage("login.forgetPwd"));
+            pwdFld = new WebPasswordField();
             pwdFld.setPreferredSize(dimFld);
             WebImage keyIcon = new WebImage(ui.getSkinService().getIconByKey("login/keyIcon"));
             pwdFld.setTrailingComponent(keyIcon);
@@ -145,7 +162,7 @@ public class LoginFrame extends IMFrame {
             GroupPanel pwdGroup = new GroupPanel(5, true, pwdFld, findPwdLbl);
 
             // 选项一行
-            final WebCheckBox rePwdCkb = new WebCheckBox("记住密码");
+            final WebCheckBox rePwdCkb = new WebCheckBox(ui.getI18nService().getMessage("login.rememberPwd"));
             final WebCheckBox autoLoginCkb = new WebCheckBox("自动登录");
             final StatusButton statusBtn = new StatusButton(null);
             rePwdCkb.setFontSize(12);
@@ -165,14 +182,11 @@ public class LoginFrame extends IMFrame {
             loginBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*
-                    UIAccount account = new UIAccount();
-                    account.setUsername(accoutCbx.getSelectedItem().toString());
+                    IMAccount account = new IMAccount();
+                    account.setLoginName(accountCbx.getSelectedItem().toString());
                     account.setPassword(new String(pwdFld.getPassword()));
-                    account.setRememPwd(rePwdCkb.isSelected());
-                    account.setAutoLogin(autoLoginCkb.isSelected());
+                    account.setRememberPwd(rePwdCkb.isSelected());
                     ui.login(account);
-                    */
                 }
             });
             return middlePanel;
@@ -184,7 +198,7 @@ public class LoginFrame extends IMFrame {
             footerPanel.setPainter(ui.getSkinService().getPainterByKey("login/FooterPackground"));
             footerPanel.setPreferredSize(new Dimension(-1, 40));
 
-            loginBtn = new WebButton("登录");
+            loginBtn = new WebButton(ui.getI18nService().getMessage("login.login"));
             loginBtn.setPreferredHeight(30);
             loginBtn.setPreferredWidth(150);
             loginBtn.setMargin(5);
@@ -195,7 +209,7 @@ public class LoginFrame extends IMFrame {
             leftBtn.setOpaque(false);
             leftBtn.setVerticalAlignment(SwingConstants.TOP);
             leftBtn.setPainter(new ColorPainter(new Color(0,0,0,0)));
-            WebLabel rightLbl = new WebLabel("ABC");
+            WebLabel rightLbl = new WebLabel();
             rightLbl.setPreferredHeight(30);
             rightLbl.setPreferredWidth(30);
 

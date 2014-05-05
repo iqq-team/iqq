@@ -8,5 +8,13 @@ package iqq.api.bean;
  * To change this template use File | Settings | File Templates.
  */
 public class IMUser extends IMEntity {
+    private IMStatus status;
 
+    public IMStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(IMStatus status) {
+        this.status = status;
+    }
 }

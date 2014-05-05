@@ -33,6 +33,7 @@
         <dependency>
             <groupId>iqq.app</groupId>
             <artifactId>iqq-api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>

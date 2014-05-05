@@ -43,6 +43,7 @@ public class StatusButton extends WebSplitButton {
                 for(IMStatus status : statusMap.keySet()) {
                     if(statusMap.get(status) == e.getSource()) {
                         System.out.println(status);
+                        setStatus(status);
                     }
                 }
             }

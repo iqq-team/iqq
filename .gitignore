@@ -6,6 +6,11 @@
 artifacts
 target
 
-# IntelliJ IDEA project & module files
+# IDE & module files
 .idea
 *.iml
+.project
+.settings
+.classpath
+workspace.xml
+

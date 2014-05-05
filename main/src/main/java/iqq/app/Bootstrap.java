@@ -2,9 +2,13 @@ package iqq.app;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.utils.SwingUtils;
+import iqq.app.core.context.IMContext;
 import iqq.app.ui.frame.LoginFrame;
+import iqq.app.util.Benchmark;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -16,7 +20,8 @@ import java.util.Locale;
  * License  : Apache License 2.0
  */
 public final class Bootstrap {
-
+    private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
+    private static IMApp app;
     /**
      * 程序入口
      *
@@ -37,10 +42,29 @@ public final class Bootstrap {
      * 启动前配置
      */
     private static void configBefore() {
+        Benchmark.start("appStart");
+        // APP路径
+        String path = System.getProperty("user.dir");
+        if(new File(path + File.separator + "resources").exists()) {
+            System.setProperty("app.dir", new File(path).getAbsolutePath());
+        } else  {
+            // 去掉了最后一个main目录
+        	path = path.substring(0, path.lastIndexOf(File.separator));
+        	System.setProperty("app.dir", new File(path).getAbsolutePath());
+        }
+        LOG.info("app.dir = " + System.getProperty("app.dir"));
         // 配置weblaf
         WebLookAndFeel.setDecorateAllWindows(false);
         WebLookAndFeel.install();
         Locale.setDefault(Locale.CHINA);
+        // 关闭勾子
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                shutdown();
+            }
+        }));
+        LOG.info("bootstrap configBefore...");
     }
 
     /**
@@ -48,7 +72,9 @@ public final class Bootstrap {
      */
     private static void starup() {
         // 运行IMApp环境
-        new IMApp().launch();
+        app = new IMApp();
+        app.launch();
+        LOG.info("bootstrap starup...");
     }
 
     /**
@@ -56,6 +82,15 @@ public final class Bootstrap {
      */
     private static void configAfter() {
         // 显示入口窗口
-        new LoginFrame().setVisible(true);
+        new LoginFrame(IMContext.me()).setVisible(true);
+        LOG.info("bootstrap configAfter...");
+        Benchmark.end("appStart");
+    }
+
+    /**
+     * 程序关闭
+     */
+    private static void shutdown() {
+        LOG.info("bootstrap shutdown...");
     }
 }

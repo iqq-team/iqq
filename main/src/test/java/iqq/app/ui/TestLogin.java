@@ -24,7 +24,7 @@ public class TestLogin {
 
     @Test
     public void testLoginBg() {
-        LoginFrame login = new LoginFrame();
+        LoginFrame login = new LoginFrame(IMContext.me());
         new Scanner(System.in).next();
     }
 }
