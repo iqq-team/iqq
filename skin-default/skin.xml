@@ -41,5 +41,9 @@
 	<skin> 
 		<skinIcon>skin/icons/skin_icon.png</skinIcon>  
 		<background>skin/bg/1.9.png</background> 
-	</skin> 
+	</skin>  
+	<main> 
+		<searchIcon>main/icons/search_icon.png</searchIcon>  
+		<searchBg>main/bg/search_bg.9.png</searchBg> 
+	</main> 
 </skins>

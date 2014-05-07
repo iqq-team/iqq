@@ -17,8 +17,6 @@ import org.dom4j.DocumentException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -51,7 +49,6 @@ public class SkinFrame extends IMFrame implements Skin {
         setContentPane(contentPanel);
 
         setTitle(getI18nService().getMessage("app.skinSetting"));
-        setIconImage(getSkinService().getIconByKey("skin/skinIcon").getImage());
         setContentPane(contentPanel);
         setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
         setUndecorated(true);                             // 去了默认边框
@@ -67,6 +64,7 @@ public class SkinFrame extends IMFrame implements Skin {
         super.installSkin(skinService);
         // 背景
         contentPanel.setPainter(skinService.getPainterByKey("skin/background"));
+        setIconImage(getSkinService().getIconByKey("skin/skinIcon").getImage());
     }
 
     private WebPanel createHeader() {
@@ -97,7 +95,6 @@ public class SkinFrame extends IMFrame implements Skin {
         wig.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                wig.setEnabled(false);
                 SkinService skin = getSkinService();
                 int index = wig.getSelectedIndex();
                 if (index >= 0) {
@@ -110,7 +107,6 @@ public class SkinFrame extends IMFrame implements Skin {
                     }
                     SkinManager.installAll(skin);
                 }
-                wig.setEnabled(true);
             }
         });
 

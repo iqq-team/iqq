@@ -17,6 +17,8 @@ import iqq.app.ui.IMFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * Created by zhihui_chen on 14-4-15.
@@ -284,6 +286,18 @@ public class TitleComponent extends WebPanel {
         titlePanel.setMargin(4, 5, 4, 10);
         titlePanel.add ( titleIcon, BorderLayout.LINE_START );
         titlePanel.add ( titleLabel, BorderLayout.CENTER );
+        window.addPropertyChangeListener("title", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                titleLabel.setText(frame.getTitle());
+            }
+        });
+        window.addPropertyChangeListener("iconImage", new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                titleIcon.setIcon(getWindowIcon());
+            }
+        });
         return titlePanel;
     }
 

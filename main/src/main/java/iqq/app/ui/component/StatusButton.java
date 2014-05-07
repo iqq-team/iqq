@@ -2,8 +2,12 @@ package iqq.app.ui.component;
 
 import com.alee.extended.button.WebSplitButton;
 import com.alee.extended.painter.ColorPainter;
+import com.alee.laf.button.WebButton;
 import com.alee.laf.menu.WebMenuItem;
 import com.alee.laf.menu.WebPopupMenu;
+import com.alee.managers.popup.PopupStyle;
+import com.alee.managers.popup.PopupWay;
+import com.alee.managers.popup.WebButtonPopup;
 import iqq.api.bean.IMStatus;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.I18nService;
@@ -24,14 +28,20 @@ import java.util.Map;
  * Created  : 14-04-19
  * License  : Apache License 2.0
  */
-public class StatusButton extends WebSplitButton {
+public class StatusButton extends WebButton {
     ResourceService resourceService = IMContext.getIoc().get(ResourceServiceImpl.class);
     I18nService i18nService = IMContext.getIoc().get(I18nServiceImpl.class);
     WebPopupMenu popupMenu = new WebPopupMenu ();
     Map<IMStatus, WebMenuItem> statusMap = new HashMap<IMStatus, WebMenuItem>();
     IMStatus currentStatus = IMStatus.ONLINE;
-
+    int iconSize = 14;
     public StatusButton(IMStatus currentStatus) {
+        this.setPainter(new ColorPainter(new Color(0, 0, 0, 0)));
+        initList(currentStatus);
+    }
+
+    public StatusButton(IMStatus currentStatus, int iconSize) {
+        this.iconSize = iconSize;
         this.setPainter(new ColorPainter(new Color(0, 0, 0, 0)));
         initList(currentStatus);
     }
@@ -50,22 +60,31 @@ public class StatusButton extends WebSplitButton {
         };
         String prefix = "icons/status/";
         if(currentStatus != null) {
-            this.setIcon(resourceService.getIcon(prefix + currentStatus.toString().toLowerCase() + ".png", 14, 14));
+            this.setIcon(resourceService.getIcon(prefix + currentStatus.toString().toLowerCase() + ".png", iconSize, iconSize));
             this.currentStatus = currentStatus;
         } else {
-            this.setIcon(resourceService.getIcon(prefix + "online.png", 14, 14));
+            this.setIcon(resourceService.getIcon(prefix + "online.png", iconSize, iconSize));
             this.currentStatus = IMStatus.ONLINE;
         }
         for(IMStatus status : IMStatus.values()) {
-            if(status != currentStatus) {
-                String text = i18nService.getMessage("status." + status.toString().toLowerCase());
-                Icon icon = resourceService.getIcon(prefix + status.toString().toLowerCase() + ".png", 14, 14);
-                statusMap.put(status, new WebMenuItem(text, icon));
-                popupMenu.add(statusMap.get(status));
-                statusMap.get(status).addActionListener(listener);
-            }
+            String text = i18nService.getMessage("status." + status.toString().toLowerCase());
+            Icon icon = resourceService.getIcon(prefix + status.toString().toLowerCase() + ".png", iconSize, iconSize);
+            statusMap.put(status, new WebMenuItem(text, icon));
+            popupMenu.add(statusMap.get(status));
+            statusMap.get(status).addActionListener(listener);
         }
-        this.setPopupMenu(popupMenu);
+
+        addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (popupMenu.isShowing()) {
+                    popupMenu.hide();
+                } else {
+                    popupMenu.showBelow(StatusButton.this);
+                }
+            }
+        });
     }
 
     public IMStatus getStatus() {
@@ -75,7 +94,7 @@ public class StatusButton extends WebSplitButton {
     public void setStatus(IMStatus status) {
         currentStatus = status;
         String prefix = "icons/status/";
-        this.setIcon(resourceService.getIcon(prefix + currentStatus.toString().toLowerCase() + ".png", 14, 14));
+        this.setIcon(resourceService.getIcon(prefix + currentStatus.toString().toLowerCase() + ".png", iconSize, iconSize));
     }
 
 }
