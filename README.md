@@ -19,4 +19,5 @@ IQQ Core: https://github.com/im-qq/webqq-core.git
 原项目地址：https://code.google.com/p/iqq/
 
 新版本截图：
-![screenshots](https://raw.github.com/im-qq/iqq/master/resources/screenshot/main-skin2.png)
+![image](https://raw.githubusercontent.com/im-qq/iqq/master/resources/screenshot/main-skin2.png)
+![image](https://raw.githubusercontent.com/im-qq/iqq/master/resources/screenshot/main-skin.png)
