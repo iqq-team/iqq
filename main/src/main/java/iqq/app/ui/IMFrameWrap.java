@@ -7,6 +7,8 @@ import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.skin.Skin;
 
 /**
+ * 窗口阴影背景
+ *
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-5

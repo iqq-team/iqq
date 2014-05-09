@@ -54,10 +54,7 @@ public final class Bootstrap {
         	System.setProperty("app.dir", new File(path).getAbsolutePath());
         }
         LOG.info("app.dir = " + System.getProperty("app.dir"));
-        // 配置weblaf
-        WebLookAndFeel.setDecorateAllWindows(false);
-        WebLookAndFeel.install();
-        Locale.setDefault(Locale.CHINA);
+
         // 关闭勾子
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
@@ -83,8 +80,8 @@ public final class Bootstrap {
      */
     private static void configAfter() {
         // 显示入口窗口
-        new LoginFrame(IMContext.me()).setVisible(true);
-        //new MainFrame(IMContext.me()).setVisible(true);
+        //new LoginFrame(IMContext.me()).setVisible(true);
+        new MainFrame(IMContext.me()).setVisible(true);
         LOG.info("bootstrap configAfter...");
         Benchmark.end("appStart");
     }

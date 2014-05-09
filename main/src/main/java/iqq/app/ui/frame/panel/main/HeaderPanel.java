@@ -1,17 +1,13 @@
-package iqq.app.ui.frame.panel;
+package iqq.app.ui.frame.panel.main;
 
 import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.image.WebImage;
 import com.alee.extended.panel.CenterPanel;
 import com.alee.extended.panel.GroupPanel;
-import com.alee.extended.panel.VerticalPanel;
-import com.alee.extended.panel.WrapPanel;
 import com.alee.laf.label.WebLabel;
-import com.alee.laf.panel.WebPanel;
 import com.alee.laf.text.WebTextField;
 import iqq.api.bean.IMStatus;
 import iqq.app.core.service.SkinService;
-import iqq.app.ui.IMContentPanel;
 import iqq.app.ui.IMPanel;
 import iqq.app.ui.component.StatusButton;
 import iqq.app.ui.component.TitleComponent;
@@ -25,25 +21,21 @@ import java.awt.event.ActionListener;
 /**
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
- * Created  : 14-5-5
+ * Created  : 14-5-8
  * License  : Apache License 2.0
  */
-public class MainPanel extends IMContentPanel {
-
+public class HeaderPanel extends IMPanel {
     private MainFrame frame;
-    private IMPanel headerPanel = new IMPanel();
-    private IMPanel middlePanel = new IMPanel();
-    private IMPanel footerPanel = new IMPanel();
+    public HeaderPanel(MainFrame frame) {
+        super();
+        this.frame = frame;
 
-    public MainPanel(MainFrame mainFrame) {
-        frame = mainFrame;
-
-        this.add(createHeader(), BorderLayout.NORTH);
-        this.add(createFooter(), BorderLayout.SOUTH);
-        this.add(createMiddle(), BorderLayout.CENTER);
+        initTitle();
+        initUserInfo();
+        initSearcher();
     }
 
-    private IMPanel createHeader() {
+    private void initTitle() {
         // 标题控件
         TitleComponent titleComponent = new TitleComponent(frame);
         titleComponent.setShowSettingButton(false);
@@ -55,7 +47,11 @@ public class MainPanel extends IMContentPanel {
                 skinFrame.setVisible(true);
             }
         });
-        headerPanel.add(titleComponent, BorderLayout.NORTH);
+        this.add(titleComponent, BorderLayout.NORTH);
+    }
+
+    private void initUserInfo() {
+
 
         IMPanel headerInfo = new IMPanel();
         // 头像
@@ -67,7 +63,7 @@ public class MainPanel extends IMContentPanel {
         GroupPanel avatarWrap = new GroupPanel(10, avatar);
         avatarWrap.setMargin(10);
         headerInfo.add(avatarWrap, BorderLayout.WEST);
-        headerPanel.add(headerInfo, BorderLayout.CENTER);
+        this.add(headerInfo, BorderLayout.CENTER);
 
         // 信息
         WebLabel nickLbl = new WebLabel("承∮诺");
@@ -83,7 +79,9 @@ public class MainPanel extends IMContentPanel {
         GroupPanel userInfo = new GroupPanel(5, false, nickAndStatus, sigLbl);
         userInfo.setMargin(0, 0, 5, 5);
         headerInfo.add(new CenterPanel(userInfo, false, true), BorderLayout.CENTER);
+    }
 
+    private void initSearcher() {
         // 搜索
         WebTextField searchFld = new WebTextField();
         WebImage searcheImg = new WebImage(frame.getSkinService().getIconByKey("main/searchIcon", 20, 20));
@@ -94,17 +92,7 @@ public class MainPanel extends IMContentPanel {
         searchFld.setInputPrompt(frame.getI18nService().getMessage("findContact"));
         searchFld.setInputPromptForeground(Color.decode("#D8D8D8"));
         searchFld.setPainter(frame.getSkinService().getPainterByKey("main/searchBg"));
-        headerInfo.add(searchFld, BorderLayout.SOUTH);
-        return headerPanel;
-    }
-
-    private IMPanel createMiddle() {
-
-        return middlePanel;
-    }
-
-    private IMPanel createFooter() {
-        return footerPanel;
+        this.add(searchFld, BorderLayout.SOUTH);
     }
 
     @Override

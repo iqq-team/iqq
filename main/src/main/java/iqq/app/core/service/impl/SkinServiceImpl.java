@@ -3,6 +3,7 @@ package iqq.app.core.service.impl;
 import com.alee.extended.painter.NinePatchIconPainter;
 import com.alee.extended.painter.Painter;
 import com.alee.laf.WebLookAndFeel;
+import com.alee.laf.tree.WebTreeUI;
 import iqq.app.core.service.SkinService;
 import iqq.app.util.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.util.Locale;
 
 /**
  * 皮肤读取服务，提供皮肤目录获取、自定义皮肤目录获取
@@ -352,6 +354,13 @@ public class SkinServiceImpl implements SkinService {
         UIManager.put("OptionPane.messageFont", vFont);
         UIManager.put("OptionPane.buttonFont", vFont);
 
+        UIManager.put("Tree.paintLines", false); // 去掉Tree中的水平线
+        UIManager.put("Tree.leftChildIndent", 0); // 去掉节点 缩进
+
+        UIManager.put("Tree.arrowDown", getIconByKey("main/arrowDown")); // 去掉Tree中的水平线
+        UIManager.put("Tree.arrowLeft", getIconByKey("main/arrowLeft")); // 去掉节点 缩进
+
+        WebLookAndFeel.globalControlFont = vFont;
         WebLookAndFeel.globalTextFont = vFont;
         WebLookAndFeel.globalTitleFont = vFont;
         WebLookAndFeel.globalTooltipFont = vFont;
@@ -359,5 +368,10 @@ public class SkinServiceImpl implements SkinService {
         WebLookAndFeel.menuItemAcceleratorFont = vFont;
         WebLookAndFeel.globalAlertFont = vFont;
         WebLookAndFeel.globalMenuFont = vFont;
+
+        // 配置weblaf
+        WebLookAndFeel.setDecorateAllWindows(false);
+        WebLookAndFeel.install();
+        Locale.setDefault(Locale.CHINA);
     }
 }

@@ -1,5 +1,6 @@
 package iqq.app.ui;
 import com.alee.laf.rootpane.WebFrame;
+import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.I18nService;
 import iqq.app.core.service.ResourceService;
@@ -15,6 +16,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 /**
+ * IM窗口抽象类，带阴影背景
+ * 实现了皮肤接口
+ *
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-4-15
@@ -40,6 +44,11 @@ public abstract class IMFrame extends WebFrame implements Skin {
         contentWrap = new IMFrameWrap(context);
         contentWrap.installSkin(skinService);
         super.setContentPane(contentWrap);
+
+        setUndecorated(true);                             // 去了默认边框
+        // 把窗口设置为透明
+        AWTUtilities.setWindowOpaque(this, false);
+
         // 注册皮肤管理
         SkinManager.register(this);
     }

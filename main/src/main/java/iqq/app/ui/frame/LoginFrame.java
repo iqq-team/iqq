@@ -1,30 +1,16 @@
 package iqq.app.ui.frame;
 
-import com.alee.extended.image.WebDecoratedImage;
-import com.alee.extended.image.WebImage;
-import com.alee.extended.panel.*;
-import com.alee.laf.button.WebButton;
-import com.alee.laf.checkbox.WebCheckBox;
-import com.alee.laf.combobox.WebComboBox;
-import com.alee.laf.label.WebLabel;
-import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
-import com.alee.laf.text.WebPasswordField;
-import com.sun.awt.AWTUtilities;
 import iqq.api.bean.IMAccount;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
-import iqq.app.ui.IMContentPanel;
 import iqq.app.ui.IMFrame;
-import iqq.app.ui.component.StatusButton;
-import iqq.app.ui.component.TitleComponent;
-import iqq.app.ui.frame.panel.LoginPanel;
+import iqq.app.ui.IMPanel;
+import iqq.app.ui.frame.panel.login.LoginPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * 这只是一个登录界面模型，使用代码布局，如果使用IDE部分是不可以的，不好控制和使用组件
@@ -42,7 +28,7 @@ import java.awt.event.ActionListener;
  */
 public class LoginFrame extends IMFrame {
     private static final Logger LOG = LoggerFactory.getLogger(LoginFrame.class);
-    private IMContentPanel contentWrap;
+    private IMPanel contentWrap;
 
     public LoginFrame(IMContext context) {
         super(context);
@@ -57,11 +43,8 @@ public class LoginFrame extends IMFrame {
         setContentPane(contentWrap);
         setTitle(getI18nService().getMessage("app.name"));
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(400, 290));        // 首选大小
-        // 把窗口设置为透明
-        AWTUtilities.setWindowOpaque(this, false);
         pack();
     }
 

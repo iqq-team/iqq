@@ -51,11 +51,8 @@ public class SkinFrame extends IMFrame implements Skin {
         setTitle(getI18nService().getMessage("app.skinSetting"));
         setContentPane(contentPanel);
         setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
-        setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(380, 280));        // 首选大小
-        // 把窗口设置为透明
-        AWTUtilities.setWindowOpaque(this, false);
         pack();
     }
 

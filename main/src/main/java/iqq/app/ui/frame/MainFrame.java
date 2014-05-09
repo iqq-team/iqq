@@ -5,11 +5,13 @@ import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
-import iqq.app.ui.frame.panel.MainPanel;
+import iqq.app.ui.frame.panel.main.MainPanel;
 
 import java.awt.*;
 
 /**
+ * 主界面，分为上/中/下的内容面板
+ *
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-4
@@ -26,19 +28,21 @@ public class MainFrame extends IMFrame {
     }
 
     private void initUI() {
+        // 主面板，放所有显示内容
         contentPanel = new MainPanel(this);
-
         setTitle(getI18nService().getMessage("app.name"));
         setContentPane(contentPanel);
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
-        setUndecorated(true);                             // 去了默认边框
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(300, 650));        // 首选大小
-        // 把窗口设置为透明
-        AWTUtilities.setWindowOpaque(this, false);
         pack();
     }
 
+    /**
+     * 安装皮肤
+     *
+     * @param skinService
+     */
     @Override
     public void installSkin(SkinService skinService) {
         super.installSkin(skinService);

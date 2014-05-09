@@ -1,4 +1,4 @@
-package iqq.app.ui.frame.panel;
+package iqq.app.ui.frame.panel.login;
 
 import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.image.WebImage;
@@ -12,7 +12,7 @@ import com.alee.laf.panel.WebPanel;
 import com.alee.laf.text.WebPasswordField;
 import iqq.api.bean.IMAccount;
 import iqq.app.core.service.SkinService;
-import iqq.app.ui.IMContentPanel;
+import iqq.app.ui.IMPanel;
 import iqq.app.ui.component.StatusButton;
 import iqq.app.ui.component.TitleComponent;
 import iqq.app.ui.frame.LoginFrame;
@@ -27,12 +27,12 @@ import java.awt.event.ActionListener;
  * Created  : 14-5-5
  * License  : Apache License 2.0
  */
-public class LoginPanel extends IMContentPanel {
+public class LoginPanel extends IMPanel {
 
     private LoginFrame ui;
-    private WebPanel headerPanel = new WebPanel();
-    private WebPanel middlePanel = new WebPanel();
-    private WebPanel footerPanel = new WebPanel();
+    private IMPanel headerPanel = new IMPanel();
+    private IMPanel middlePanel = new IMPanel();
+    private IMPanel footerPanel = new IMPanel();
     private WebButton loginBtn;
     private WebComboBox accountCbx;
     private WebPasswordField pwdFld;

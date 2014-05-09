@@ -6,7 +6,7 @@
 		<customDir>skins/test</customDir> 
 	</config>  
 	<font> 
-		<name>文泉驿微米黑</name>  
+		<name>WenQuanYi Micro Hei</name>  
 		<source>file</source>  
 		<size>13</size>  
 		<file>font/wqy-microhei.ttc</file> 
@@ -40,10 +40,16 @@
 	</login>  
 	<skin> 
 		<skinIcon>skin/icons/skin_icon.png</skinIcon>  
-		<background>skin/bg/1.9.png</background> 
+		<background>skin/bg/8.9.png</background> 
 	</skin>  
 	<main> 
 		<searchIcon>main/icons/search_icon.png</searchIcon>  
-		<searchBg>main/bg/search_bg.9.png</searchBg> 
+		<searchBg>main/bg/search_bg.9.png</searchBg>  
+		<tabBoddyIcon>main/icons/tab_boddy.png</tabBoddyIcon>  
+		<tabGroupIcon>main/icons/tab_group.png</tabGroupIcon>  
+		<tabRecentIcon>main/icons/tab_recent.png</tabRecentIcon>  
+		<tabBg>main/bg/tab_bg.9.png</tabBg>  
+		<arrowLeft>main/icons/arrow_left.png</arrowLeft>  
+		<arrowDown>main/icons/arrow_down.png</arrowDown> 
 	</main> 
 </skins>
