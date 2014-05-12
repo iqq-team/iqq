@@ -3,6 +3,7 @@ package iqq.app;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.utils.SwingUtils;
 import iqq.app.core.context.IMContext;
+import iqq.app.ui.frame.ChatFrame;
 import iqq.app.ui.frame.LoginFrame;
 import iqq.app.ui.frame.MainFrame;
 import iqq.app.util.Benchmark;
@@ -82,6 +83,7 @@ public final class Bootstrap {
         // 显示入口窗口
         //new LoginFrame(IMContext.me()).setVisible(true);
         new MainFrame(IMContext.me()).setVisible(true);
+        //new ChatFrame(IMContext.me()).setVisible(true);
         LOG.info("bootstrap configAfter...");
         Benchmark.end("appStart");
     }

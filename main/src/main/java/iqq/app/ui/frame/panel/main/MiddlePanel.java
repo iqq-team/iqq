@@ -4,17 +4,20 @@ import com.alee.laf.scroll.WebScrollPane;
 import com.alee.laf.tabbedpane.TabStretchType;
 import com.alee.laf.tabbedpane.TabbedPaneStyle;
 import com.alee.laf.tabbedpane.WebTabbedPane;
-import iqq.api.bean.IMBuddy;
-import iqq.api.bean.IMBuddyCategory;
-import iqq.api.bean.IMRoom;
-import iqq.api.bean.IMRoomCategory;
+import iqq.api.bean.*;
+import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMPanel;
 import iqq.app.ui.IMTree;
+import iqq.app.ui.frame.ChatFrame;
 import iqq.app.ui.frame.MainFrame;
 import iqq.app.ui.renderer.BoddyTreeCellRenderer;
 import iqq.app.ui.renderer.RecentTreeCellRenderer;
 import iqq.app.ui.renderer.RoomTreeCellRenderer;
+import iqq.app.ui.renderer.node.BuddyNode;
+import iqq.app.ui.renderer.node.CategoryNode;
+import iqq.app.ui.renderer.node.EntityNode;
+import iqq.app.ui.renderer.node.RoomNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -57,11 +60,12 @@ public class MiddlePanel extends IMPanel {
     /**
      * 树组件的鼠标事件，点击展开，双击打开聊天窗口
      */
-    private TreeMouseListener treeMouse = new TreeMouseListener();
+    private TreeMouseListener treeMouse;
 
     public MiddlePanel(MainFrame frame) {
         super();
         this.frame = frame;
+        treeMouse = new TreeMouseListener(frame);
 
         initTab();
         initBuddy();
@@ -101,7 +105,7 @@ public class MiddlePanel extends IMPanel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            root.add(new DefaultMutableTreeNode(buddy));
+            root.add(new BuddyNode(buddy));
         }
         IMRoom[] rooms = new IMRoom[10];
         int k = 0;
@@ -117,7 +121,7 @@ public class MiddlePanel extends IMPanel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            root.add(new DefaultMutableTreeNode(room));
+            root.add(new RoomNode(room));
         }
 
         DefaultTreeModel groupModel = new DefaultTreeModel(root);
@@ -146,7 +150,7 @@ public class MiddlePanel extends IMPanel {
         for(IMRoomCategory cate : cates) {
             cate = new IMRoomCategory();
             cate.setName("Room Category-" + i++);
-            DefaultMutableTreeNode cateNode = new DefaultMutableTreeNode(cate);
+            CategoryNode cateNode = new CategoryNode(cate);
             root.add(cateNode);
 
             IMRoom[] rooms = new IMRoom[10];
@@ -163,7 +167,7 @@ public class MiddlePanel extends IMPanel {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                cateNode.add(new DefaultMutableTreeNode(room));
+                cateNode.add(new RoomNode(room));
             }
         }
 
@@ -189,14 +193,14 @@ public class MiddlePanel extends IMPanel {
 
         // 测试数据
         DefaultMutableTreeNode root = new DefaultMutableTreeNode();
-        IMBuddyCategory[] cates = new IMBuddyCategory[20];
+        IMBuddyCategory[] cates = new IMBuddyCategory[10];
         int i = 0;
         for(IMBuddyCategory cate : cates) {
             cate = new IMBuddyCategory();
             cate.setName("Category-" + i++);
-            DefaultMutableTreeNode cateNode = new DefaultMutableTreeNode(cate);
+            CategoryNode cateNode = new CategoryNode(cate);
 
-            IMBuddy[] buddys = new IMBuddy[100];
+            IMBuddy[] buddys = new IMBuddy[30];
             int j = 0;
             for(IMBuddy buddy : buddys) {
                 buddy = new IMBuddy();
@@ -211,7 +215,7 @@ public class MiddlePanel extends IMPanel {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                cateNode.add(new DefaultMutableTreeNode(buddy));
+                cateNode.add(new BuddyNode(buddy));
             }
             root.add(cateNode);
         }
@@ -267,29 +271,34 @@ public class MiddlePanel extends IMPanel {
      * 树组件的鼠标事件，点击展开，双击打开聊天窗口
      */
     class TreeMouseListener extends MouseAdapter {
+        MainFrame frame;
+        ChatFrame chat = new ChatFrame(IMContext.me());
+
+        public TreeMouseListener(MainFrame frame) {
+            this.frame = frame;
+        }
+
         @Override
         public void mouseClicked(MouseEvent e) {
             // 获取选择的节点
             if (e.getSource() instanceof IMTree) {
                 IMTree tree = (IMTree) e.getSource();
                 Object obj = tree.getLastSelectedPathComponent();
-                if (obj instanceof DefaultMutableTreeNode) {
-                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj;
-                    // 非叶子节点
-                    if (!node.isLeaf()) {
-                        // 判断是否展开
-                        if (!tree.isExpanded(tree.getSelectionPath())) {
-                            // 展开
-                            tree.expandPath(tree.getSelectionPath());
-                        } else {
-                            // 合并
-                            tree.collapsePath(tree.getSelectionPath());
-                        }
-                    } else if (e.getClickCount() == 2 && node.isLeaf()) {
-                        // 叶子节点
-                        // 双击打开聊天窗口
-
+                DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj;
+                if(obj instanceof CategoryNode) {
+                    // 判断是否展开
+                    if (!tree.isExpanded(tree.getSelectionPath())) {
+                        // 展开
+                        tree.expandPath(tree.getSelectionPath());
+                    } else {
+                        // 合并
+                        tree.collapsePath(tree.getSelectionPath());
                     }
+                } else if(e.getClickCount() == 2 && obj instanceof EntityNode) {
+                    // 双击打开聊天窗口
+                    EntityNode entityNode = (EntityNode) obj;
+                    chat.addChat((IMEntity)entityNode.getUserObject());
+                    chat.setVisible(true);
                 }
             }
         }

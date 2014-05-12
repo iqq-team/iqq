@@ -1,6 +1,7 @@
 package iqq.app.ui.frame.panel.main;
 
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMPanel;
 import iqq.app.ui.frame.MainFrame;
 
@@ -12,14 +13,14 @@ import java.awt.*;
  * Created  : 14-5-5
  * License  : Apache License 2.0
  */
-public class MainPanel extends IMPanel {
+public class MainPane extends IMContentPane {
 
     private MainFrame frame;
     private IMPanel headerPanel;
     private IMPanel middlePanel;
     private IMPanel footerPanel;
 
-    public MainPanel(MainFrame mainFrame) {
+    public MainPane(MainFrame mainFrame) {
         frame = mainFrame;
 
         headerPanel = new HeaderPanel(frame);

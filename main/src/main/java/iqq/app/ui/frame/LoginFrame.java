@@ -1,16 +1,19 @@
 package iqq.app.ui.frame;
 
+import com.alee.laf.combobox.WebComboBox;
 import com.alee.laf.rootpane.WebFrame;
-import iqq.api.bean.IMAccount;
+import com.alee.laf.text.WebPasswordField;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
-import iqq.app.ui.IMPanel;
-import iqq.app.ui.frame.panel.login.LoginPanel;
+import iqq.app.ui.action.IMActionHandler;
+import iqq.app.ui.frame.panel.login.LoginPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * 这只是一个登录界面模型，使用代码布局，如果使用IDE部分是不可以的，不好控制和使用组件
@@ -28,7 +31,7 @@ import java.awt.*;
  */
 public class LoginFrame extends IMFrame {
     private static final Logger LOG = LoggerFactory.getLogger(LoginFrame.class);
-    private IMPanel contentWrap;
+    private IMContentPane contentWrap;
 
     public LoginFrame(IMContext context) {
         super(context);
@@ -37,10 +40,10 @@ public class LoginFrame extends IMFrame {
     }
 
     private void initUI() {
-        contentWrap = new LoginPanel(this);
+        contentWrap = new LoginPane(this);
 
         // 登录面板
-        setContentPane(contentWrap);
+        setIMContentPane(contentWrap);
         setTitle(getI18nService().getMessage("app.name"));
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);                      // 居中
@@ -55,11 +58,14 @@ public class LoginFrame extends IMFrame {
         super.installSkin(skinService);
     }
 
-    public void login(IMAccount account) {
-        System.out.println("username: " + account.getLoginName());
-        System.out.println("password: " + account.getPassword());
-        new MainFrame(getContext()).setVisible(true);
-        dispose();
+    @IMActionHandler
+    public void login(ActionEvent e, WebComboBox b, WebPasswordField p) {
+        System.out.println("username: " + e);
+        System.out.println("username2: " + b);
+        System.out.println("username2: " + p);
+
+        //new MainFrame(getContext()).setVisible(true);
+        //dispose();
     }
 
 }

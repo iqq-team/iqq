@@ -4,10 +4,10 @@ import com.alee.extended.image.GalleryTransferHandler;
 import com.alee.extended.image.WebImageGallery;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
-import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;
+import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.TitleComponent;
 import iqq.app.ui.skin.Skin;
@@ -31,7 +31,7 @@ import java.io.IOException;
  * License  : Apache License 2.0
  */
 public class SkinFrame extends IMFrame implements Skin {
-    private WebPanel contentPanel = new WebPanel();
+    private IMContentPane contentPane = new IMContentPane();
     private WebPanel headerPanel = new WebPanel();
     private WebPanel middlePanel = new WebPanel();
     private WebPanel footerPanel = new WebPanel();
@@ -43,13 +43,13 @@ public class SkinFrame extends IMFrame implements Skin {
     }
 
     private void initUI() {
-        contentPanel.add(createHeader(), BorderLayout.NORTH);
-        contentPanel.add(createFooter(), BorderLayout.SOUTH);
-        contentPanel.add(createMiddle(), BorderLayout.CENTER);
-        setContentPane(contentPanel);
+        contentPane.add(createHeader(), BorderLayout.NORTH);
+        contentPane.add(createFooter(), BorderLayout.SOUTH);
+        contentPane.add(createMiddle(), BorderLayout.CENTER);
+        setIMContentPane(contentPane);
 
         setTitle(getI18nService().getMessage("app.skinSetting"));
-        setContentPane(contentPanel);
+        setIMContentPane(contentPane);
         setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(380, 280));        // 首选大小
@@ -60,7 +60,7 @@ public class SkinFrame extends IMFrame implements Skin {
     public void installSkin(SkinService skinService) {
         super.installSkin(skinService);
         // 背景
-        contentPanel.setPainter(skinService.getPainterByKey("skin/background"));
+        contentPane.setPainter(skinService.getPainterByKey("skin/background"));
         setIconImage(getSkinService().getIconByKey("skin/skinIcon").getImage());
     }
 

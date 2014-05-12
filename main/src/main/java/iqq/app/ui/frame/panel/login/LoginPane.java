@@ -10,16 +10,16 @@ import com.alee.laf.combobox.WebComboBox;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.text.WebPasswordField;
-import iqq.api.bean.IMAccount;
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMPanel;
+import iqq.app.ui.action.IMActionHandlerProxy;
 import iqq.app.ui.component.StatusButton;
 import iqq.app.ui.component.TitleComponent;
 import iqq.app.ui.frame.LoginFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Project  : iqq-projects
@@ -27,9 +27,9 @@ import java.awt.event.ActionListener;
  * Created  : 14-5-5
  * License  : Apache License 2.0
  */
-public class LoginPanel extends IMPanel {
+public class LoginPane extends IMContentPane {
 
-    private LoginFrame ui;
+    private LoginFrame frame;
     private IMPanel headerPanel = new IMPanel();
     private IMPanel middlePanel = new IMPanel();
     private IMPanel footerPanel = new IMPanel();
@@ -42,8 +42,8 @@ public class LoginPanel extends IMPanel {
     private WebCheckBox rePwdCkb;
     private WebCheckBox autoLoginCkb;
 
-    public LoginPanel(LoginFrame ui) {
-        this.ui = ui;
+    public LoginPane(LoginFrame frame) {
+        this.frame = frame;
         this.add(createHeader(), BorderLayout.NORTH);
         this.add(createFooter(), BorderLayout.SOUTH);
         this.add(createMiddle(), BorderLayout.CENTER);
@@ -83,7 +83,7 @@ public class LoginPanel extends IMPanel {
         headerPanel.setPreferredSize(new Dimension(-1, 90));
 
         // 我自己写了个标题组件，透明的，可以添加到每个窗口上，可以封装为默认继承
-        TitleComponent titleComponent = new TitleComponent(ui);
+        TitleComponent titleComponent = new TitleComponent(frame);
         titleComponent.setShowSkinButton(false);
         titleComponent.setShowMaximizeButton(false);
         headerPanel.add(titleComponent, BorderLayout.NORTH);
@@ -109,7 +109,7 @@ public class LoginPanel extends IMPanel {
 
         face = new WebDecoratedImage();
         // 头像
-        ImageIcon icon = ui.getResourceService().getIcon("icons/login/qq_icon.png");
+        ImageIcon icon = frame.getResourceService().getIcon("icons/login/qq_icon.png");
         face.setImage(icon.getImage().getScaledInstance(80, 80, 100));
         face.setShadeWidth(2);
         face.setRound(3);
@@ -118,7 +118,7 @@ public class LoginPanel extends IMPanel {
 
         // 账号输入一行
         String[] items = { "6208317", "917362009"};
-        regLbl = new WebLabel(ui.getI18nService().getMessage("login.regAccount"));
+        regLbl = new WebLabel(frame.getI18nService().getMessage("login.regAccount"));
         accountCbx = new WebComboBox(items);
         accountCbx.setEditable(true);
         accountCbx.setPreferredSize(dimFld);
@@ -128,7 +128,7 @@ public class LoginPanel extends IMPanel {
         accountGroup.setOpaque(false);
 
         // 密码输入一行
-        findPwdLbl = new WebLabel(ui.getI18nService().getMessage("login.forgetPwd"));
+        findPwdLbl = new WebLabel(frame.getI18nService().getMessage("login.forgetPwd"));
         pwdFld = new WebPasswordField();
         pwdFld.setPreferredSize(dimFld);
 
@@ -136,7 +136,7 @@ public class LoginPanel extends IMPanel {
         GroupPanel pwdGroup = new GroupPanel(5, true, pwdFld, findPwdLbl);
 
         // 选项一行
-        rePwdCkb = new WebCheckBox(ui.getI18nService().getMessage("login.rememberPwd"));
+        rePwdCkb = new WebCheckBox(frame.getI18nService().getMessage("login.rememberPwd"));
         autoLoginCkb = new WebCheckBox("自动登录");
         final StatusButton statusBtn = new StatusButton(null);
         rePwdCkb.setFontSize(12);
@@ -152,6 +152,8 @@ public class LoginPanel extends IMPanel {
         middlePanel.add(right, BorderLayout.CENTER);
 
         // 登录处理
+        loginBtn.addActionListener(new IMActionHandlerProxy(frame, "login", accountCbx, pwdFld));
+        /*
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -159,9 +161,10 @@ public class LoginPanel extends IMPanel {
                 account.setLoginName(accountCbx.getSelectedItem().toString());
                 account.setPassword(new String(pwdFld.getPassword()));
                 account.setRememberPwd(rePwdCkb.isSelected());
-                ui.login(account);
+                frame.login(account);
             }
         });
+        */
         return middlePanel;
     }
 
@@ -170,7 +173,7 @@ public class LoginPanel extends IMPanel {
         //footerPanel.setOpaque(false);
         footerPanel.setPreferredSize(new Dimension(-1, 40));
 
-        loginBtn = new WebButton(ui.getI18nService().getMessage("login.login"));
+        loginBtn = new WebButton(frame.getI18nService().getMessage("login.login"));
         loginBtn.setPreferredHeight(30);
         loginBtn.setPreferredWidth(150);
         loginBtn.setMargin(5);

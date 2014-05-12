@@ -1,4 +1,7 @@
 package iqq.app.ui;
+
+import com.alee.extended.painter.NinePatchIconPainter;
+import com.alee.extended.painter.Painter;
 import com.alee.laf.rootpane.WebFrame;
 import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
@@ -11,9 +14,8 @@ import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.skin.Skin;
 import iqq.app.ui.skin.SkinManager;
 
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * IM窗口抽象类，带阴影背景
@@ -40,12 +42,13 @@ public abstract class IMFrame extends WebFrame implements Skin {
         skinService = context.getIoc().get(SkinServiceImpl.class);
         resourceService = context.getIoc().get(ResourceServiceImpl.class);
 
+
         // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
         contentWrap = new IMFrameWrap(context);
-        contentWrap.installSkin(skinService);
         super.setContentPane(contentWrap);
 
-        setUndecorated(true);                             // 去了默认边框
+        // 去了默认边框
+        setUndecorated(true);
         // 把窗口设置为透明
         AWTUtilities.setWindowOpaque(this, false);
 
@@ -65,8 +68,9 @@ public abstract class IMFrame extends WebFrame implements Skin {
      * 设置窗口内容面板
      * @param contentPane
      */
-    @Override
-    public void setContentPane(Container contentPane) {
+    public void setIMContentPane(IMContentPane contentPane) {
+        // 设置一个边框
+        contentPane.setMargin(0, 2, 2, 2);
         contentWrap.add(contentPane);
     }
 
@@ -77,7 +81,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
      */
     @Override
     public void installSkin(SkinService skinService) {
-
+        contentWrap.installSkin(getSkinService());
     }
 
     /**

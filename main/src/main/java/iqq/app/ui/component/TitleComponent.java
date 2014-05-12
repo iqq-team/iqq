@@ -12,7 +12,6 @@ import com.alee.utils.SwingUtils;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;
-import iqq.app.ui.IMFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,6 +54,7 @@ public class TitleComponent extends WebPanel {
     protected boolean groupButtons = WebRootPaneStyle.groupButtons;
     protected boolean showSkinButton = true;
     protected boolean showSettingButton = true;
+    protected boolean showTitle = true;
 
     protected WebButton skinButton;
     protected WebButton settingButton;
@@ -68,8 +68,8 @@ public class TitleComponent extends WebPanel {
     protected Frame frame;
     protected Dialog dialog;
     protected int state;
-    protected int maxTitleWidth = WebRootPaneStyle.maxTitleWidth;
-    protected int shadeWidth = WebRootPaneStyle.shadeWidth;
+    protected int maxTitleWidth = 300;
+    protected int shadeWidth = 20;
     protected String emptyTitleText = "   ";
 
     public TitleComponent(Window root) {
@@ -82,8 +82,10 @@ public class TitleComponent extends WebPanel {
         updateButtons();
 
         // Title
-        titleComponent = createDefaultTitleComponent ();
-        this.add(titleComponent, BorderLayout.WEST);
+        if(showTitle) {
+            titleComponent = createDefaultTitleComponent();
+            this.add(titleComponent, BorderLayout.WEST);
+        }
     }
 
     private void loadIcons() {
@@ -218,11 +220,11 @@ public class TitleComponent extends WebPanel {
 
         windowButtons = new WebButtonGroup( buttons );
         windowButtons.setOpaque(false);
-        //windowButtons.setMargin(-1,0, 0, 0);
+        windowButtons.setMargin(0, 0, 0, -2);
         updateWindowButtonsStyle();
         this.add(windowButtons, BorderLayout.EAST);
     }
-
+    Point mouseDownCompCoords;
     protected JComponent createDefaultTitleComponent ()
     {
         final WebLabel titleIcon = new WebLabel ()
@@ -261,7 +263,7 @@ public class TitleComponent extends WebPanel {
                     }
                     else
                     {
-                        //maximize ();
+                        // maximize ();
                     }
                 }
             }
@@ -593,6 +595,19 @@ public class TitleComponent extends WebPanel {
         this.showSettingButton = showSettingButton;
         this.updateButtons();
         this.revalidate();
+    }
+
+    public boolean isShowTitle() {
+        return showTitle;
+    }
+
+    public void setShowTitle(boolean showTitle) {
+        this.showTitle = showTitle;
+        if(showTitle) {
+            this.add(titleComponent, BorderLayout.WEST);
+        } else {
+            this.remove(titleComponent);
+        }
     }
 
     public WebButton getSkinButton() {

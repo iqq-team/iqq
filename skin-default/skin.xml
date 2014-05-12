@@ -27,7 +27,8 @@
 		<maximizeActive>window/icons/maximize_active.png</maximizeActive>  
 		<restore>window/icons/restore.png</restore>  
 		<restoreActive>window/icons/restore_active.png</restoreActive>  
-		<background>window/bg/window_bg.9.png</background> 
+		<background>window/bg/window_bg.9.png</background>  
+		<transparent>window/bg/transparent.9.png</transparent> 
 	</window>  
 	<login> 
 		<labelColor>#006dcc</labelColor>  
@@ -40,7 +41,7 @@
 	</login>  
 	<skin> 
 		<skinIcon>skin/icons/skin_icon.png</skinIcon>  
-		<background>skin/bg/8.9.png</background> 
+		<background>skin/bg/0.9.png</background> 
 	</skin>  
 	<main> 
 		<searchIcon>main/icons/search_icon.png</searchIcon>  
@@ -51,5 +52,8 @@
 		<tabBg>main/bg/tab_bg.9.png</tabBg>  
 		<arrowLeft>main/icons/arrow_left.png</arrowLeft>  
 		<arrowDown>main/icons/arrow_down.png</arrowDown> 
-	</main> 
+	</main>  
+	<chat> 
+		<settingIcon>chat/icons/setting_icon.png</settingIcon> 
+	</chat> 
 </skins>
