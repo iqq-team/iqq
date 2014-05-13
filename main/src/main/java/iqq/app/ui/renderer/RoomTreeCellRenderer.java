@@ -1,14 +1,10 @@
 package iqq.app.ui.renderer;
 
 import com.alee.laf.label.WebLabel;
-import iqq.api.bean.IMRoom;
-import iqq.api.bean.IMRoomCategory;
-import iqq.app.ui.IMPanel;
 import iqq.app.ui.renderer.node.CategoryNode;
 import iqq.app.ui.renderer.node.RoomNode;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
 

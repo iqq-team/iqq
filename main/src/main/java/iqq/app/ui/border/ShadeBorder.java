@@ -1,9 +1,5 @@
 package iqq.app.ui.border;
 
-import com.alee.utils.NinePatchUtils;
-import com.alee.utils.ninepatch.NinePatchIcon;
-
-import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 

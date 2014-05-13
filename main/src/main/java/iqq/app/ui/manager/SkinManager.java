@@ -1,6 +1,7 @@
-package iqq.app.ui.skin;
+package iqq.app.ui.manager;
 
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.skin.Skin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

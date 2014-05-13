@@ -36,7 +36,6 @@ public class LoginFrame extends IMFrame {
     public LoginFrame(IMContext context) {
         super(context);
         initUI();
-        installSkin(getSkinService());
     }
 
     private void initUI() {

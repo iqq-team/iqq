@@ -1,6 +1,6 @@
 package iqq.app.ui.frame.panel.chat;
 
-import iqq.api.bean.IMEntity;
+import iqq.api.bean.IMRoom;
 
 /**
  * Project  : iqq-projects
@@ -10,7 +10,7 @@ import iqq.api.bean.IMEntity;
  */
 public class RoomPanel extends EntityPanel {
 
-    public RoomPanel(IMEntity entity) {
+    public RoomPanel(IMRoom entity) {
         super(entity);
     }
 }

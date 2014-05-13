@@ -49,7 +49,7 @@ public class RoomNode extends EntityNode {
         }
         if(!avatar.equals(room.getAvatar())) {
             avatar = room.getAvatar();
-            ImageIcon icon = UIUtil.Bean.byteToIcon(avatar, 30, 30);
+            ImageIcon icon = UIUtil.Bean.byteToIcon(avatar, iconWidth, iconHeight);
             view.setIcon(icon);
 
         }

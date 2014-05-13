@@ -6,6 +6,7 @@ import iqq.app.core.context.IMContext;
 import iqq.app.ui.frame.ChatFrame;
 import iqq.app.ui.frame.LoginFrame;
 import iqq.app.ui.frame.MainFrame;
+import iqq.app.ui.manager.MainManager;
 import iqq.app.util.Benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,8 +83,11 @@ public final class Bootstrap {
     private static void configAfter() {
         // 显示入口窗口
         //new LoginFrame(IMContext.me()).setVisible(true);
-        new MainFrame(IMContext.me()).setVisible(true);
+        //new MainFrame(IMContext.me()).setVisible(true);
         //new ChatFrame(IMContext.me()).setVisible(true);
+        MainManager.show();
+        MainManager.enableTray();
+
         LOG.info("bootstrap configAfter...");
         Benchmark.end("appStart");
     }

@@ -1,6 +1,6 @@
 package iqq.app.ui.frame.panel.chat;
 
-import iqq.api.bean.IMEntity;
+import iqq.api.bean.IMUser;
 
 /**
  * Project  : iqq-projects
@@ -10,7 +10,7 @@ import iqq.api.bean.IMEntity;
  */
 public class UserPanel extends EntityPanel {
 
-    public UserPanel(IMEntity entity) {
+    public UserPanel(IMUser entity) {
         super(entity);
     }
 }

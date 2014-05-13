@@ -3,15 +3,14 @@ package iqq.app.ui.frame;
 import com.alee.extended.image.GalleryTransferHandler;
 import com.alee.extended.image.WebImageGallery;
 import com.alee.laf.panel.WebPanel;
-import com.alee.laf.rootpane.WebFrame;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.TitleComponent;
+import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
-import iqq.app.ui.skin.SkinManager;
 import iqq.app.util.XmlUtils;
 import org.dom4j.DocumentException;
 
@@ -39,7 +38,6 @@ public class SkinFrame extends IMFrame implements Skin {
     public SkinFrame(IMContext context) {
         super(context);
         initUI();
-        installSkin(getSkinService());
     }
 
     private void initUI() {
@@ -50,7 +48,6 @@ public class SkinFrame extends IMFrame implements Skin {
 
         setTitle(getI18nService().getMessage("app.skinSetting"));
         setIMContentPane(contentPane);
-        setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(380, 280));        // 首选大小
         pack();

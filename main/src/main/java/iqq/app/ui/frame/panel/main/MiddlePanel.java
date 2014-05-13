@@ -5,12 +5,11 @@ import com.alee.laf.tabbedpane.TabStretchType;
 import com.alee.laf.tabbedpane.TabbedPaneStyle;
 import com.alee.laf.tabbedpane.WebTabbedPane;
 import iqq.api.bean.*;
-import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMPanel;
 import iqq.app.ui.IMTree;
-import iqq.app.ui.frame.ChatFrame;
 import iqq.app.ui.frame.MainFrame;
+import iqq.app.ui.manager.ChatManager;
 import iqq.app.ui.renderer.BoddyTreeCellRenderer;
 import iqq.app.ui.renderer.RecentTreeCellRenderer;
 import iqq.app.ui.renderer.RoomTreeCellRenderer;
@@ -272,7 +271,6 @@ public class MiddlePanel extends IMPanel {
      */
     class TreeMouseListener extends MouseAdapter {
         MainFrame frame;
-        ChatFrame chat = new ChatFrame(IMContext.me());
 
         public TreeMouseListener(MainFrame frame) {
             this.frame = frame;
@@ -297,8 +295,7 @@ public class MiddlePanel extends IMPanel {
                 } else if(e.getClickCount() == 2 && obj instanceof EntityNode) {
                     // 双击打开聊天窗口
                     EntityNode entityNode = (EntityNode) obj;
-                    chat.addChat((IMEntity)entityNode.getUserObject());
-                    chat.setVisible(true);
+                    ChatManager.addChat((IMEntity) entityNode.getUserObject());
                 }
             }
         }
