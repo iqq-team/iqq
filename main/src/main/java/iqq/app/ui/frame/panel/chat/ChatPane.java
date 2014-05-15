@@ -2,6 +2,7 @@ package iqq.app.ui.frame.panel.chat;
 
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMContentPane;
+import iqq.app.ui.border.TabContentPanelBorder;
 import iqq.app.ui.component.TitleComponent;
 import iqq.app.ui.frame.ChatFrame;
 import org.sexydock.tabs.jhrome.JhromeTabBorderAttributes;
@@ -42,21 +43,22 @@ public class ChatPane extends IMContentPane {
         add(titleComponent, BorderLayout.NORTH);
 
         JhromeTabBorderAttributes.SELECTED_BORDER.topColor = new Color(255, 255, 255, 120);
-        JhromeTabBorderAttributes.SELECTED_BORDER.bottomColor = new Color(255, 255, 255, 200);
-        JhromeTabBorderAttributes.SELECTED_BORDER.shadowColor = new Color( 55 , 55 , 55 , 25 );
+        JhromeTabBorderAttributes.SELECTED_BORDER.bottomColor = new Color(255, 255, 255, 0);
+        JhromeTabBorderAttributes.SELECTED_BORDER.shadowColor = new Color( 55 , 55 , 55 , 50 );
         JhromeTabBorderAttributes.SELECTED_BORDER.outlineColor = new Color( 55 , 55 , 55 , 100);
-        JhromeTabBorderAttributes.UNSELECTED_BORDER.topColor = new Color(255, 255, 255, 80);
-        JhromeTabBorderAttributes.UNSELECTED_BORDER.bottomColor = new Color(255, 255, 255, 120);
+        JhromeTabBorderAttributes.UNSELECTED_BORDER.topColor = new Color(255, 255, 255, 40);
+        JhromeTabBorderAttributes.UNSELECTED_BORDER.bottomColor = new Color(255, 255, 255, 0);
         JhromeTabBorderAttributes.UNSELECTED_BORDER.shadowColor = new Color( 55 , 55 , 55 , 20 );
         JhromeTabBorderAttributes.UNSELECTED_BORDER.outlineColor = new Color( 55 , 55 , 55 , 100 );
-        JhromeTabBorderAttributes.UNSELECTED_ROLLOVER_BORDER.topColor = new Color( 255 , 255 , 255 , 180);
+        JhromeTabBorderAttributes.UNSELECTED_ROLLOVER_BORDER.topColor = new Color( 255 , 255 , 255 , 160);
+        JhromeTabBorderAttributes.UNSELECTED_ROLLOVER_BORDER.bottomColor = new Color( 255 , 255 , 255 , 50);
         JhromeTabbedPaneUI ui = new JhromeTabbedPaneUI();
         tabbedPane = new JTabbedPane();
         tabbedPane.setUI(ui);
         tabbedPane.setOpaque(false);
-        tabbedPane.setBackground(new Color(0, 0, 0, 0));
         tabbedPane.putClientProperty(JhromeTabbedPaneUI.TAB_CLOSE_BUTTONS_VISIBLE, true);
         tabbedPane.putClientProperty(JhromeTabbedPaneUI.NEW_TAB_BUTTON_VISIBLE, true);
+        tabbedPane.putClientProperty(JhromeTabbedPaneUI.CONTENT_PANEL_BORDER, new TabContentPanelBorder());
         settingButton = ui.getNewTabButton();
         add(tabbedPane, BorderLayout.CENTER);
     }

@@ -2,7 +2,7 @@ package iqq.app.ui.renderer.node;
 
 import com.alee.laf.label.WebLabel;
 import iqq.api.bean.IMRoom;
-import iqq.app.util.UIUtil;
+import iqq.app.util.UIUtils;
 
 import javax.swing.*;
 
@@ -23,7 +23,7 @@ public class RoomNode extends EntityNode {
         super(room);
         this.room = room;
 
-        view.setMargin(2, 5, 2, 2);
+        view.setMargin(5);
     }
 
     public IMRoom getRoom() {
@@ -49,7 +49,7 @@ public class RoomNode extends EntityNode {
         }
         if(!avatar.equals(room.getAvatar())) {
             avatar = room.getAvatar();
-            ImageIcon icon = UIUtil.Bean.byteToIcon(avatar, iconWidth, iconHeight);
+            ImageIcon icon = UIUtils.Bean.byteToIcon(avatar, iconWidth, iconHeight);
             view.setIcon(icon);
 
         }

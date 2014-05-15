@@ -89,13 +89,13 @@ public class SkinServiceImpl implements SkinService {
                     // 改用getDefaultConfig()，直接获取默认配置文件
                     color = XmlUtils.getNodeText(getDefaultConfig(), key);
                 } catch (NullPointerException e1) {
-                    LOG.error("获取皮肤中的颜色错误, key" + key, e1);
+                    LOG.error("获取皮肤中的颜色错误, key=" + key, e1);
                 } catch (DocumentException e2) {
-                    LOG.error("获取皮肤中的颜色错误, key" + key, e2);
+                    LOG.error("获取皮肤中的颜色错误, key=" + key, e2);
                 }
                 return Color.decode(color);
             } catch (DocumentException e) {
-                LOG.error("获取皮肤中的颜色错误, key" + key, e);
+                LOG.error("获取皮肤中的颜色错误, key=" + key, e);
             }
         }
         return null;
@@ -122,13 +122,13 @@ public class SkinServiceImpl implements SkinService {
                     // 改用getDefaultConfig()，直接获取默认配置文件
                     iconPath += XmlUtils.getNodeText(getDefaultConfig(), key);
                 } catch (NullPointerException e1) {
-                    LOG.error("获取皮肤中的图标错误, key" + key, e1);
+                    LOG.error("获取皮肤中的图标错误, key=" + key, e1);
                 } catch (DocumentException e) {
-                    LOG.error("获取皮肤中的图标错误, key" + key, e);
+                    LOG.error("获取皮肤中的图标错误, key=" + key, e);
                 }
                 return new ImageIcon(iconPath);
             } catch (DocumentException e) {
-                LOG.error("获取皮肤中的图标错误, key" + key, e);
+                LOG.error("获取皮肤中的图标错误, key=" + key, e);
             }
         }
         return null;
@@ -162,14 +162,14 @@ public class SkinServiceImpl implements SkinService {
                     // 改用getDefaultConfig()，直接获取默认配置文件
                     iconPath += XmlUtils.getNodeText(getDefaultConfig(), key);
                 } catch (NullPointerException e1) {
-                    LOG.error("获取皮肤中的图标错误, key" + key, e1);
+                    LOG.error("获取皮肤中的图标错误, key=" + key, e1);
                 } catch (DocumentException e) {
-                    LOG.error("获取皮肤中的图标错误, key" + key, e);
+                    LOG.error("获取皮肤中的图标错误, key=" + key, e);
                 }
                 LOG.debug(iconPath);
                 return new NinePatchIconPainter(iconPath);
             } catch (DocumentException e) {
-                LOG.error("获取皮肤中的图标错误, key" + key, e);
+                LOG.error("获取皮肤中的图标错误, key=" + key, e);
             }
         }
         return null;
@@ -225,9 +225,9 @@ public class SkinServiceImpl implements SkinService {
                 // 直接读取默认配置文件
                 XmlUtils.setNodeText(getDefaultConfig(), "config/customDir", path);
             } catch (DocumentException e) {
-                LOG.error("写入自定义目录到皮肤配置Document错误 path" + path, e);
+                LOG.error("写入自定义目录到皮肤配置Document错误 path=" + path, e);
             } catch (IOException e) {
-                LOG.error("写入自定义目录到皮肤配置IO错误 path" + path, e);
+                LOG.error("写入自定义目录到皮肤配置IO错误 path=" + path, e);
             }
         }
     }

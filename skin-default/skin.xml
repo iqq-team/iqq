@@ -41,7 +41,7 @@
 	</login>  
 	<skin> 
 		<skinIcon>skin/icons/skin_icon.png</skinIcon>  
-		<background>skin/bg/10.9.png</background> 
+		<background>skin/bg/0.9.png</background> 
 	</skin>  
 	<main> 
 		<searchIcon>main/icons/search_icon.png</searchIcon>  
@@ -54,6 +54,29 @@
 		<arrowDown>main/icons/arrow_down.png</arrowDown> 
 	</main>  
 	<chat> 
-		<settingIcon>chat/icons/setting_icon.png</settingIcon> 
+		<settingIcon>chat/icons/setting_icon.png</settingIcon>  
+		<navBg>chat/bg/nav_bg.9.png</navBg>  
+		<toolbar> 
+			<text>chat/icons/inputbar/text.png</text>  
+			<emoticon>chat/icons/inputbar/emoticon.png</emoticon>  
+			<history>chat/icons/inputbar/history.png</history>  
+			<noMessage>chat/icons/inputbar/noMessage.png</noMessage>  
+			<offMessage>chat/icons/inputbar/offMessage.png</offMessage>  
+			<pictures>chat/icons/inputbar/pictures.png</pictures>  
+			<screenCapture>chat/icons/inputbar/screenCapture.png</screenCapture>  
+			<shake>chat/icons/inputbar/shake.png</shake>  
+			<send>chat/icons/inputbar/send.png</send> 
+		</toolbar>  
+		<balloon> 
+			<left> 
+				<blue>chat/bg/balloon/balloon_left_blue.9.png</blue>  
+				<green>chat/bg/balloon/balloon_left_green.9.png</green>  
+				<white>chat/bg/balloon/balloon_left_white.9.png</white> 
+			</left>  
+			<right> 
+				<grey>chat/bg/balloon/balloon_right_grey.9.png</grey>  
+				<blue>chat/bg/balloon/balloon_right_blue.9.png</blue> 
+			</right> 
+		</balloon> 
 	</chat> 
 </skins>

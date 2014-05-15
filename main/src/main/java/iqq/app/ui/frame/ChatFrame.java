@@ -10,7 +10,7 @@ import iqq.app.ui.frame.panel.chat.EntityPanel;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import iqq.app.ui.manager.ChatManager;
-import iqq.app.util.UIUtil;
+import iqq.app.util.UIUtils;
 import org.sexydock.tabs.ITabCloseButtonListener;
 import org.sexydock.tabs.jhrome.JhromeTabbedPaneUI;
 import org.slf4j.Logger;
@@ -58,6 +58,12 @@ public class ChatFrame extends IMFrame {
         super.installSkin(skinService);
         this.contentPane.installSkin(skinService);
         setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
+
+        // 更新每个tab中panel的皮肤
+        for(int i=0; i<tabbedPane.getTabCount(); i++) {
+            EntityPanel entityPanel = (EntityPanel) tabbedPane.getComponentAt(i);
+            entityPanel.installSkin(skinService);
+        }
     }
 
 
@@ -68,8 +74,11 @@ public class ChatFrame extends IMFrame {
                 if(isVisible()) {
                     if( tabbedPane.getTabCount( ) == 0)
                     {
-                        setVisible(false);
+                        // 如是没有了，直接关闭窗口
+                        dispose();
                     } else {
+                        EntityPanel entityPanel = (EntityPanel) tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
+                        entityPanel.installSkin(getSkinService());
                         String title = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
                         setTitle(getI18nService().getMessage("conversationTitle", title));
                     }
@@ -91,14 +100,14 @@ public class ChatFrame extends IMFrame {
     }
 
     public void addBuddyPane(IMBuddy buddy, UserPanel entityPanel) {
-        ImageIcon avatar = UIUtil.Bean.byteToIcon(buddy.getAvatar(), 16, 16);
+        ImageIcon avatar = UIUtils.Bean.byteToIcon(buddy.getAvatar(), 16, 16);
         tabbedPane.addTab(buddy.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", buddy.getNick()));
     }
 
     public void addRoomPane(IMRoom room, RoomPanel entityPanel) {
-        ImageIcon avatar = UIUtil.Bean.byteToIcon(room.getAvatar(), 16, 16);
+        ImageIcon avatar = UIUtils.Bean.byteToIcon(room.getAvatar(), 16, 16);
         tabbedPane.addTab(room.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", room.getNick()));

@@ -6,7 +6,7 @@ import com.alee.extended.panel.GroupPanel;
 import com.alee.laf.label.WebLabel;
 import iqq.api.bean.IMBuddy;
 import iqq.app.ui.IMPanel;
-import iqq.app.util.UIUtil;
+import iqq.app.util.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class BuddyNode extends EntityNode {
         signLbl.setFontSize(13);
         signLbl.setForeground(Color.GRAY);
         GroupPanel textGroup = new GroupPanel(0, false, nickLbl, signLbl);
-        textGroup.setMargin(0, 5, 0, 0);
+        textGroup.setMargin(0, 5, 0, 5);
 
         view.add(avatarImage, BorderLayout.WEST);
         view.add(new CenterPanel(textGroup, false , true), BorderLayout.CENTER);
@@ -69,7 +69,7 @@ public class BuddyNode extends EntityNode {
     public IMPanel getView() {
         if(!avatar.equals(buddy.getAvatar())) {
             avatar = buddy.getAvatar();
-            ImageIcon icon = UIUtil.Bean.byteToIcon(avatar, 40, 40);
+            ImageIcon icon = UIUtils.Bean.byteToIcon(avatar, 40, 40);
             avatarImage.setIcon(icon);
         }
         if(!nickLbl.getText().equals(buddy.getNick())) {
