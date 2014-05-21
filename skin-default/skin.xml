@@ -51,7 +51,17 @@
 		<tabRecentIcon>main/icons/tab_recent.png</tabRecentIcon>  
 		<tabBg>main/bg/tab_bg.9.png</tabBg>  
 		<arrowLeft>main/icons/arrow_left.png</arrowLeft>  
-		<arrowDown>main/icons/arrow_down.png</arrowDown> 
+		<arrowDown>main/icons/arrow_down.png</arrowDown>  
+		<toolbar> 
+			<add>main/icons/toolbar/add.png</add>  
+			<mail>main/icons/toolbar/mail.png</mail>  
+			<msg>main/icons/toolbar/msgrecode.png</msg>  
+			<qzone>main/icons/toolbar/qzone.png</qzone>  
+			<setting>main/icons/toolbar/setting.png</setting>  
+			<weibo>main/icons/toolbar/weibo.png</weibo>  
+			<msgNew>main/icons/toolbar/msg_new.png</msgNew>  
+			<msgNormal>main/icons/toolbar/msg_normal.png</msgNormal> 
+		</toolbar> 
 	</main>  
 	<chat> 
 		<settingIcon>chat/icons/setting_icon.png</settingIcon>  

@@ -11,6 +11,10 @@ package iqq.api.bean.content;
 public class IMTextItem implements IMContentItem {
     private String text;
 
+    public IMTextItem(String text) {
+        this.text = text;
+    }
+
     @Override
     public IMContentType getType() {
         return IMContentType.TEXT;

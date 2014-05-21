@@ -6,7 +6,7 @@ import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.frame.panel.chat.ChatPane;
-import iqq.app.ui.frame.panel.chat.EntityPanel;
+import iqq.app.ui.frame.panel.chat.BasicPanel;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import iqq.app.ui.manager.ChatManager;
@@ -44,7 +44,7 @@ public class ChatFrame extends IMFrame {
         tabbedPane = contentPane.getTabbedPane();
         setIMContentPane(contentPane);
         setTitle("与 承∮诺 的对话");
-        setPreferredSize(new Dimension(650, 550));        // 首选大小
+        setPreferredSize(new Dimension(660, 580));        // 首选大小
         pack();
     }
 
@@ -61,7 +61,7 @@ public class ChatFrame extends IMFrame {
 
         // 更新每个tab中panel的皮肤
         for(int i=0; i<tabbedPane.getTabCount(); i++) {
-            EntityPanel entityPanel = (EntityPanel) tabbedPane.getComponentAt(i);
+            BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(i);
             entityPanel.installSkin(skinService);
         }
     }
@@ -77,7 +77,7 @@ public class ChatFrame extends IMFrame {
                         // 如是没有了，直接关闭窗口
                         dispose();
                     } else {
-                        EntityPanel entityPanel = (EntityPanel) tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
+                        BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(tabbedPane.getSelectedIndex());
                         entityPanel.installSkin(getSkinService());
                         String title = tabbedPane.getTitleAt(tabbedPane.getSelectedIndex());
                         setTitle(getI18nService().getMessage("conversationTitle", title));
@@ -91,7 +91,7 @@ public class ChatFrame extends IMFrame {
             @Override
             public void tabCloseButtonPressed(JTabbedPane tabbedPane, int tabIndex) {
                 // 关闭了一个tab，相当于关闭了一个对话
-                EntityPanel entityPanel = (EntityPanel) tabbedPane.getComponentAt(tabIndex);
+                BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(tabIndex);
 
                 tabbedPane.removeTabAt(tabIndex);
                 ChatManager.removeChat(entityPanel.getEntity());
@@ -113,7 +113,7 @@ public class ChatFrame extends IMFrame {
         setTitle(getI18nService().getMessage("conversationTitle", room.getNick()));
     }
 
-    public void setSelectedChat(EntityPanel entityPanel) {
+    public void setSelectedChat(BasicPanel entityPanel) {
         tabbedPane.setSelectedComponent(entityPanel);
     }
 

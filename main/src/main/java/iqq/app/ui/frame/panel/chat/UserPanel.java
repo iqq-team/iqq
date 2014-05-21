@@ -1,10 +1,12 @@
 package iqq.app.ui.frame.panel.chat;
 
+import com.alee.laf.button.WebButton;
+import com.alee.laf.toolbar.WebToolBar;
 import iqq.api.bean.IMMsg;
 import iqq.api.bean.IMUser;
 import iqq.api.bean.content.IMContentItem;
 import iqq.api.bean.content.IMTextItem;
-import iqq.app.ui.frame.panel.chat.rich.UITextItem;
+import iqq.app.core.service.SkinService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +17,9 @@ import java.util.Date;
  * Created  : 14-5-11
  * License  : Apache License 2.0
  */
-public class UserPanel extends EntityPanel {
+public class UserPanel extends BasicPanel {
+
+    protected WebButton shakeBtn;
 
     public UserPanel(IMUser entity) {
         super(entity);
@@ -27,8 +31,7 @@ public class UserPanel extends EntityPanel {
         IMMsg msg = new IMMsg();
         msg.setSender((IMUser) entity);
         java.util.List<IMContentItem> contents = new ArrayList<IMContentItem>();
-        IMTextItem text = new IMTextItem();
-        text.setText("test content...");
+        IMTextItem text = new IMTextItem("test content...");
         contents.add(text);
         msg.setContents(contents);
         msg.setDate(new Date());
@@ -44,5 +47,22 @@ public class UserPanel extends EntityPanel {
         return (IMUser) this.entity;
     }
 
+    @Override
+    protected void initInputToolbar(WebToolBar inputToolbar) {
+        super.initInputToolbar(inputToolbar);
 
+        shakeBtn = new WebButton();
+
+        setInputButtonStyle(shakeBtn);
+
+        // 震动
+        inputToolbar.add(3, shakeBtn);
+    }
+
+    @Override
+    public void installSkin(SkinService skinService) {
+        super.installSkin(skinService);
+
+        shakeBtn.setIcon(skinService.getIconByKey("chat/toolbar/shake"));
+    }
 }

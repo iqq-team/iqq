@@ -2,6 +2,7 @@ package iqq.app.ui.frame.panel.chat.rich;
 
 import com.alee.laf.text.WebTextPane;
 import iqq.app.core.context.IMContext;
+import iqq.app.util.UIUtils;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
@@ -141,7 +142,7 @@ public class RichTextPane extends WebTextPane {
 								String text = styledDocument.getText(tStart,
 										tEnd - tStart);
 								if (text.length() > 0 && !text.isEmpty()) {
-									//richItems.addAll(UIMsgUtils.parseLink(text));
+									richItems.addAll(UIUtils.Bean.parseLink(text));
 								}
 							}
 						} catch (BadLocationException e) {
@@ -153,13 +154,16 @@ public class RichTextPane extends WebTextPane {
 		}
 		
 		// 去除最后那个回车符，我也不知道怎么来的，求解释....
+
 		int index = richItems.size() - 1;
-		UIRichItem item = richItems.get(index);
-		if(item instanceof UITextItem) {
-			if (((UITextItem) item).getText().equals("\n")) {
-				richItems.remove(index);
-			}
-		}
+        if(index >= 0) {
+            UIRichItem item = richItems.get(index);
+            if (item instanceof UITextItem) {
+                if (((UITextItem) item).getText().equals("\n")) {
+                    richItems.remove(index);
+                }
+            }
+        }
 		return richItems;
 	}
 

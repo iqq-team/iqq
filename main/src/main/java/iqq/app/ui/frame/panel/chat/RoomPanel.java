@@ -8,7 +8,7 @@ import iqq.api.bean.IMRoom;
  * Created  : 14-5-11
  * License  : Apache License 2.0
  */
-public class RoomPanel extends EntityPanel {
+public class RoomPanel extends BasicPanel {
 
     public RoomPanel(IMRoom entity) {
         super(entity);

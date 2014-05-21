@@ -5,6 +5,7 @@ import iqq.api.bean.content.IMContentType;
 import iqq.api.bean.content.IMTextItem;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.impl.ResourceServiceImpl;
+import iqq.app.ui.frame.panel.chat.rich.UILinkItem;
 import iqq.app.ui.frame.panel.chat.rich.UIRichItem;
 import iqq.app.ui.frame.panel.chat.rich.UITextItem;
 
@@ -12,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static iqq.api.bean.content.IMContentType.TEXT;
 
@@ -23,6 +26,7 @@ import static iqq.api.bean.content.IMContentType.TEXT;
  */
 public class UIUtils {
     public static class Bean {
+        private static final String LINK_REGXP = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
         public static ImageIcon byteToIcon(byte[] imageData) {
             return byteToIcon(imageData, 40, 40);
@@ -52,6 +56,36 @@ public class UIUtils {
                 }
             }
             return contents;
+        }
+
+        public static List<IMContentItem> toIMItem(List<UIRichItem> items) {
+            List<IMContentItem> contents = new ArrayList<IMContentItem>();
+            for(UIRichItem item : items) {
+                if(item instanceof UITextItem) {
+                    UITextItem it = (UITextItem) item;
+                    contents.add(new IMTextItem(it.getText()));
+                }
+            }
+            return contents;
+        }
+
+        public static List<UIRichItem> parseLink(String text){
+            text = text.replaceAll("\r", "\n");
+            List<UIRichItem> items = new ArrayList<UIRichItem>();
+            Pattern pt = Pattern.compile(LINK_REGXP);
+            Matcher mc = pt.matcher(text);
+            int current = 0;
+            while(mc.find()){
+                if(mc.start() > current){
+                    items.add(new UITextItem(text.substring(current, mc.start())));
+                }
+                current = mc.end();
+                items.add(new UILinkItem(mc.group(0)));
+            }
+            if(current < text.length()){
+                items.add(new UITextItem(text.substring(current)));
+            }
+            return items;
         }
     }
 }

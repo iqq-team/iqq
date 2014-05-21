@@ -36,7 +36,7 @@ import java.util.List;
  * Created  : 14-5-11
  * License  : Apache License 2.0
  */
-public abstract class EntityPanel extends IMPanel {
+public abstract class BasicPanel extends IMPanel {
     /**
      * 面板聊天对象
      */
@@ -69,17 +69,16 @@ public abstract class EntityPanel extends IMPanel {
     protected WebButton textBtn = new WebButton();
     protected WebButton emoticonBtn = new WebButton();
     protected WebButton screenCaptureBtn = new WebButton();
-    protected WebButton shakeBtn = new WebButton();
     protected WebButton picturesBtn = new WebButton();
     protected WebButton historyBtn = new WebButton();
     protected WebButton sendBtn = new WebButton();
 
     protected IMPanel headerPanel = new IMPanel();
-    protected MsgGroupPanel msgGroupPanel = new MsgGroupPanel();
     protected IMPanel inputPanel = new IMPanel();
+    protected MsgGroupPanel msgGroupPanel = new MsgGroupPanel();
     protected boolean isAppendMsg = false;
 
-    public EntityPanel(IMEntity entity) {
+    public BasicPanel(IMEntity entity) {
         this.entity = entity;
 
         createHeader();
@@ -142,19 +141,29 @@ public abstract class EntityPanel extends IMPanel {
     }
 
     protected void createInput() {
-        initInputToolbar();
+        initInputToolbar(inputToolbar);
         initInputToolbarListener();
         contentInput.setPreferredSize(new Dimension(-1, 80));
+        WebScrollPane textPaneScroll = new WebScrollPane(contentInput) {
+            private static final long serialVersionUID = 1L;
+
+            {
+                setOpaque(false);
+                setHorizontalScrollBarPolicy(WebScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                setBorder(null);
+                setMargin(5, 5, 5, 5);
+                setDrawBorder(false);
+            }
+        };
         inputPanel.add(inputToolbar, BorderLayout.NORTH);
-        inputPanel.add(contentInput, BorderLayout.CENTER);
+        inputPanel.add(textPaneScroll, BorderLayout.CENTER);
         add(inputPanel, BorderLayout.SOUTH);
     }
 
-    private void initInputToolbar() {
+    protected void initInputToolbar(WebToolBar inputToolbar) {
         setInputButtonStyle(textBtn);
         setInputButtonStyle(emoticonBtn);
         setInputButtonStyle(screenCaptureBtn);
-        setInputButtonStyle(shakeBtn);
         setInputButtonStyle(picturesBtn);
         setInputButtonStyle(historyBtn);
         setInputButtonStyle(sendBtn);
@@ -164,9 +173,6 @@ public abstract class EntityPanel extends IMPanel {
         // toolbar.add(text);
         inputToolbar.add(emoticonBtn);
         inputToolbar.add(screenCaptureBtn);
-        if (entity instanceof IMUser) {
-            inputToolbar.add(shakeBtn);
-        }
         inputToolbar.add(picturesBtn);
         inputToolbar.add(historyBtn);
 
@@ -184,23 +190,30 @@ public abstract class EntityPanel extends IMPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sendMsg(contentInput.getRichItems());
+                contentInput.setText("");
             }
         });
     }
 
     private void sendMsg(List<UIRichItem> richItems) {
-
-    }
-
-    private void setInputButtonStyle(WebButton webButton) {
-        webButton.setRound(2);
-        webButton.setRolloverDecoratedOnly(true);
+        IMMsg msg = new IMMsg();
+        msg.setSender((IMUser) entity);
+        msg.setContents(UIUtils.Bean.toIMItem(richItems));
+        msg.setDate(new Date());
+        msg.setState(IMMsg.State.PENDING);
+        msg.setDirection(IMMsg.Direction.SEND);
+        showMsg(msg);
     }
 
     public void showMsg(IMMsg msg) {
         isAppendMsg = true;
         msgGroupPanel.add(new MsgPane(msg));
         msgGroupPanel.revalidate();
+    }
+
+    protected void setInputButtonStyle(WebButton webButton) {
+        webButton.setRound(2);
+        webButton.setRolloverDecoratedOnly(true);
     }
 
     public void update() {
@@ -218,7 +231,6 @@ public abstract class EntityPanel extends IMPanel {
         textBtn.setIcon(skinService.getIconByKey("chat/toolbar/text"));
         emoticonBtn.setIcon(skinService.getIconByKey("chat/toolbar/emoticon"));
         screenCaptureBtn.setIcon(skinService.getIconByKey("chat/toolbar/screenCapture"));
-        shakeBtn.setIcon(skinService.getIconByKey("chat/toolbar/shake"));
         picturesBtn.setIcon(skinService.getIconByKey("chat/toolbar/pictures"));
         historyBtn.setIcon(skinService.getIconByKey("chat/toolbar/history"));
         sendBtn.setIcon(skinService.getIconByKey("chat/toolbar/send"));

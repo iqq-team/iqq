@@ -6,7 +6,7 @@ import iqq.api.bean.IMRoom;
 import iqq.api.bean.IMUser;
 import iqq.app.core.context.IMContext;
 import iqq.app.ui.frame.ChatFrame;
-import iqq.app.ui.frame.panel.chat.EntityPanel;
+import iqq.app.ui.frame.panel.chat.BasicPanel;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import org.slf4j.Logger;
@@ -26,12 +26,12 @@ import java.util.Map;
 public class ChatManager {
     private static final Logger LOG = LoggerFactory.getLogger(ChatManager.class);
     private static ChatFrame chatFrame;
-    private static Map<IMEntity, EntityPanel> entityMap;
+    private static Map<IMEntity, BasicPanel> entityMap;
 
     public static void addChat(IMEntity entity) {
         if(chatFrame == null) {
             chatFrame = new ChatFrame(IMContext.me());
-            entityMap = new HashMap<IMEntity, EntityPanel>();
+            entityMap = new HashMap<IMEntity, BasicPanel>();
             LOG.debug("创建了一个聊天窗口界面");
         }
 
