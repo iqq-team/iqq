@@ -26,7 +26,6 @@
 package iqq.app.ui.frame.panel.chat.rich;
 
  import com.alee.extended.panel.GroupPanel;
- import iqq.app.core.context.IMContext;
 
  /**
  *
@@ -37,15 +36,7 @@ package iqq.app.ui.frame.panel.chat.rich;
  */
 public abstract class UIBasicItem implements UIRichItem{
 	private static final long serialVersionUID = 1L;
-	private transient IMContext context;
-	@Override
-	public void setContext(IMContext context) {
-		this.context = context;
-	}
-	protected IMContext getContext() {
-		return context;
-	}
-	
+
 	protected static class UIBasicComponent extends GroupPanel implements UIRichComponent{
 		private static final long serialVersionUID = 1L;
 		private UIRichItem richItem;

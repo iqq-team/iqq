@@ -26,13 +26,12 @@
 package iqq.app.core.service.impl;
 
 
-import java.lang.reflect.Method;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+ import iqq.app.core.service.TaskService;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.stereotype.Service;
 
-import iqq.app.core.service.TaskService;
-import org.apache.log4j.Logger;
-import org.slf4j.LoggerFactory;
+ import java.lang.reflect.Method;
+ import java.util.concurrent.ExecutorService;
 
  /**
  *
@@ -40,6 +39,7 @@ import org.slf4j.LoggerFactory;
  * @author solosky <solosky772@qq.com>
  *
  */
+ @Service
 public class TaskServiceImpl implements TaskService {
      private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(TaskServiceImpl.class);
 	private ExecutorService threads;

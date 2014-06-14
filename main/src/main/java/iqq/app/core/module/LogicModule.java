@@ -16,12 +16,28 @@ package iqq.app.core.module;
  * limitations under the License.
  */
 
+import iqq.api.annotation.IMEventHandler;
 import iqq.api.bean.IMBuddy;
-import iqq.app.core.annotation.IMModule;
-import iqq.app.core.query.GroupQuery;
+import iqq.api.bridge.IMApp;
+import iqq.api.bridge.IMBridge;
+import iqq.api.event.IMEvent;
+import iqq.api.event.IMEventDispatcher;
+import iqq.api.event.IMEventType;
+import iqq.api.event.args.LoginRequest;
 import iqq.app.core.query.BuddyQuery;
-import org.nutz.ioc.loader.annotation.IocBean;
+import iqq.app.core.query.GroupQuery;
+import iqq.app.core.service.EventService;
+import iqq.app.ui.event.UIEvent;
+import iqq.app.ui.event.UIEventDispatcher;
+import iqq.app.ui.event.UIEventHandler;
+import iqq.app.ui.event.UIEventType;
+import iqq.app.ui.event.args.LoginInfoParam;
+import iqq.bridge.webqq.WebQQBridge;
+import iqq.im.QQException;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -31,9 +47,38 @@ import java.util.List;
  * Created  : 4/13/14
  * License  : Apache License 2.0
  */
-@IMModule
-@IocBean
-public class LogicModule implements BuddyQuery, GroupQuery {
+@Service
+public class LogicModule  extends IMEventDispatcher implements BuddyQuery, GroupQuery, IMApp{
+//    @Inject
+    private IMBridge imBridge;
+    @Resource
+    private EventService eventService;
+
+    @PostConstruct
+    public void init(){
+        imBridge = new WebQQBridge();
+        imBridge.setApp(this);
+
+        UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
+        eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
+
+    }
+
+
+    @UIEventHandler(UIEventType.lOGIN_REQUEST)
+    private void onLoginEvent(UIEvent uiEvent){
+        LoginInfoParam param = (LoginInfoParam) uiEvent.getTarget();
+
+        LoginRequest req = new LoginRequest();
+        req.setUsername(param.getUsername());
+        req.setPassword(param.getPassword());
+        req.setStatus(param.getStatus());
+
+        imBridge.onIMEvent(new IMEvent(IMEventType.LOGIN_REQUEST, req));
+    }
+
+
+
     @Override
     public IMBuddy findById(long id) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
@@ -42,5 +87,21 @@ public class LogicModule implements BuddyQuery, GroupQuery {
     @Override
     public List<IMBuddy> findAll() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @IMEventHandler(IMEventType.LOGIN_SUCCESS)
+    protected void processLoginSuccess(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.LOGIN_SUCCESS));
+    }
+
+    @IMEventHandler(IMEventType.LOGIN_ERROR)
+    protected void processLoginError(IMEvent imEvent){
+        QQException ex = (QQException) imEvent.getTarget();
+        eventService.broadcast(new UIEvent(UIEventType.LOGIN_ERROR, ex.getMessage()));
+    }
+
+    @IMEventHandler(IMEventType.IMAGE_VERIFY_NEED)
+    protected void processNeedVerify(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.IMAGE_VERIFY_NEED, imEvent.getTarget()));
     }
 }

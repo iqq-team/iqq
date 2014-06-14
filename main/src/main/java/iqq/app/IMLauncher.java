@@ -1,18 +1,14 @@
 package iqq.app;
 
-import com.alee.laf.WebLookAndFeel;
 import com.alee.utils.SwingUtils;
 import iqq.app.core.context.IMContext;
-import iqq.app.ui.frame.ChatFrame;
+import iqq.app.core.query.BuddyQuery;
 import iqq.app.ui.frame.LoginFrame;
-import iqq.app.ui.frame.MainFrame;
-import iqq.app.ui.manager.MainManager;
 import iqq.app.util.Benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.Locale;
 
 /**
  * 引导启动类
@@ -22,9 +18,8 @@ import java.util.Locale;
  * Created  : 14-4-17
  * License  : Apache License 2.0
  */
-public final class Bootstrap {
-    private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
-    private static IMApp app;
+public final class IMLauncher {
+    private static final Logger LOG = LoggerFactory.getLogger(IMLauncher.class);
     /**
      * 程序入口
      *
@@ -34,9 +29,8 @@ public final class Bootstrap {
         SwingUtils.invokeLater(new Runnable() {
             @Override
             public void run() {
-                configBefore();
+                init();
                 starup();
-                configAfter();
             }
         });
     }
@@ -44,7 +38,7 @@ public final class Bootstrap {
     /**
      * 启动前配置
      */
-    private static void configBefore() {
+    private static void init() {
         Benchmark.start("appStart");
         // APP路径
         String path = System.getProperty("user.dir");
@@ -64,33 +58,19 @@ public final class Bootstrap {
                 shutdown();
             }
         }));
-        LOG.info("bootstrap configBefore...");
+        LOG.info("bootstrap init...");
     }
 
     /**
      * 运行程序环境
      */
     private static void starup() {
-        // 运行IMApp环境
-        app = new IMApp();
-        app.launch();
-        LOG.info("bootstrap starup...");
+       // FrameManager frameManager = IMContext.getBean(FrameManager.class);
+      new LoginFrame().setVisible(true);
+        BuddyQuery buddyQuery = IMContext.getBean(BuddyQuery.class);
+        System.out.println(buddyQuery);
     }
 
-    /**
-     * 启动后配置
-     */
-    private static void configAfter() {
-        // 显示入口窗口
-        //new LoginFrame(IMContext.me()).setVisible(true);
-        //new MainFrame(IMContext.me()).setVisible(true);
-        //new ChatFrame(IMContext.me()).setVisible(true);
-        MainManager.show();
-        MainManager.enableTray();
-
-        LOG.info("bootstrap configAfter...");
-        Benchmark.end("appStart");
-    }
 
     /**
      * 程序关闭

@@ -43,7 +43,7 @@ public class HeaderPanel extends IMPanel {
         titleComponent.getSkinButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SkinFrame skinFrame = new SkinFrame(frame.getContext());
+                SkinFrame skinFrame = new SkinFrame();
                 skinFrame.setVisible(true);
             }
         });

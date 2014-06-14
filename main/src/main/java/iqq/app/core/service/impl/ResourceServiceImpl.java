@@ -1,7 +1,7 @@
 package iqq.app.core.service.impl;
 
 import iqq.app.core.service.ResourceService;
-import org.nutz.ioc.loader.annotation.IocBean;
+import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.io.File;
@@ -16,7 +16,7 @@ import java.io.File;
  * Created  : 14-4-17
  * License  : Apache License 2.0
  */
-@IocBean
+@Service
 public class ResourceServiceImpl implements ResourceService {
     /**
      * 资源文件目录

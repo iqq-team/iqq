@@ -16,9 +16,8 @@ package iqq.app.core.context;
  * limitations under the License.
  */
 
-import org.nutz.ioc.Ioc;
-import org.nutz.ioc.impl.NutIoc;
-import org.nutz.ioc.loader.annotation.AnnotationIocLoader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 客户端上下文，所有的创建的对象实例都由上下文管理，也可以从这个类得到任意对象
@@ -30,8 +29,10 @@ import org.nutz.ioc.loader.annotation.AnnotationIocLoader;
  * License  : Apache License 2.0
  */
 public class IMContext {
-    /**ioc容器*/
-    private Ioc ioc;
+//    /**ioc容器*/
+//    private Ioc ioc;
+
+    private ApplicationContext applicationContext;
 
     private static IMContext singleton = new IMContext();
     public static IMContext me(){
@@ -39,15 +40,10 @@ public class IMContext {
     }
 
     private IMContext(){
-        //初始化，进行依赖注入
-        ioc = new NutIoc(new AnnotationIocLoader("iqq.app"));
+        applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
     }
 
     public static <T> T getBean(Class<T> clazz){
-        return singleton.ioc.get(clazz);
-    }
-
-    public static Ioc getIoc(){
-        return singleton.ioc;
+        return singleton.applicationContext.getBean(clazz);
     }
 }

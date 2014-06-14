@@ -1,13 +1,17 @@
 package iqq.app.ui.frame;
 
 import com.alee.laf.combobox.WebComboBox;
+import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.rootpane.WebFrame;
 import com.alee.laf.text.WebPasswordField;
-import iqq.app.core.context.IMContext;
+import iqq.api.bean.IMStatus;
 import iqq.app.core.service.SkinService;
-import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.action.IMActionHandler;
+import iqq.app.ui.event.UIEvent;
+import iqq.app.ui.event.UIEventHandler;
+import iqq.app.ui.event.UIEventType;
+import iqq.app.ui.event.args.LoginInfoParam;
 import iqq.app.ui.frame.panel.login.LoginPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +35,9 @@ import java.awt.event.ActionEvent;
  */
 public class LoginFrame extends IMFrame {
     private static final Logger LOG = LoggerFactory.getLogger(LoginFrame.class);
-    private IMContentPane contentWrap;
+    private LoginPane contentWrap;
 
-    public LoginFrame(IMContext context) {
-        super(context);
+    public LoginFrame() {
         initUI();
     }
 
@@ -48,6 +51,7 @@ public class LoginFrame extends IMFrame {
         setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(400, 290));        // 首选大小
         pack();
+
     }
 
     @Override
@@ -59,12 +63,32 @@ public class LoginFrame extends IMFrame {
 
     @IMActionHandler
     public void login(ActionEvent e, WebComboBox b, WebPasswordField p) {
-        System.out.println("username: " + e);
-        System.out.println("username2: " + b);
-        System.out.println("username2: " + p);
+        LoginInfoParam param = new LoginInfoParam();
+        param.setUsername(b.getSelectedItem().toString());
+        param.setPassword(new String(p.getPassword()));
+        param.setStatus(IMStatus.ONLINE);
 
-        //new MainFrame(getContext()).setVisible(true);
-        //dispose();
+        UIEvent event = new UIEvent();
+        event.setType(UIEventType.lOGIN_REQUEST);
+        event.setTarget(param);
+
+        eventService.broadcast(event);
+    }
+
+    @UIEventHandler(UIEventType.LOGIN_ERROR)
+    public void processLoginError(UIEvent uiEvent){
+        WebOptionPane.showMessageDialog(contentWrap, "登陆失败: " + uiEvent.getTarget(), "提示", WebOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @UIEventHandler(UIEventType.LOGIN_SUCCESS)
+    public void processLoginSuccess(UIEvent uiEvent){
+        new MainFrame().setVisible(true);
+        this.setVisible(false);
+    }
+
+    @UIEventHandler(UIEventType.IMAGE_VERIFY_NEED)
+    public void processNeedVerify(UIEvent uiEvent){
+        WebOptionPane.showMessageDialog(contentWrap, "需要验证", "提示", WebOptionPane.INFORMATION_MESSAGE);
     }
 
 }

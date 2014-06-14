@@ -1,4 +1,4 @@
-package iqq.app;
+package iqq.app.ui.event;
  /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,20 +16,39 @@ package iqq.app;
  * limitations under the License.
  */
 
-import com.alee.laf.WebLookAndFeel;
-import iqq.app.core.context.IMContext;
-import iqq.app.ui.frame.LoginFrame;
+import iqq.api.common.EventBase;
+
+import java.io.Serializable;
 
 /**
- * IQQ客户主类
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 4/13/14
+ * Created  : 5/3/14
  * License  : Apache License 2.0
  */
-public class IMApp {
+public class UIEvent extends EventBase implements Serializable{
+    /**事件ID，定义在IMEventID*/
+    private UIEventType type;
 
-    public void launch() {
-        IMContext.getIoc();
+    public UIEvent(UIEventType type) {
+        this.type = type;
     }
+
+    public UIEvent() {
+    }
+
+    public UIEvent(UIEventType type, Object data) {
+        this.type = type;
+        this.target = data;
+    }
+
+
+    public UIEventType getType() {
+        return type;
+    }
+
+    public void setType(UIEventType type) {
+        this.type = type;
+    }
+
 }

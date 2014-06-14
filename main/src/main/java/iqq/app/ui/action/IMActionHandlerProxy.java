@@ -58,7 +58,7 @@ public class IMActionHandlerProxy implements ActionListener {
                 } else {
                     Object[] ps = new Object[params.length+1];
                     ps[0] = evt;
-                    for(int i=1; i<params.length; i++) {
+                    for(int i=1; i<params.length + 1; i++) {
                         ps[i] = params[i-1];
                     }
                     method.invoke(proxyObject, ps);
@@ -67,7 +67,7 @@ public class IMActionHandlerProxy implements ActionListener {
                 method.invoke(proxyObject, params);
             }
         } catch (Throwable e) {
-            logger.warn("invoke IMActionHandlerProxy Error!!" + e.getMessage());
+            logger.warn("invoke IMActionHandlerProxy Error!!" , e);
         }
     }
 }

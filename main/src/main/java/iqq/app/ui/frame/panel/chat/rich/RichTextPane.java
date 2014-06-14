@@ -1,7 +1,6 @@
 package iqq.app.ui.frame.panel.chat.rich;
 
 import com.alee.laf.text.WebTextPane;
-import iqq.app.core.context.IMContext;
 import iqq.app.util.UIUtils;
 import org.apache.log4j.Logger;
 
@@ -107,7 +106,6 @@ public class RichTextPane extends WebTextPane {
 			StyledDocument styledDocument = getStyledDocument();
 			styledDocument.remove(0, styledDocument.getLength());
 			for (UIRichItem b : richItem) {
-				b.setContext(IMContext.me());
 				b.insertTo(this);
 			}
 		} catch (Exception e) {

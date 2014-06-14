@@ -25,33 +25,24 @@
  */
 package iqq.app.ui.frame.panel.chat.msg;
 
-import iqq.api.bean.IMAccount;
-import iqq.api.bean.IMMsg;
-import iqq.app.core.context.IMContext;
-import iqq.app.core.service.I18nService;
-import iqq.app.core.service.SkinService;
-import iqq.app.core.service.impl.I18nServiceImpl;
-import iqq.app.core.service.impl.SkinServiceImpl;
-import iqq.app.ui.IMPanel;
-import iqq.app.ui.frame.panel.chat.rich.RichTextPane;
-import iqq.app.util.UIUtils;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Insets;
-import java.text.SimpleDateFormat;
-
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-
 import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.layout.WrapFlowLayout;
-import com.alee.extended.painter.Painter;
 import com.alee.extended.panel.FlowPanel;
 import com.alee.extended.panel.WrapPanel;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
+import iqq.api.bean.IMMsg;
+import iqq.app.core.context.IMContext;
+import iqq.app.core.service.I18nService;
+import iqq.app.core.service.SkinService;
+import iqq.app.ui.IMPanel;
+import iqq.app.ui.frame.panel.chat.rich.RichTextPane;
+import iqq.app.util.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -134,7 +125,7 @@ public class MsgPane extends IMPanel {
 			changeSkin(SkinUtils.getPainter(Type.NPICON, "chat/balloon/left/white"));
 		}*/
 
-        SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
+        SkinService skinService = IMContext.getBean(SkinService.class);
         msgBg.setPainter(skinService.getPainterByKey("chat/balloon/left/white"));
 	}
 
@@ -150,7 +141,7 @@ public class MsgPane extends IMPanel {
 		if(System.currentTimeMillis() - msg.getDate().getTime() < 24*3600*1000){
 			time = TIME_FORMAT.format(msg.getDate());
 		}
-        I18nService i18nService = IMContext.me().getIoc().get(I18nServiceImpl.class);
+        I18nService i18nService = IMContext.getBean(I18nService.class);
 		String stat = i18nService.getMessage("chat.msg." + msg.getState().name().toLowerCase());
 		infoLabl.setText("[ " + time + ", " + stat + " ]");
 		

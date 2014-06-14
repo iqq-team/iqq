@@ -60,12 +60,6 @@ public class UILoaderPicItem extends UIBasicItem {
 		return picLoader;
 	}
 
-	@Override
-	public void setContext(IMContext context) {
-		super.setContext(context);
-		this.picLoader.setContext(context);
-	}
-
 
 	@Override
 	public void insertTo(JTextPane pane) throws Exception {
@@ -79,7 +73,7 @@ public class UILoaderPicItem extends UIBasicItem {
 		public PicPane() throws IOException{
 			super();
 
-            SkinService skins = getContext().getIoc().get(SkinServiceImpl.class);
+            SkinService skins = IMContext.getBean(SkinServiceImpl.class);
 			JLabel background = new JLabel();
 			background.setIcon(skins.getIconByKey("defaultPic"));
 			progressOverlay = new WebProgressOverlay ();
@@ -115,7 +109,7 @@ public class UILoaderPicItem extends UIBasicItem {
 
 		@Override
 		public void onError(Throwable t) {
-            SkinService skins = getContext().getIoc().get(SkinServiceImpl.class);
+            SkinService skins = IMContext.getBean(SkinServiceImpl.class);
             progressOverlay.setComponent(new WebImage(skins.getIconByKey("badPic")));
             progressOverlay.setShowLoad(false);
 			LOG.warn("load pic Error!", t);

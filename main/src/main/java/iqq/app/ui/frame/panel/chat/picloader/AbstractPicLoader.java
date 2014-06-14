@@ -79,7 +79,7 @@ public abstract class AbstractPicLoader implements PicLoader{
 	public void loadPic() {
 		loadState = PicLoadState.LOADING; 
 		if( cachedFile != null ){
-			ResourceService resources = context.getIoc().get(ResourceServiceImpl.class);
+			ResourceService resources = IMContext.getBean(ResourceServiceImpl.class);
 			loadFromLocal(resources.getUserFile("pic/" + cachedFile));
 		}else if(localFile != null) {
 			loadFromLocal(new File(localFile));
@@ -141,7 +141,7 @@ public abstract class AbstractPicLoader implements PicLoader{
 			//IMEventHandlerProxy.unregister(this);
 			//从文件中加载
 			cachedFile = event.getRelatedEvent().getString("cachedFile");
-			ResourceService resources = context.getIoc().get(ResourceServiceImpl.class);
+			ResourceService resources = IMContext.getBean(ResourceServiceImpl.class);
 			loadFromLocal(resources.getUserFile("pic/" + cachedFile));
 			loadState = PicLoadState.SUCCESS;
 		}
@@ -176,7 +176,7 @@ public abstract class AbstractPicLoader implements PicLoader{
 	//从本地文件加载
 	private void loadFromLocal(final File file){
 		LOG.debug("loadFromLocal: " + file);
-		TaskService tasks = context.getIoc().get(TaskServiceImpl.class);
+		TaskService tasks = IMContext.getBean(TaskServiceImpl.class);
 		tasks.submit(new Runnable(){
 			public void run(){
 				try {
@@ -193,11 +193,6 @@ public abstract class AbstractPicLoader implements PicLoader{
 				}
 			}
 		});
-	}
-
-	@Override
-	public void setContext(IMContext context) {
-		this.context = context;
 	}
 
 	@Override

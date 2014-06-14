@@ -26,10 +26,9 @@
 package iqq.app.ui.frame.panel.chat.picloader;
 
  import iqq.api.bean.content.IMContentItem;
- import iqq.app.core.context.IMContext;
 
- import java.awt.*;
- import java.io.Serializable;
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  *
@@ -43,7 +42,6 @@ package iqq.app.ui.frame.panel.chat.picloader;
 public interface PicLoader extends Serializable {
 	public void loadPic();
 	public void sendToServer();
-	public void setContext(IMContext context);
 	public void addListener(PicLoadListener listener);
 	public void removeListener(PicLoadListener listener);
 	public IMContentItem getContentItem();

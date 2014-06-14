@@ -89,7 +89,7 @@ public class TitleComponent extends WebPanel {
     }
 
     private void loadIcons() {
-        SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
+        SkinService skinService = IMContext.getBean(SkinServiceImpl.class);
         if(minimizeIcon == null) {
             skinIcon = skinService.getIconByKey("window/skin");
             skinActiveIcon = skinService.getIconByKey("window/skinActive");

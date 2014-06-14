@@ -1,6 +1,5 @@
 package iqq.app.ui.frame;
 
-import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.frame.panel.main.MainPane;
@@ -18,12 +17,11 @@ import java.awt.*;
 public class MainFrame extends IMFrame {
     private MainPane contentPane;
 
-    public MainFrame(IMContext context) {
-        this(context, null);
+    public MainFrame() {
+        this(null);
     }
 
-    public MainFrame(IMContext context, MainPane contentPane) {
-        super(context);
+    public MainFrame(MainPane contentPane) {
 
         this.contentPane = contentPane;
         // 主面板，放所有显示内容

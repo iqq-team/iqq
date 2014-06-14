@@ -16,12 +16,12 @@ import org.junit.Test;
 public class TestIoc {
     @Before
     public void before() {
-        IMContext.getIoc();
+
     }
 
     @Test
     public void testBean() {
-        SkinService skinService = IMContext.getIoc().get(SkinServiceImpl.class);
+        SkinService skinService = IMContext.getBean(SkinServiceImpl.class);
         Assert.assertNotNull(skinService);
     }
 }

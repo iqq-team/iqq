@@ -1,6 +1,5 @@
 package iqq.app.ui.manager;
 
-import iqq.app.core.context.IMContext;
 import iqq.app.ui.frame.MainFrame;
 
 import java.awt.*;
@@ -22,7 +21,7 @@ public class MainManager {
 
     public static void show() {
         if(mainFrame == null) {
-            mainFrame = new MainFrame(IMContext.me());
+            mainFrame = new MainFrame();
             mainFrame.setVisible(true);
             mainFrame.addWindowStateListener(new WindowStateListener() {
                 @Override

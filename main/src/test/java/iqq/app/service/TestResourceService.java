@@ -21,7 +21,7 @@ public class TestResourceService {
 
     @Before
     public void before() {
-        resourceService = IMContext.getIoc().get(ResourceServiceImpl.class);
+        resourceService = IMContext.getBean(ResourceServiceImpl.class);
     }
 
     @Test

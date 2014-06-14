@@ -1,4 +1,4 @@
- /*
+package iqq.app.core.store; /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,32 +15,15 @@
  * limitations under the License.
  */
 
- /**
- * Project  : IQQ_V2.1
- * Package  : iqq.app.ui.content.chat.rich
- * File     : RichItem.java
- * Author   : solosky < solosky772@qq.com >
- * Created  : 2013-4-8
- * License  : Apache License 2.0 
- */
-package iqq.app.ui.frame.panel.chat.rich;
-
- import javax.swing.*;
-import java.io.Serializable;
+import iqq.api.bean.IMBuddy;
 
 /**
- *
- * 富文本编辑器内容对象
- * 注意实现此接口需要考虑到序列化的问题
- *
- * @author solosky <solosky772@qq.com>
- *
+ * Project  : iqq
+ * Author   : solosky < solosky772@qq.com >
+ * Created  : 5/3/14
+ * License  : Apache License 2.0
  */
-public interface UIRichItem extends Serializable {
-	
-	/***
-	 * 把当前对象加入到TextPane里面
-	 * @param pane
-	 */
-	public void insertTo(JTextPane pane) throws Exception;
+public interface IMDataStore {
+    public void addBuddy(IMBuddy buddy);
+    public void removeBuddyById(long id);
 }

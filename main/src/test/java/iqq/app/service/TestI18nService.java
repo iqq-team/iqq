@@ -16,7 +16,7 @@ public class TestI18nService {
     I18nService i18nService;
     @Before
     public void before() {
-        i18nService = IMContext.getIoc().get(I18nServiceImpl.class);
+        i18nService = IMContext.getBean(I18nServiceImpl.class);
     }
 
     @Test

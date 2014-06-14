@@ -3,19 +3,18 @@ package iqq.app.core.service.impl;
 import com.alee.extended.painter.NinePatchIconPainter;
 import com.alee.extended.painter.Painter;
 import com.alee.laf.WebLookAndFeel;
-import com.alee.laf.tree.WebTreeUI;
 import iqq.app.core.service.SkinService;
 import iqq.app.util.XmlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.DocumentException;
-import org.nutz.ioc.loader.annotation.IocBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.util.Locale;
 
 /**
@@ -30,8 +29,8 @@ import java.util.Locale;
  * Created  : 14-4-15
  * License  : Apache License 2.0
  */
-@IocBean(create = "init")
-public class SkinServiceImpl implements SkinService {
+@Service
+public class SkinServiceImpl implements SkinService, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SkinServiceImpl.class);
 
     /**
@@ -373,5 +372,10 @@ public class SkinServiceImpl implements SkinService {
         WebLookAndFeel.setDecorateAllWindows(false);
         WebLookAndFeel.install();
         Locale.setDefault(Locale.CHINA);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        init();
     }
 }

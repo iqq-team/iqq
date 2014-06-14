@@ -2,11 +2,10 @@ package iqq.app.ui.frame;
 
 import iqq.api.bean.IMBuddy;
 import iqq.api.bean.IMRoom;
-import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
-import iqq.app.ui.frame.panel.chat.ChatPane;
 import iqq.app.ui.frame.panel.chat.BasicPanel;
+import iqq.app.ui.frame.panel.chat.ChatPane;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import iqq.app.ui.manager.ChatManager;
@@ -33,8 +32,7 @@ public class ChatFrame extends IMFrame {
     private ChatPane contentPane;
     private JTabbedPane tabbedPane;
 
-    public ChatFrame(IMContext context) {
-        super(context);
+    public ChatFrame() {
         initUI();
         initTabListener();
     }

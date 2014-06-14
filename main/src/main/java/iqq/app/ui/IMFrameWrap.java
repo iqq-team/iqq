@@ -4,7 +4,6 @@ import com.alee.extended.painter.NinePatchIconPainter;
 import com.alee.extended.painter.Painter;
 import com.alee.laf.panel.WebPanel;
 import com.alee.utils.NinePatchUtils;
-import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.skin.Skin;
 
@@ -17,10 +16,6 @@ import iqq.app.ui.skin.Skin;
  * License  : Apache License 2.0
  */
 public class IMFrameWrap extends WebPanel implements Skin {
-
-    public IMFrameWrap(IMContext context) {
-
-    }
 
     @Override
     public void installSkin(SkinService skinService) {

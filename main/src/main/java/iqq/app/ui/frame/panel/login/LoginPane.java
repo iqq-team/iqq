@@ -182,5 +182,4 @@ public class LoginPane extends IMContentPane {
 
         return footerPanel;
     }
-
 }

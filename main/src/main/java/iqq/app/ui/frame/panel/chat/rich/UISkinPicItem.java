@@ -26,6 +26,7 @@
 package iqq.app.ui.frame.panel.chat.rich;
 
 
+ import iqq.app.core.context.IMContext;
  import iqq.app.core.service.SkinService;
  import iqq.app.core.service.impl.SkinServiceImpl;
 
@@ -49,7 +50,7 @@ public class UISkinPicItem extends UIBasicItem{
 	
 	@Override
 	public void insertTo(JTextPane pane) throws Exception {
-		SkinService skins = getContext().getIoc().get(SkinServiceImpl.class);
+        SkinService skins = IMContext.getBean(SkinServiceImpl.class);
         ImageIcon pic = skins.getIconByKey(picName);
 		pane.insertComponent(new UISkinComponent(pic));
 	}

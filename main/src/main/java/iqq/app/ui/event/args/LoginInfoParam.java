@@ -1,4 +1,4 @@
-package iqq.api.bridge;
+package iqq.app.ui.event.args;
  /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,13 +16,51 @@ package iqq.api.bridge;
  * limitations under the License.
  */
 
-import iqq.api.event.IMEventListener;
+import iqq.api.bean.IMStatus;
+
+import java.io.Serializable;
 
 /**
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 5/1/14
+ * Created  : 6/14/14
  * License  : Apache License 2.0
  */
-public interface IMApp extends IMEventListener {
+public class LoginInfoParam implements Serializable{
+    private String username;
+    private String password;
+    private IMStatus status;
+    private boolean remPwd;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public IMStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(IMStatus status) {
+        this.status = status;
+    }
+
+    public boolean isRemPwd() {
+        return remPwd;
+    }
+
+    public void setRemPwd(boolean remPwd) {
+        this.remPwd = remPwd;
+    }
 }

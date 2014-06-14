@@ -28,6 +28,7 @@ package iqq.app.ui.frame.panel.chat.picloader;
 import iqq.api.bean.IMEntity;
 import iqq.api.bean.content.IMPictureItem;
 import iqq.api.event.IMEvent;
+
 import java.io.File;
 
 /**

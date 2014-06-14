@@ -25,8 +25,8 @@ import java.util.Map;
  * License  : Apache License 2.0
  */
 public class StatusButton extends WebButton {
-    ResourceService resourceService = IMContext.getIoc().get(ResourceServiceImpl.class);
-    I18nService i18nService = IMContext.getIoc().get(I18nServiceImpl.class);
+    ResourceService resourceService = IMContext.getBean(ResourceServiceImpl.class);
+    I18nService i18nService = IMContext.getBean(I18nServiceImpl.class);
     WebPopupMenu popupMenu = new WebPopupMenu ();
     Map<IMStatus, WebMenuItem> statusMap = new HashMap<IMStatus, WebMenuItem>();
     IMStatus currentStatus = IMStatus.ONLINE;

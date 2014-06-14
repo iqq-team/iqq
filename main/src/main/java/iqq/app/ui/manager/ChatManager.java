@@ -4,7 +4,6 @@ import iqq.api.bean.IMBuddy;
 import iqq.api.bean.IMEntity;
 import iqq.api.bean.IMRoom;
 import iqq.api.bean.IMUser;
-import iqq.app.core.context.IMContext;
 import iqq.app.ui.frame.ChatFrame;
 import iqq.app.ui.frame.panel.chat.BasicPanel;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
@@ -30,7 +29,7 @@ public class ChatManager {
 
     public static void addChat(IMEntity entity) {
         if(chatFrame == null) {
-            chatFrame = new ChatFrame(IMContext.me());
+            chatFrame = new ChatFrame();
             entityMap = new HashMap<IMEntity, BasicPanel>();
             LOG.debug("创建了一个聊天窗口界面");
         }

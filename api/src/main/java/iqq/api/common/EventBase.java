@@ -1,4 +1,4 @@
-package iqq.app.core.annotation;
+package iqq.api.common;
  /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,21 +16,40 @@ package iqq.app.core.annotation;
  * limitations under the License.
  */
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.io.Serializable;
 
 /**
- *
- * 用户操作时间处理注解，可以快速的完成操作的分发
- *
  * Project  : iqq
  * Author   : solosky < solosky772@qq.com >
- * Created  : 4/13/14
+ * Created  : 6/14/14
  * License  : Apache License 2.0
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface UIActionHandler {
+public class EventBase extends Intent implements Serializable {
+    protected int eventId;
+    protected Object target;
+    protected EventBase relatedEvent;
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+
+    public Object getTarget() {
+        return target;
+    }
+
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    public EventBase getRelatedEvent() {
+        return relatedEvent;
+    }
+
+    public void setRelatedEvent(EventBase relatedEvent) {
+        this.relatedEvent = relatedEvent;
+    }
 }

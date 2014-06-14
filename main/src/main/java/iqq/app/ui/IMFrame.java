@@ -3,12 +3,11 @@ package iqq.app.ui;
 import com.alee.laf.rootpane.WebFrame;
 import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
+import iqq.app.core.service.EventService;
 import iqq.app.core.service.I18nService;
 import iqq.app.core.service.ResourceService;
 import iqq.app.core.service.SkinService;
-import iqq.app.core.service.impl.I18nServiceImpl;
-import iqq.app.core.service.impl.ResourceServiceImpl;
-import iqq.app.core.service.impl.SkinServiceImpl;
+import iqq.app.ui.event.UIEventDispatcher;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
 
@@ -22,23 +21,22 @@ import iqq.app.ui.skin.Skin;
  * License  : Apache License 2.0
  */
 public abstract class IMFrame extends WebFrame implements Skin {
-
-    protected IMContext context;
     protected IMFrameWrap contentWrap;
 
     protected I18nService i18nService;
     protected SkinService skinService;
     protected ResourceService resourceService;
+    protected EventService eventService;
 
-    public IMFrame(IMContext context) {
-        this.context = context;
+    public IMFrame() {
 
-        i18nService = context.getIoc().get(I18nServiceImpl.class);
-        skinService = context.getIoc().get(SkinServiceImpl.class);
-        resourceService = context.getIoc().get(ResourceServiceImpl.class);
+        i18nService = IMContext.getBean(I18nService.class);
+        skinService = IMContext.getBean(SkinService.class);
+        resourceService = IMContext.getBean(ResourceService.class);
+        eventService = IMContext.getBean(EventService.class);
 
         // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
-        contentWrap = new IMFrameWrap(context);
+        contentWrap = new IMFrameWrap();
         contentWrap.installSkin(getSkinService());
         super.setContentPane(contentWrap);
 
@@ -49,14 +47,9 @@ public abstract class IMFrame extends WebFrame implements Skin {
         // 把窗口设置为透明
         AWTUtilities.setWindowOpaque(this, false);
 
-    }
+        UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
+        eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
 
-    /**
-     * 获取Context
-     * @return
-     */
-    public IMContext getContext() {
-        return context;
     }
 
     /**

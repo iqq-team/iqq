@@ -3,7 +3,6 @@ package iqq.app.ui.frame;
 import com.alee.extended.image.GalleryTransferHandler;
 import com.alee.extended.image.WebImageGallery;
 import com.alee.laf.panel.WebPanel;
-import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.IMContentPane;
@@ -35,8 +34,7 @@ public class SkinFrame extends IMFrame implements Skin {
     private WebPanel middlePanel = new WebPanel();
     private WebPanel footerPanel = new WebPanel();
 
-    public SkinFrame(IMContext context) {
-        super(context);
+    public SkinFrame() {
         initUI();
     }
 

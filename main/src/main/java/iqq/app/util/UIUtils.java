@@ -1,7 +1,6 @@
 package iqq.app.util;
 
 import iqq.api.bean.content.IMContentItem;
-import iqq.api.bean.content.IMContentType;
 import iqq.api.bean.content.IMTextItem;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.impl.ResourceServiceImpl;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static iqq.api.bean.content.IMContentType.TEXT;
 
 /**
  * Project  : iqq-projects
@@ -38,8 +35,7 @@ public class UIUtils {
         }
 
         public static ImageIcon getDefaultAvatar() {
-            return IMContext.me().getIoc()
-                    .get(ResourceServiceImpl.class).getIcon("icons/default/qq_icon.png");
+            return IMContext.getBean(ResourceServiceImpl.class).getIcon("icons/default/qq_icon.png");
         }
 
         public static List<UIRichItem> toRichItem(List<IMContentItem> items) {

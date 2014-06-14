@@ -1,7 +1,5 @@
 package iqq.api.event;
 
-import iqq.api.event.IMEvent;
-
 /**
  * IM事件监听器
  */

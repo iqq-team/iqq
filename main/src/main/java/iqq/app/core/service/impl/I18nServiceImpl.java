@@ -1,9 +1,9 @@
 package iqq.app.core.service.impl;
 
 import iqq.app.core.service.I18nService;
-import org.nutz.ioc.loader.annotation.IocBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.text.MessageFormat;
@@ -17,7 +17,7 @@ import java.util.*;
  * Created  : 14-4-17
  * License  : Apache License 2.0
  */
-@IocBean
+@Service
 public class I18nServiceImpl implements I18nService {
     private static final Logger LOG = LoggerFactory.getLogger(I18nServiceImpl.class);
 
