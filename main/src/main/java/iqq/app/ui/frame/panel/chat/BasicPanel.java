@@ -18,7 +18,6 @@ import iqq.app.ui.frame.panel.chat.msg.MsgGroupPanel;
 import iqq.app.ui.frame.panel.chat.msg.MsgPane;
 import iqq.app.ui.frame.panel.chat.rich.RichTextPane;
 import iqq.app.ui.frame.panel.chat.rich.UIRichItem;
-import iqq.app.ui.frame.panel.chat.rich.UITextItem;
 import iqq.app.util.UIUtils;
 
 import javax.swing.*;
@@ -27,7 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
-import java.util.*;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -217,7 +216,7 @@ public abstract class BasicPanel extends IMPanel {
     }
 
     public void update() {
-        ImageIcon icon = UIUtils.Bean.byteToIcon(entity.getAvatar(), 40, 40);
+        ImageIcon icon = new ImageIcon(entity.getAvatar());
         avatarImage.setIcon(icon);
         nickLabel.setText(entity.getNick());
         signLabel.setText(entity.getSign());

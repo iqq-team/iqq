@@ -11,7 +11,7 @@ import java.util.List;
  * License  : Apache License 2.0
  */
 public class IMBuddyCategory extends IMCategory implements Serializable {
-    private List<IMBuddy> buddyList;
+    private List<IMBuddy> buddyList = new LinkedList<IMBuddy>();
 
     public List<IMBuddy> getBuddyList() {
         return buddyList;

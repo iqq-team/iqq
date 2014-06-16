@@ -6,10 +6,11 @@ import com.alee.extended.panel.GroupPanel;
 import com.alee.laf.label.WebLabel;
 import iqq.api.bean.IMBuddy;
 import iqq.app.ui.IMPanel;
-import iqq.app.util.UIUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * 好友显示节点
@@ -23,7 +24,7 @@ public class BuddyNode extends EntityNode {
     private IMBuddy buddy;
     private IMPanel view = new IMPanel();
     // 头像
-    private byte[] avatar = {0};
+    private BufferedImage avatar;
     private WebDecoratedImage avatarImage;
     // 昵称
     WebLabel nickLbl;
@@ -67,15 +68,15 @@ public class BuddyNode extends EntityNode {
      * @return
      */
     public IMPanel getView() {
-        if(!avatar.equals(buddy.getAvatar())) {
+        if(avatar == null || !avatar.equals(buddy.getAvatar())) {
             avatar = buddy.getAvatar();
-            ImageIcon icon = UIUtils.Bean.byteToIcon(avatar, 40, 40);
+            ImageIcon icon = new ImageIcon(buddy.getAvatar());
             avatarImage.setIcon(icon);
         }
-        if(!nickLbl.getText().equals(buddy.getNick())) {
+        if(!StringUtils.equals(nickLbl.getText(), buddy.getNick())) {
             nickLbl.setText(buddy.getNick());
         }
-        if(!signLbl.getText().equals(buddy.getSign())) {
+        if(!StringUtils.equals(signLbl.getText(), buddy.getSign())) {
             signLbl.setText(buddy.getSign());
         }
         return view;

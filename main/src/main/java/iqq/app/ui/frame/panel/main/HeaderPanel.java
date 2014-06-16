@@ -26,6 +26,9 @@ import java.awt.event.ActionListener;
  */
 public class HeaderPanel extends IMPanel {
     private MainFrame frame;
+    WebDecoratedImage avatar;
+    WebLabel nickLbl;
+    WebLabel sigLbl;
     public HeaderPanel(MainFrame frame) {
         super();
         this.frame = frame;
@@ -55,7 +58,7 @@ public class HeaderPanel extends IMPanel {
 
         IMPanel headerInfo = new IMPanel();
         // 头像
-        WebDecoratedImage avatar = new WebDecoratedImage(
+        avatar = new WebDecoratedImage(
                 frame.getResourceService().getIcon("icons/login/face.jpg", 50, 50) );
         avatar.setRound(5);
         avatar.setShadeWidth(1);
@@ -66,8 +69,8 @@ public class HeaderPanel extends IMPanel {
         this.add(headerInfo, BorderLayout.CENTER);
 
         // 信息
-        WebLabel nickLbl = new WebLabel("承∮诺");
-        WebLabel sigLbl = new WebLabel("IQQ v3 版本，正在开发中...");
+        nickLbl = new WebLabel("承∮诺");
+        sigLbl = new WebLabel("IQQ v3 版本，正在开发中...");
         nickLbl.setForeground(Color.decode("#000000"));
         nickLbl.setDrawShade(true);
         nickLbl.setShadeColor(Color.lightGray);
@@ -99,5 +102,17 @@ public class HeaderPanel extends IMPanel {
     public void installSkin(SkinService skinService) {
         // 背景
         this.setPainter(skinService.getPainterByKey("skin/background"));
+    }
+
+    public void updateSelfFace(Image face) {
+         avatar.setImage(face);
+    }
+
+    public void updateSelfSign(String sign){
+        sigLbl.setText(sign);
+    }
+
+    public void updateSelfNick(String nick){
+        nickLbl.setText(nick);
     }
 }

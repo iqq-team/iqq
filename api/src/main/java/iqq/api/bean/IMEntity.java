@@ -1,5 +1,6 @@
 package iqq.api.bean;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
@@ -13,7 +14,7 @@ public class IMEntity implements Serializable{
     private long id;
     private String nick;
     private String sign;
-    private byte[] avatar;
+    private BufferedImage avatar;
 
     public long getId() {
         return id;
@@ -39,11 +40,11 @@ public class IMEntity implements Serializable{
         this.sign = sign;
     }
 
-    public byte[] getAvatar() {
+    public BufferedImage getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(BufferedImage avatar) {
         this.avatar = avatar;
     }
 }

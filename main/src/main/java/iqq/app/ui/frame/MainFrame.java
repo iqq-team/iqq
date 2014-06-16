@@ -1,10 +1,18 @@
 package iqq.app.ui.frame;
 
+
+import iqq.api.bean.IMBuddyCategory;
+import iqq.api.bean.IMUser;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
+import iqq.app.ui.event.UIEvent;
+import iqq.app.ui.event.UIEventHandler;
+import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.frame.panel.main.MainPane;
 
 import java.awt.*;
+import java.util.List;
+
 
 /**
  * 主界面，分为上/中/下的内容面板
@@ -49,6 +57,35 @@ public class MainFrame extends IMFrame {
         super.installSkin(skinService);
         this.contentPane.installSkin(skinService);
         setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
+    }
+
+    @UIEventHandler(UIEventType.SELF_FACE_UPDATE)
+    public void processSelfFaceUpdate(UIEvent uiEvent){
+        contentPane.getHeaderPanel().updateSelfFace((Image) uiEvent.getTarget());
+    }
+
+    @UIEventHandler(UIEventType.SELF_INFO_UPDATE)
+    public void processSelfInfoUpdate(UIEvent uiEvent){
+        IMUser user = (IMUser) uiEvent.getTarget();
+        contentPane.getHeaderPanel().updateSelfNick(user.getNick());
+    }
+
+    @UIEventHandler(UIEventType.SELF_SIGN_UPDATE)
+    public void processSelfSignUpdate(UIEvent uiEvent){
+        IMUser user = (IMUser) uiEvent.getTarget();
+        contentPane.getHeaderPanel().updateSelfSign(user.getSign());
+    }
+
+    @UIEventHandler(UIEventType.BUDDY_LIST_UPDATE)
+    public void processBuddyUpdate(UIEvent uiEvent){
+        List<IMBuddyCategory> imCategories = (List<IMBuddyCategory>) uiEvent.getTarget();
+        contentPane.getMiddlePanel().updateBuddyList(imCategories);
+    }
+
+    @UIEventHandler(UIEventType.USER_FACE_UPDATE)
+    public void processUserFaceUpdate(UIEvent uiEvent){
+        IMUser imUser = (IMUser) uiEvent.getTarget();
+        contentPane.getMiddlePanel().updateUserFace(imUser);
     }
 
 }

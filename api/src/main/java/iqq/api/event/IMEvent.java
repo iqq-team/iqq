@@ -61,4 +61,11 @@ public class IMEvent extends EventBase implements Serializable{
     public void setType(IMEventType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "IMEvent{" +
+                "type=" + type +
+                '}';
+    }
 }

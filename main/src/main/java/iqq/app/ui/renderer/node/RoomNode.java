@@ -2,9 +2,9 @@ package iqq.app.ui.renderer.node;
 
 import com.alee.laf.label.WebLabel;
 import iqq.api.bean.IMRoom;
-import iqq.app.util.UIUtils;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 /**
  * 聊天室显示节点
@@ -16,7 +16,7 @@ import javax.swing.*;
  */
 public class RoomNode extends EntityNode {
     private IMRoom room;
-    private byte[] avatar = {0};
+    private BufferedImage avatar;
     private WebLabel view = new WebLabel();
 
     public RoomNode(IMRoom room) {
@@ -47,9 +47,9 @@ public class RoomNode extends EntityNode {
         if(!view.getText().equals(room.getNick())) {
             view.setText(room.getNick());
         }
-        if(!avatar.equals(room.getAvatar())) {
+        if(avatar == null || !avatar.equals(room.getAvatar())) {
             avatar = room.getAvatar();
-            ImageIcon icon = UIUtils.Bean.byteToIcon(avatar, iconWidth, iconHeight);
+            ImageIcon icon = new ImageIcon(avatar);
             view.setIcon(icon);
 
         }

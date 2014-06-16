@@ -2,7 +2,6 @@ package iqq.app.ui.frame.panel.main;
 
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMContentPane;
-import iqq.app.ui.IMPanel;
 import iqq.app.ui.frame.MainFrame;
 
 import java.awt.*;
@@ -16,9 +15,9 @@ import java.awt.*;
 public class MainPane extends IMContentPane {
 
     private MainFrame frame;
-    private IMPanel headerPanel;
-    private IMPanel middlePanel;
-    private IMPanel footerPanel;
+    private HeaderPanel headerPanel;
+    private MiddlePanel middlePanel;
+    private FooterPanel footerPanel;
 
     public MainPane(MainFrame mainFrame) {
         frame = mainFrame;
@@ -39,5 +38,29 @@ public class MainPane extends IMContentPane {
         headerPanel.installSkin(skinService);
         middlePanel.installSkin(skinService);
         footerPanel.installSkin(skinService);
+    }
+
+    public HeaderPanel getHeaderPanel() {
+        return headerPanel;
+    }
+
+    public void setHeaderPanel(HeaderPanel headerPanel) {
+        this.headerPanel = headerPanel;
+    }
+
+    public MiddlePanel getMiddlePanel() {
+        return middlePanel;
+    }
+
+    public void setMiddlePanel(MiddlePanel middlePanel) {
+        this.middlePanel = middlePanel;
+    }
+
+    public FooterPanel getFooterPanel() {
+        return footerPanel;
+    }
+
+    public void setFooterPanel(FooterPanel footerPanel) {
+        this.footerPanel = footerPanel;
     }
 }

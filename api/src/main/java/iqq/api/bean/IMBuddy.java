@@ -8,4 +8,13 @@ package iqq.api.bean;
  * To change this template use File | Settings | File Templates.
  */
 public class IMBuddy extends IMUser {
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

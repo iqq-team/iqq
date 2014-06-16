@@ -9,7 +9,6 @@ import iqq.app.ui.frame.panel.chat.ChatPane;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import iqq.app.ui.manager.ChatManager;
-import iqq.app.util.UIUtils;
 import org.sexydock.tabs.ITabCloseButtonListener;
 import org.sexydock.tabs.jhrome.JhromeTabbedPaneUI;
 import org.slf4j.Logger;
@@ -98,14 +97,14 @@ public class ChatFrame extends IMFrame {
     }
 
     public void addBuddyPane(IMBuddy buddy, UserPanel entityPanel) {
-        ImageIcon avatar = UIUtils.Bean.byteToIcon(buddy.getAvatar(), 16, 16);
+        ImageIcon avatar = new ImageIcon(buddy.getAvatar());
         tabbedPane.addTab(buddy.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", buddy.getNick()));
     }
 
     public void addRoomPane(IMRoom room, RoomPanel entityPanel) {
-        ImageIcon avatar = UIUtils.Bean.byteToIcon(room.getAvatar(), 16, 16);
+        ImageIcon avatar =new ImageIcon(room.getAvatar());
         tabbedPane.addTab(room.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", room.getNick()));

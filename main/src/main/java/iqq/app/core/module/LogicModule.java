@@ -18,6 +18,7 @@ package iqq.app.core.module;
 
 import iqq.api.annotation.IMEventHandler;
 import iqq.api.bean.IMBuddy;
+import iqq.api.bean.IMUser;
 import iqq.api.bridge.IMApp;
 import iqq.api.bridge.IMBridge;
 import iqq.api.event.IMEvent;
@@ -104,4 +105,31 @@ public class LogicModule  extends IMEventDispatcher implements BuddyQuery, Group
     protected void processNeedVerify(IMEvent imEvent){
         eventService.broadcast(new UIEvent(UIEventType.IMAGE_VERIFY_NEED, imEvent.getTarget()));
     }
+
+    @IMEventHandler(IMEventType.SELF_FACE_UPDATE)
+    protected void processSelfFaceUpdate(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.SELF_FACE_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.SELF_INFO_UPDATE)
+    protected void processSelfInfoUpdate(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.SELF_INFO_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.SELF_SIGN_UPDATE)
+    protected void processSelfSignUpdate(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.SELF_SIGN_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.BUDDY_LIST_UPDATE)
+    protected void processBuddyListUpdate(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.BUDDY_LIST_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.USER_FACE_UPDATE)
+    protected void processUserFaceUpdate(IMEvent imEvent){
+        eventService.broadcast(new UIEvent(UIEventType.USER_FACE_UPDATE, imEvent.getTarget()));
+    }
+
+
 }

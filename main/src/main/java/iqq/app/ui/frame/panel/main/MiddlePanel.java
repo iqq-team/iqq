@@ -18,15 +18,17 @@ import iqq.app.ui.renderer.node.CategoryNode;
 import iqq.app.ui.renderer.node.EntityNode;
 import iqq.app.ui.renderer.node.RoomNode;
 
+import javax.imageio.ImageIO;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.List;
 
 /**
  * 主界面，主要是包含了一个Tab控件
@@ -97,8 +99,7 @@ public class MiddlePanel extends IMPanel {
             buddy.setSign("sing..." + j++);
             try {
                 File file = frame.getResourceService().getFile("icons/login/avatar2.png");
-                byte[] b = Files.readAllBytes(file.toPath());
-                buddy.setAvatar(b);
+                buddy.setAvatar(ImageIO.read(file));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -113,8 +114,7 @@ public class MiddlePanel extends IMPanel {
             room.setNick("Room-" + k++);
             try {
                 File file = frame.getResourceService().getFile("icons/login/group.png");
-                byte[] b = Files.readAllBytes(file.toPath());
-                room.setAvatar(b);
+                room.setAvatar(ImageIO.read(file));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -159,8 +159,7 @@ public class MiddlePanel extends IMPanel {
                 room.setNick("Room-" + j++);
                 try {
                     File file = frame.getResourceService().getFile("icons/login/group.png");
-                    byte[] b = Files.readAllBytes(file.toPath());
-                    room.setAvatar(b);
+                    room.setAvatar(ImageIO.read(file));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -207,8 +206,7 @@ public class MiddlePanel extends IMPanel {
                 buddy.setSign("sing..." + j++);
                 try {
                     File file = frame.getResourceService().getFile("icons/login/avatar2.png");
-                    byte[] b = Files.readAllBytes(file.toPath());
-                    buddy.setAvatar(b);
+                    buddy.setAvatar(ImageIO.read(file));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -264,6 +262,53 @@ public class MiddlePanel extends IMPanel {
         //groupPanel.setPainter(skinService.getPainterByKey("skin/background"));
         //recentPanel.setPainter(skinService.getPainterByKey("skin/background"));
 
+    }
+
+    public void updateBuddyList(List<IMBuddyCategory> imCategories) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+        BufferedImage defaultAvatar = getDefaultAvatar();
+        for(IMBuddyCategory cate : imCategories) {
+            CategoryNode cateNode = new CategoryNode(cate);
+            for(IMBuddy buddy : cate.getBuddyList()) {
+                if(buddy.getAvatar() == null){
+                   buddy.setAvatar(defaultAvatar);
+                }
+                cateNode.add(new BuddyNode(buddy));
+            }
+            root.add(cateNode);
+        }
+
+        DefaultTreeModel buddyModel = new DefaultTreeModel(root);
+        contactsTree.setModel(buddyModel);
+    }
+
+    public void updateUserFace(IMUser imUser){
+        DefaultTreeModel model = (DefaultTreeModel) contactsTree.getModel();
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+       for(int i =0; i<root.getChildCount(); i++){
+           CategoryNode categoryNode = (CategoryNode) root.getChildAt(i);
+           for(int j=0; j<categoryNode.getChildCount(); j++){
+               BuddyNode buddyNode = (BuddyNode) categoryNode.getChildAt(j);
+               if(buddyNode.getBuddy().getId() == imUser.getId()){
+                   buddyNode.getBuddy().setAvatar(imUser.getAvatar());
+                   model.reload(buddyNode);
+               }
+           }
+       }
+    }
+
+
+
+    private BufferedImage getDefaultAvatar(){
+        try {
+            File file = frame.getResourceService().getFile("icons/login/avatar2.png");
+            return ImageIO.read(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
