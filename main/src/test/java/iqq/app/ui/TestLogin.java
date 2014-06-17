@@ -2,6 +2,7 @@ package iqq.app.ui;
 
 import com.alee.laf.WebLookAndFeel;
 import iqq.app.ui.frame.LoginFrame;
+import iqq.app.ui.frame.VerifyFrame;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,13 @@ public class TestLogin {
     @Test
     public void testLoginBg() {
         LoginFrame login = new LoginFrame();
+        new Scanner(System.in).next();
+    }
+
+    @Test
+    public void testVerification() {
+        VerifyFrame ver = new VerifyFrame();
+        ver.setVisible(true);
         new Scanner(System.in).next();
     }
 }

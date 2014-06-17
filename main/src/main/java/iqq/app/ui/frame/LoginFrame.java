@@ -88,6 +88,7 @@ public class LoginFrame extends IMFrame {
 
     @UIEventHandler(UIEventType.IMAGE_VERIFY_NEED)
     public void processNeedVerify(UIEvent uiEvent){
+        new VerifyFrame().setVisible(true);
         WebOptionPane.showMessageDialog(contentWrap, "需要验证", "提示", WebOptionPane.INFORMATION_MESSAGE);
     }
 
