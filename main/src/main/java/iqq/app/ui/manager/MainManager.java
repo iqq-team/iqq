@@ -1,6 +1,8 @@
 package iqq.app.ui.manager;
 
 import iqq.app.ui.frame.MainFrame;
+import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,13 +16,14 @@ import java.awt.event.WindowStateListener;
  * Created  : 14-5-12
  * License  : Apache License 2.0
  */
+@Component
 public class MainManager {
-    private static SystemTray tray;
-    private static TrayIcon icon;
-    private static MainFrame mainFrame;
+    private SystemTray tray;
+    private TrayIcon icon;
+    private MainFrame mainFrame;
 
-    public static void show() {
-        if(mainFrame == null) {
+    public void show() {
+        if (mainFrame == null) {
             mainFrame = new MainFrame();
             mainFrame.setVisible(true);
             mainFrame.addWindowStateListener(new WindowStateListener() {
@@ -32,15 +35,15 @@ public class MainManager {
                 }
             });
         }
-        if(!mainFrame.isVisible()) mainFrame.setVisible(true);
+        if (!mainFrame.isVisible()) mainFrame.setVisible(true);
     }
 
-    public static void hide() {
+    public void hide() {
         mainFrame.dispose();
     }
 
-    public static void enableTray() {
-        if(SystemTray.isSupported()) {
+    public void enableTray() {
+        if (SystemTray.isSupported()) {
 
             PopupMenu pop = new PopupMenu();
             MenuItem restore = new MenuItem("Restore");

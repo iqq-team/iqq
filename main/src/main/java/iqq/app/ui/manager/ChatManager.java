@@ -10,6 +10,7 @@ import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,12 +23,13 @@ import java.util.Map;
  * Created  : 14-5-12
  * License  : Apache License 2.0
  */
+@Component
 public class ChatManager {
-    private static final Logger LOG = LoggerFactory.getLogger(ChatManager.class);
-    private static ChatFrame chatFrame;
-    private static Map<IMEntity, BasicPanel> entityMap;
+    private final Logger LOG = LoggerFactory.getLogger(ChatManager.class);
+    private ChatFrame chatFrame;
+    private Map<IMEntity, BasicPanel> entityMap;
 
-    public static void addChat(IMEntity entity) {
+    public void addChat(IMEntity entity) {
         if(chatFrame == null) {
             chatFrame = new ChatFrame();
             entityMap = new HashMap<IMEntity, BasicPanel>();
@@ -62,14 +64,14 @@ public class ChatManager {
      *
      * @param entity
      */
-    public static void removeChat(IMEntity entity) {
+    public void removeChat(IMEntity entity) {
         entityMap.remove(entity);
     }
 
     /**
      * 对话窗口已经关闭，进行清除处理
      */
-    public static void clearChats() {
+    public void clearChats() {
         entityMap.clear();
     }
 

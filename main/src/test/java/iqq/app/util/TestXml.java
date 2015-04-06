@@ -19,7 +19,7 @@ public class TestXml {
 
     @Test
     public void testWrite() {
-        String xmlFile = System.getProperty("user.dir") + "/abc.xml";
+        String xmlFile = System.getProperty("user.dir") + "/config.xml";
         Document doc = DocumentHelper.createDocument();
 
         Element root = doc.addElement("roots");
@@ -38,7 +38,7 @@ public class TestXml {
 
     @Test
     public void testRead() {
-        String xmlFile = System.getProperty("user.dir") + "/abc.xml";
+        String xmlFile = System.getProperty("user.dir") + "/config.xml";
         try {
             String text = XmlUtils.getNodeText(xmlFile, "iqq/version");
             System.out.println(text);

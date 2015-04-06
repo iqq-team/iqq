@@ -14,7 +14,7 @@ import iqq.app.ui.skin.Skin;
 /**
  * IM窗口抽象类，带阴影背景
  * 实现了皮肤接口
- *
+ * <p/>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-4-15
@@ -42,22 +42,23 @@ public abstract class IMFrame extends WebFrame implements Skin {
 
         // 去了默认边框
         setUndecorated(true);
-        getRootPane().setDoubleBuffered(true);
         setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
+        getRootPane().setDoubleBuffered(true);
         // 把窗口设置为透明
         AWTUtilities.setWindowOpaque(this, false);
 
         UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
         eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
-
     }
 
     /**
      * 设置窗口内容面板
+     *
      * @param contentPane
      */
     public void setIMContentPane(IMContentPane contentPane) {
         // 设置一个边框
+        contentPane.setOpaque(false);
         contentPane.setMargin(0, 2, 2, 2);
         contentWrap.add(contentPane);
     }
@@ -73,19 +74,21 @@ public abstract class IMFrame extends WebFrame implements Skin {
     }
 
     @Override
-    @Deprecated
     public void show() {
+        SkinManager skinManager = IMContext.getBean(SkinManager.class);
         // 注册皮肤管理
-        SkinManager.register(this);
+        skinManager.register(this);
         installSkin(getSkinService());
+
         super.show();
     }
 
     @Override
-    @Deprecated
     public void hide() {
+        SkinManager skinManager = IMContext.getBean(SkinManager.class);
         // 取消注册皮肤管理
-        SkinManager.unregister(this);
+        skinManager.unregister(this);
+
         super.hide();
     }
 

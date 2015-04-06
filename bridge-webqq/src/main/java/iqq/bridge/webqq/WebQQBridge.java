@@ -53,89 +53,90 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
     private boolean groupListFetched;
     private boolean discuzListFetched;
     private boolean pollMsgStarted;
+
     @Override
     public void setApp(IMApp imApp) {
         this.imApp = imApp;
     }
 
-   @IMEventHandler(IMEventType.LOGIN_REQUEST)
-    private void processLoginRequestEvent(IMEvent imEvent){
-       LoginRequest login = (LoginRequest) imEvent.getTarget();
+    @IMEventHandler(IMEventType.LOGIN_REQUEST)
+    private void processLoginRequestEvent(IMEvent imEvent) {
+        if (client != null) {
+            client.destroy();
+        }
 
-       buddyListFetched = false;
-       groupListFetched = false;
-       discuzListFetched = false;
-       pollMsgStarted = false;
+        buddyListFetched = false;
+        groupListFetched = false;
+        discuzListFetched = false;
+        pollMsgStarted = false;
 
-       if(client != null){
-           client.destroy();
-       }
+        LoginRequest loginRequest = (LoginRequest) imEvent.getTarget();
 
-       LoginRequest loginRequest = (LoginRequest) imEvent.getTarget();
+        client = new WebQQClient(
+                loginRequest.getUsername(),
+                loginRequest.getPassword(),
+                new QQNotifyHandlerProxy(this),
+                new SwingActorDispatcher());
+        //client.setHttpUserAgent("IQQ App/2.1 dev");
+        String ua = "Mozilla/5.0 (@os.name; @os.version; @os.arch) AppleWebKit/537.36 (KHTML, like Gecko) IQQ App-dev/2.1 Safari/537.36";
+        ua = ua.replaceAll("@os.name", System.getProperty("os.name"));
+        ua = ua.replaceAll("@os.version", System.getProperty("os.version"));
+        ua = ua.replaceAll("@os.arch", System.getProperty("os.arch"));
+        client.setHttpUserAgent(ua);
+        loginFuture = client.login(
+                QQStatus.valueOf(loginRequest.getStatus().name()),
+                new QQActionListener() {
+                    public void onActionEvent(QQActionEvent event) {
+                        switch (event.getType()) {
+                            case EVT_OK: {
 
-       client = new WebQQClient(
-               loginRequest.getUsername(),
-               loginRequest.getPassword(),
-               new QQNotifyHandlerProxy(this),
-               new SwingActorDispatcher());
-       //client.setHttpUserAgent("IQQ App/2.1 dev");
-       String ua = "Mozilla/5.0 (@os.name; @os.version; @os.arch) AppleWebKit/537.36 (KHTML, like Gecko) IQQ App-dev/2.1 Safari/537.36";
-       ua = ua.replaceAll("@os.name", System.getProperty("os.name"));
-       ua = ua.replaceAll("@os.version", System.getProperty("os.version"));
-       ua = ua.replaceAll("@os.arch", System.getProperty("os.arch"));
-       client.setHttpUserAgent(ua);
-       loginFuture = client.login(
-               QQStatus.valueOf(loginRequest.getStatus().name()),
-               new QQActionListener() {
-                   public void onActionEvent(QQActionEvent event) {
-                       switch(event.getType()){
-                           case EVT_OK:{
+                                broadcastIMEvent(new IMEvent(IMEventType.LOGIN_SUCCESS, client.getAccount()));
+                                broadcastIMEvent(IMEventType.CLIENT_ONLINE, client.getAccount());
 
-                               broadcastIMEvent(new IMEvent(IMEventType.LOGIN_SUCCESS, client.getAccount()));
-                               broadcastIMEvent(IMEventType.CLIENT_ONLINE, client.getAccount());
+                                doGetBuddyList();
+                                doGetGroupList();
+                                doGetDiscuzList();
+                                doGetSelfFace();
+                                doGetSelfInfo();
+                                doGetSelfSign();
+                            }
+                            break;
+                            case EVT_ERROR: {
+                                //登录失败
+                                QQException exc = (QQException) event.getTarget();
+                                IMEvent imEvent = new IMEvent(IMEventType.LOGIN_ERROR);
+                                imEvent.setTarget(exc);
+                                imEvent.putData("reason", exc.getMessage()); //TODO ..转换为友好的字符串
+                                broadcastIMEvent(imEvent);
+                                LOG.warn("Login Error!!", exc);
+                            }
+                            break;
 
-                               doGetBuddyList();
-                               doGetGroupList();
-                               doGetDiscuzList();
-                               doGetSelfFace();
-                               doGetSelfInfo();
-                               doGetSelfSign();
-                           } break;
-                           case EVT_ERROR:{
-                               //登录失败
-                               QQException exc = (QQException) event.getTarget();
-                               IMEvent imEvent = new IMEvent(IMEventType.LOGIN_ERROR);
-                               imEvent.setTarget(exc);
-                               imEvent.putData("reason", exc.getMessage()); //TODO ..转换为友好的字符串
-                               broadcastIMEvent(imEvent);
-                               LOG.warn("Login Error!!", exc);
-                           } break;
-
-                           case EVT_CANCELED: {
-                               //取消登录
-                               IMEvent imEvent = new IMEvent(IMEventType.LOGIN_CANCELED);
-                               broadcastIMEvent(imEvent);
-                               LOG.warn("Login canceled!!!!!!");
-                           } break;
-                       }
-                   }
-               });
+                            case EVT_CANCELED: {
+                                //取消登录
+                                IMEvent imEvent = new IMEvent(IMEventType.LOGIN_CANCELED);
+                                broadcastIMEvent(imEvent);
+                                LOG.warn("Login canceled!!!!!!");
+                            }
+                            break;
+                        }
+                    }
+                });
     }
 
 
-
-    private void doGetBuddyList(){
+    private void doGetBuddyList() {
         client.getBuddyList(new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
                 switch (event.getType()) {
                     case EVT_OK: {
                         List<QQCategory> qqCategories = (List<QQCategory>) event.getTarget();
                         List<IMBuddyCategory> imCategories = new LinkedList<IMBuddyCategory>();
-                        for(QQCategory qqCategory: qqCategories) {
+                        for (QQCategory qqCategory : qqCategories) {
                             IMBuddyCategory imCategory = new IMBuddyCategory();
                             imCategory.setName(qqCategory.getName());
-                            for(QQBuddy qqBuddy: qqCategory.getBuddyList()) {
-                                 IMBuddy imBuddy = new IMBuddy();
+                            for (QQBuddy qqBuddy : qqCategory.getBuddyList()) {
+                                IMBuddy imBuddy = new IMBuddy();
                                 imBuddy.setId(qqBuddy.getUin());
                                 imBuddy.setNick(qqBuddy.getNickname());
                                 imBuddy.setSign(qqBuddy.getSign());
@@ -165,7 +166,7 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doGetGroupList(){
+    private void doGetGroupList() {
         client.getGroupList(new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
                 switch (event.getType()) {
@@ -186,11 +187,11 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doGetDiscuzList(){
+    private void doGetDiscuzList() {
         client.getDiscuzList(new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
-                switch(event.getType()){
-                    case EVT_OK:{
+                switch (event.getType()) {
+                    case EVT_OK: {
                         IMEvent imEvent = new IMEvent(IMEventType.DISCUZ_LIST_UPDATE);
                         imEvent.setTarget(event.getTarget());
                         broadcastIMEvent(imEvent);
@@ -199,28 +200,30 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
 
                         discuzListFetched = true;
                         doTryGetRecentListAndPollMsg();
-                    } break;
+                    }
+                    break;
                 }
             }
         });
     }
 
     private void doGetAllDiscuzInfo() {
-        for(final QQDiscuz discuz : client.getDiscuzList()) {
+        for (final QQDiscuz discuz : client.getDiscuzList()) {
             client.getDiscuzInfo(discuz, new QQActionListener() {
 
                 @Override
                 public void onActionEvent(QQActionEvent event) {
-                    switch(event.getType()){
-                        case EVT_OK:{
+                    switch (event.getType()) {
+                        case EVT_OK: {
                             //TODO ..
                             IMEvent imEvent = new IMEvent(IMEventType.DISCUZ_INFO_UPDATE);
                             imEvent.setTarget(discuz);
                             broadcastIMEvent(imEvent);
-                        } break;
-                        case EVT_ERROR:{
+                        }
+                        break;
+                        case EVT_ERROR: {
                             //TODO ..
-                            LOG.error("", (QQException)event.getTarget());
+                            LOG.error("", (QQException) event.getTarget());
                         }
                     }
                 }
@@ -228,7 +231,7 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         }
     }
 
-    private void doGetOnlineBuddy(){
+    private void doGetOnlineBuddy() {
         client.getOnlineList(new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
                 switch (event.getType()) {
@@ -245,10 +248,10 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doFindAllBuddyInfoFromCache(List<IMBuddyCategory> imCategories){
+    private void doFindAllBuddyInfoFromCache(List<IMBuddyCategory> imCategories) {
         //broadcastIMEvent(new IMEvent(IMEventType.USER_CACHE_BATCH_FIND, client.getBuddyList()));
-        for(IMBuddyCategory category: imCategories){
-            for(IMBuddy buddy: category.getBuddyList()){
+        for (IMBuddyCategory category : imCategories) {
+            for (IMBuddy buddy : category.getBuddyList()) {
                 IMEvent imEvent = new IMEvent(IMEventType.USER_FACE_REQUEST);
                 imEvent.setTarget(buddy);
                 processUserFaceRuquest(imEvent);
@@ -257,8 +260,8 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
 
     }
 
-    private void doTryGetRecentListAndPollMsg(){
-        if(buddyListFetched && groupListFetched && discuzListFetched && !pollMsgStarted){
+    private void doTryGetRecentListAndPollMsg() {
+        if (buddyListFetched && groupListFetched && discuzListFetched && !pollMsgStarted) {
             pollMsgStarted = true;
             //好友列表，群列表，讨论组列表获取完后，就可以开始poll消息
             client.beginPollMsg();
@@ -266,11 +269,12 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
             //获取最近联系人列表
             client.getRecentList(new QQActionListener() {
                 public void onActionEvent(QQActionEvent event) {
-                    switch(event.getType()){
-                        case EVT_OK:{
+                    switch (event.getType()) {
+                        case EVT_OK: {
                             broadcastIMEvent(new IMEvent(IMEventType.RECENT_LIST_UPDATE, event.getTarget()));
-                        } break;
-                        case EVT_ERROR:{
+                        }
+                        break;
+                        case EVT_ERROR: {
                             //TODO ..
                         }
                     }
@@ -280,17 +284,18 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         }
     }
 
-    private void doGetAllGroupFace(){
-        for(final QQGroup group: client.getGroupList()){
+    private void doGetAllGroupFace() {
+        for (final QQGroup group : client.getGroupList()) {
             client.getGroupFace(group, new QQActionListener() {
                 public void onActionEvent(QQActionEvent event) {
-                    switch(event.getType()){
-                        case EVT_OK:{
+                    switch (event.getType()) {
+                        case EVT_OK: {
                             IMEvent imEvent = new IMEvent(IMEventType.GROUP_FACE_UPDATE);
                             imEvent.setTarget(group);
                             broadcastIMEvent(imEvent);
-                        } break;
-                        case EVT_ERROR:{
+                        }
+                        break;
+                        case EVT_ERROR: {
                             //TODO ...
                         }
                     }
@@ -300,7 +305,7 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         }
     }
 
-    private void doGetSelfSign(){
+    private void doGetSelfSign() {
         final QQAccount account = client.getAccount();
         client.getUserSign(account, new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
@@ -321,7 +326,7 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doGetSelfFace(){
+    private void doGetSelfFace() {
         final QQAccount account = client.getAccount();
         client.getUserFace(account, new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
@@ -340,20 +345,21 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doGetSelfInfo(){
+    private void doGetSelfInfo() {
         final QQAccount account = client.getAccount();
         client.getUserInfo(account, new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
-                switch(event.getType()){
-                    case EVT_OK:{
+                switch (event.getType()) {
+                    case EVT_OK: {
                         IMEvent imEvent = new IMEvent(IMEventType.SELF_INFO_UPDATE);
                         IMUser imUser = new IMUser();
                         imUser.setNick(account.getNickname());
                         imUser.setSign(account.getSign());
                         imEvent.setTarget(imUser);
                         broadcastIMEvent(imEvent);
-                    } break;
-                    case EVT_ERROR:{
+                    }
+                    break;
+                    case EVT_ERROR: {
                         LOG.warn("doGetSelfInfo Error!", (QQException) event.getTarget());
                     }
                 }
@@ -361,17 +367,18 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    private void doGetAllGroupInfo(){
-        for(final QQGroup group: client.getGroupList()){
+    private void doGetAllGroupInfo() {
+        for (final QQGroup group : client.getGroupList()) {
             client.getGroupInfo(group, new QQActionListener() {
                 public void onActionEvent(QQActionEvent event) {
-                    switch(event.getType()){
-                        case EVT_OK:{
+                    switch (event.getType()) {
+                        case EVT_OK: {
                             IMEvent imEvent = new IMEvent(IMEventType.GROUP_INFO_UPDATE);
                             imEvent.setTarget(group);
                             broadcastIMEvent(imEvent);
-                        } break;
-                        case EVT_ERROR:{
+                        }
+                        break;
+                        case EVT_ERROR: {
                             QQException.QQErrorCode ex = (QQException.QQErrorCode) event.getTarget();
                             LOG.warn("getGroupInfo Error! " + ex);
                             //TODO ...
@@ -383,7 +390,7 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
     }
 
     @QQNotifyHandler(QQNotifyEvent.Type.CAPACHA_VERIFY)
-    protected void processQQNotifyCaptchaVerify(QQNotifyEvent event){
+    protected void processQQNotifyCaptchaVerify(QQNotifyEvent event) {
         IMEvent imEvent = new IMEvent(IMEventType.IMAGE_VERIFY_NEED);
         QQNotifyEventArgs.ImageVerify verify = (
                 QQNotifyEventArgs.ImageVerify) event.getTarget();
@@ -395,21 +402,22 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
 
 
     @IMEventHandler(IMEventType.USER_FACE_REQUEST)
-    protected void processUserFaceRuquest(IMEvent event){
+    protected void processUserFaceRuquest(IMEvent event) {
         final IMUser user = (IMUser) event.getTarget();
         final QQUser qqUser = client.getStore().searchUserByUin(user.getId());
         client.getUserFace(qqUser, new QQActionListener() {
             public void onActionEvent(QQActionEvent event) {
-                switch(event.getType()){
-                    case EVT_OK:{
+                switch (event.getType()) {
+                    case EVT_OK: {
                         IMEvent imEvent = new IMEvent(IMEventType.USER_FACE_UPDATE);
                         IMUser imUser = new IMUser();
                         imUser.setId(qqUser.getUin());
                         imUser.setAvatar(qqUser.getFace());
                         imEvent.setTarget(imUser);
                         broadcastIMEvent(imEvent);
-                    } break;
-                    case EVT_ERROR:{
+                    }
+                    break;
+                    case EVT_ERROR: {
                         //TODO ...
                     }
                 }
@@ -418,11 +426,11 @@ public class WebQQBridge extends IMEventDispatcher implements IMBridge {
         });
     }
 
-    protected void broadcastIMEvent(IMEvent event){
+    protected void broadcastIMEvent(IMEvent event) {
         imApp.onIMEvent(event);
     }
 
-    protected void broadcastIMEvent(IMEventType type, Object target){
+    protected void broadcastIMEvent(IMEventType type, Object target) {
         imApp.onIMEvent(new IMEvent(type, target));
     }
 }

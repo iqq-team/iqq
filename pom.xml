@@ -1,20 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>iqq.app</groupId>
-	<artifactId>iqq</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
+    <groupId>iqq.app</groupId>
+    <artifactId>iqq</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-	<name>iqq客户端</name>
-	<url>https://github.com/im-qq/iqq</url>
+    <name>iqq客户端</name>
+    <url>https://github.com/im-qq/iqq</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<commons-lang3.version>3.2</commons-lang3.version>
-		<mapdb.version>0.9.8</mapdb.version>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <commons-lang3.version>3.2</commons-lang3.version>
+        <mapdb.version>0.9.8</mapdb.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -27,7 +27,7 @@
             <dependency>
                 <groupId>iqq.im</groupId>
                 <artifactId>webqq-core</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.2-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
@@ -109,4 +109,50 @@
         <module>resources</module>
         <module>bridge-webqq</module>
     </modules>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/resources</directory>
+                <targetPath>${basedir}/main/target/classes/resources</targetPath>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>${basedir}/skin-default</directory>
+                <targetPath>${basedir}/main/target/classes/skin-default</targetPath>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>iqq.app.IMLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

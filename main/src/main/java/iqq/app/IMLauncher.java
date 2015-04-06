@@ -4,15 +4,21 @@ import com.alee.utils.SwingUtils;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.query.BuddyQuery;
 import iqq.app.ui.frame.LoginFrame;
+import iqq.app.ui.frame.MainFrame;
+import iqq.app.ui.frame.VerifyFrame;
+import iqq.app.ui.manager.FrameManager;
+import iqq.app.ui.manager.MainManager;
 import iqq.app.util.Benchmark;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.applet.Main;
 
+import javax.swing.*;
 import java.io.File;
 
 /**
  * 引导启动类
- *
+ * <p/>
  * Project  : iqq
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-4-17
@@ -20,17 +26,18 @@ import java.io.File;
  */
 public final class IMLauncher {
     private static final Logger LOG = LoggerFactory.getLogger(IMLauncher.class);
+
     /**
      * 程序入口
      *
      * @param args
      */
     public static void main(String[] args) {
+        init();
         SwingUtils.invokeLater(new Runnable() {
             @Override
             public void run() {
-                init();
-                starup();
+                startup();
             }
         });
     }
@@ -42,12 +49,12 @@ public final class IMLauncher {
         Benchmark.start("appStart");
         // APP路径
         String path = System.getProperty("user.dir");
-        if(new File(path + File.separator + "resources").exists()) {
+        if (new File(path + File.separator + "resources").exists()) {
             System.setProperty("app.dir", new File(path).getAbsolutePath());
-        } else  {
+        } else {
             // 去掉了最后一个main目录
-        	path = path.substring(0, path.lastIndexOf(File.separator));
-        	System.setProperty("app.dir", new File(path).getAbsolutePath());
+            path = path.substring(0, path.lastIndexOf(File.separator));
+            System.setProperty("app.dir", new File(path).getAbsolutePath());
         }
         LOG.info("app.dir = " + System.getProperty("app.dir"));
 
@@ -64,13 +71,13 @@ public final class IMLauncher {
     /**
      * 运行程序环境
      */
-    private static void starup() {
-       // FrameManager frameManager = IMContext.getBean(FrameManager.class);
-      new LoginFrame().setVisible(true);
+    private static void startup() {
+        FrameManager frameManager = IMContext.getBean(FrameManager.class);
+        frameManager.showLogin();
+
         BuddyQuery buddyQuery = IMContext.getBean(BuddyQuery.class);
         System.out.println(buddyQuery);
     }
-
 
     /**
      * 程序关闭

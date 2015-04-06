@@ -35,15 +35,16 @@ public class IMContext {
     private ApplicationContext applicationContext;
 
     private static IMContext singleton = new IMContext();
-    public static IMContext me(){
+
+    public static IMContext me() {
         return singleton;
     }
 
-    private IMContext(){
+    private IMContext() {
         applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
     }
 
-    public static <T> T getBean(Class<T> clazz){
+    public static <T> T getBean(Class<T> clazz) {
         return singleton.applicationContext.getBean(clazz);
     }
 }

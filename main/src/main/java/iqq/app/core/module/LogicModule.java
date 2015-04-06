@@ -18,7 +18,6 @@ package iqq.app.core.module;
 
 import iqq.api.annotation.IMEventHandler;
 import iqq.api.bean.IMBuddy;
-import iqq.api.bean.IMUser;
 import iqq.api.bridge.IMApp;
 import iqq.api.bridge.IMBridge;
 import iqq.api.event.IMEvent;
@@ -33,7 +32,9 @@ import iqq.app.ui.event.UIEventDispatcher;
 import iqq.app.ui.event.UIEventHandler;
 import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.event.args.LoginInfoParam;
-import iqq.bridge.webqq.WebQQBridge;
+import iqq.bridge.IMBridgeFactory;
+import iqq.bridge.test.TestBridge;
+//import iqq.im.QQException;
 import iqq.im.QQException;
 import org.springframework.stereotype.Service;
 
@@ -49,15 +50,15 @@ import java.util.List;
  * License  : Apache License 2.0
  */
 @Service
-public class LogicModule  extends IMEventDispatcher implements BuddyQuery, GroupQuery, IMApp{
-//    @Inject
+public class LogicModule extends IMEventDispatcher implements BuddyQuery, GroupQuery, IMApp {
+    //    @Inject
     private IMBridge imBridge;
     @Resource
     private EventService eventService;
 
     @PostConstruct
-    public void init(){
-        imBridge = new WebQQBridge();
+    public void init() {
+        imBridge = IMBridgeFactory.getIMBridge();
         imBridge.setApp(this);
 
         UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
@@ -66,8 +67,8 @@ public class LogicModule  extends IMEventDispatcher implements BuddyQuery, Group
     }
 
 
-    @UIEventHandler(UIEventType.lOGIN_REQUEST)
-    private void onLoginEvent(UIEvent uiEvent){
+    @UIEventHandler(UIEventType.LOGIN_REQUEST)
+    private void onLoginEvent(UIEvent uiEvent) {
         LoginInfoParam param = (LoginInfoParam) uiEvent.getTarget();
 
         LoginRequest req = new LoginRequest();
@@ -77,7 +78,6 @@ public class LogicModule  extends IMEventDispatcher implements BuddyQuery, Group
 
         imBridge.onIMEvent(new IMEvent(IMEventType.LOGIN_REQUEST, req));
     }
-
 
 
     @Override
@@ -91,43 +91,43 @@ public class LogicModule  extends IMEventDispatcher implements BuddyQuery, Group
     }
 
     @IMEventHandler(IMEventType.LOGIN_SUCCESS)
-    protected void processLoginSuccess(IMEvent imEvent){
+    protected void processLoginSuccess(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.LOGIN_SUCCESS));
     }
 
     @IMEventHandler(IMEventType.LOGIN_ERROR)
-    protected void processLoginError(IMEvent imEvent){
+    protected void processLoginError(IMEvent imEvent) {
         QQException ex = (QQException) imEvent.getTarget();
         eventService.broadcast(new UIEvent(UIEventType.LOGIN_ERROR, ex.getMessage()));
     }
 
     @IMEventHandler(IMEventType.IMAGE_VERIFY_NEED)
-    protected void processNeedVerify(IMEvent imEvent){
+    protected void processNeedVerify(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.IMAGE_VERIFY_NEED, imEvent.getTarget()));
     }
 
     @IMEventHandler(IMEventType.SELF_FACE_UPDATE)
-    protected void processSelfFaceUpdate(IMEvent imEvent){
+    protected void processSelfFaceUpdate(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.SELF_FACE_UPDATE, imEvent.getTarget()));
     }
 
     @IMEventHandler(IMEventType.SELF_INFO_UPDATE)
-    protected void processSelfInfoUpdate(IMEvent imEvent){
+    protected void processSelfInfoUpdate(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.SELF_INFO_UPDATE, imEvent.getTarget()));
     }
 
     @IMEventHandler(IMEventType.SELF_SIGN_UPDATE)
-    protected void processSelfSignUpdate(IMEvent imEvent){
+    protected void processSelfSignUpdate(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.SELF_SIGN_UPDATE, imEvent.getTarget()));
     }
 
     @IMEventHandler(IMEventType.BUDDY_LIST_UPDATE)
-    protected void processBuddyListUpdate(IMEvent imEvent){
+    protected void processBuddyListUpdate(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.BUDDY_LIST_UPDATE, imEvent.getTarget()));
     }
 
     @IMEventHandler(IMEventType.USER_FACE_UPDATE)
-    protected void processUserFaceUpdate(IMEvent imEvent){
+    protected void processUserFaceUpdate(IMEvent imEvent) {
         eventService.broadcast(new UIEvent(UIEventType.USER_FACE_UPDATE, imEvent.getTarget()));
     }
 

@@ -5,11 +5,13 @@ import com.alee.laf.tabbedpane.TabStretchType;
 import com.alee.laf.tabbedpane.TabbedPaneStyle;
 import com.alee.laf.tabbedpane.WebTabbedPane;
 import iqq.api.bean.*;
+import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMPanel;
 import iqq.app.ui.IMTree;
 import iqq.app.ui.frame.MainFrame;
 import iqq.app.ui.manager.ChatManager;
+import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.renderer.BoddyTreeCellRenderer;
 import iqq.app.ui.renderer.RecentTreeCellRenderer;
 import iqq.app.ui.renderer.RoomTreeCellRenderer;
@@ -33,7 +35,7 @@ import java.util.List;
 /**
  * 主界面，主要是包含了一个Tab控件
  * 显示：好友列表/群/最近列表
- *
+ * <p/>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-8
@@ -55,7 +57,6 @@ public class MiddlePanel extends IMPanel {
     private IMTree contactsTree = new IMTree();
     private IMTree groupsTree = new IMTree();
     private IMTree recentTree = new IMTree();
-
 
 
     /**
@@ -93,7 +94,7 @@ public class MiddlePanel extends IMPanel {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode();
         IMBuddy[] buddys = new IMBuddy[10];
         int j = 0;
-        for(IMBuddy buddy : buddys) {
+        for (IMBuddy buddy : buddys) {
             buddy = new IMBuddy();
             buddy.setNick("buddy-" + j);
             buddy.setSign("sing..." + j++);
@@ -109,7 +110,7 @@ public class MiddlePanel extends IMPanel {
         }
         IMRoom[] rooms = new IMRoom[10];
         int k = 0;
-        for(IMRoom room : rooms) {
+        for (IMRoom room : rooms) {
             room = new IMRoom();
             room.setNick("Room-" + k++);
             try {
@@ -146,7 +147,7 @@ public class MiddlePanel extends IMPanel {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode();
         IMRoomCategory[] cates = new IMRoomCategory[5];
         int i = 0;
-        for(IMRoomCategory cate : cates) {
+        for (IMRoomCategory cate : cates) {
             cate = new IMRoomCategory();
             cate.setName("Room Category-" + i++);
             CategoryNode cateNode = new CategoryNode(cate);
@@ -154,7 +155,7 @@ public class MiddlePanel extends IMPanel {
 
             IMRoom[] rooms = new IMRoom[10];
             int j = 0;
-            for(IMRoom room : rooms) {
+            for (IMRoom room : rooms) {
                 room = new IMRoom();
                 room.setNick("Room-" + j++);
                 try {
@@ -193,14 +194,14 @@ public class MiddlePanel extends IMPanel {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode();
         IMBuddyCategory[] cates = new IMBuddyCategory[10];
         int i = 0;
-        for(IMBuddyCategory cate : cates) {
+        for (IMBuddyCategory cate : cates) {
             cate = new IMBuddyCategory();
             cate.setName("Category-" + i++);
             CategoryNode cateNode = new CategoryNode(cate);
 
             IMBuddy[] buddys = new IMBuddy[30];
             int j = 0;
-            for(IMBuddy buddy : buddys) {
+            for (IMBuddy buddy : buddys) {
                 buddy = new IMBuddy();
                 buddy.setNick("buddy-" + j);
                 buddy.setSign("sing..." + j++);
@@ -267,11 +268,11 @@ public class MiddlePanel extends IMPanel {
     public void updateBuddyList(List<IMBuddyCategory> imCategories) {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode();
         BufferedImage defaultAvatar = getDefaultAvatar();
-        for(IMBuddyCategory cate : imCategories) {
+        for (IMBuddyCategory cate : imCategories) {
             CategoryNode cateNode = new CategoryNode(cate);
-            for(IMBuddy buddy : cate.getBuddyList()) {
-                if(buddy.getAvatar() == null){
-                   buddy.setAvatar(defaultAvatar);
+            for (IMBuddy buddy : cate.getBuddyList()) {
+                if (buddy.getAvatar() == null) {
+                    buddy.setAvatar(defaultAvatar);
                 }
                 cateNode.add(new BuddyNode(buddy));
             }
@@ -282,24 +283,23 @@ public class MiddlePanel extends IMPanel {
         contactsTree.setModel(buddyModel);
     }
 
-    public void updateUserFace(IMUser imUser){
+    public void updateUserFace(IMUser imUser) {
         DefaultTreeModel model = (DefaultTreeModel) contactsTree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-       for(int i =0; i<root.getChildCount(); i++){
-           CategoryNode categoryNode = (CategoryNode) root.getChildAt(i);
-           for(int j=0; j<categoryNode.getChildCount(); j++){
-               BuddyNode buddyNode = (BuddyNode) categoryNode.getChildAt(j);
-               if(buddyNode.getBuddy().getId() == imUser.getId()){
-                   buddyNode.getBuddy().setAvatar(imUser.getAvatar());
-                   model.reload(buddyNode);
-               }
-           }
-       }
+        for (int i = 0; i < root.getChildCount(); i++) {
+            CategoryNode categoryNode = (CategoryNode) root.getChildAt(i);
+            for (int j = 0; j < categoryNode.getChildCount(); j++) {
+                BuddyNode buddyNode = (BuddyNode) categoryNode.getChildAt(j);
+                if (buddyNode.getBuddy().getId() == imUser.getId()) {
+                    buddyNode.getBuddy().setAvatar(imUser.getAvatar());
+                    model.reload(buddyNode);
+                }
+            }
+        }
     }
 
 
-
-    private BufferedImage getDefaultAvatar(){
+    private BufferedImage getDefaultAvatar() {
         try {
             File file = frame.getResourceService().getFile("icons/login/avatar2.png");
             return ImageIO.read(file);
@@ -328,7 +328,7 @@ public class MiddlePanel extends IMPanel {
                 IMTree tree = (IMTree) e.getSource();
                 Object obj = tree.getLastSelectedPathComponent();
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) obj;
-                if(obj instanceof CategoryNode) {
+                if (obj instanceof CategoryNode) {
                     // 判断是否展开
                     if (!tree.isExpanded(tree.getSelectionPath())) {
                         // 展开
@@ -337,10 +337,10 @@ public class MiddlePanel extends IMPanel {
                         // 合并
                         tree.collapsePath(tree.getSelectionPath());
                     }
-                } else if(e.getClickCount() == 2 && obj instanceof EntityNode) {
+                } else if (e.getClickCount() == 2 && obj instanceof EntityNode) {
                     // 双击打开聊天窗口
                     EntityNode entityNode = (EntityNode) obj;
-                    ChatManager.addChat((IMEntity) entityNode.getUserObject());
+                    IMContext.getBean(ChatManager.class).addChat((IMEntity) entityNode.getUserObject());
                 }
             }
         }

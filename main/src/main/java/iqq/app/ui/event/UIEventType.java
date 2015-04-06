@@ -23,7 +23,7 @@ package iqq.app.ui.event;
  * License  : Apache License 2.0
  */
 public enum UIEventType {
-    lOGIN_REQUEST,
+    LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_PROGRESS,
     LOGIN_ERROR,

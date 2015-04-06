@@ -9,6 +9,7 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.scroll.WebScrollPane;
 import com.alee.laf.toolbar.ToolbarStyle;
 import com.alee.laf.toolbar.WebToolBar;
+import com.alee.utils.ImageUtils;
 import iqq.api.bean.IMEntity;
 import iqq.api.bean.IMMsg;
 import iqq.api.bean.IMUser;
@@ -104,7 +105,7 @@ public abstract class BasicPanel extends IMPanel {
         textGroup.setMargin(0, 10, 0, 5);
 
         headerPanel.add(avatarImage, BorderLayout.WEST);
-        headerPanel.add(new CenterPanel(textGroup, false , true), BorderLayout.CENTER);
+        headerPanel.add(new CenterPanel(textGroup, false, true), BorderLayout.CENTER);
         headerPanel.setMargin(8);
         add(headerPanel, BorderLayout.NORTH);
     }
@@ -216,7 +217,7 @@ public abstract class BasicPanel extends IMPanel {
     }
 
     public void update() {
-        ImageIcon icon = new ImageIcon(entity.getAvatar());
+        ImageIcon icon = ImageUtils.createPreviewIcon(entity.getAvatar(), 40);
         avatarImage.setIcon(icon);
         nickLabel.setText(entity.getNick());
         signLabel.setText(entity.getSign());

@@ -170,7 +170,7 @@ public class LoginPane extends IMContentPane {
 
     private WebPanel createFooter() {
 
-        //footerPanel.setOpaque(false);
+//        footerPanel.setOpaque(false);
         footerPanel.setPreferredSize(new Dimension(-1, 40));
 
         loginBtn = new WebButton(frame.getI18nService().getMessage("login.login"));

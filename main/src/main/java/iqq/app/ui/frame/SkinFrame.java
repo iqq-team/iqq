@@ -3,11 +3,13 @@ package iqq.app.ui.frame;
 import com.alee.extended.image.GalleryTransferHandler;
 import com.alee.extended.image.WebImageGallery;
 import com.alee.laf.panel.WebPanel;
+import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.TitleComponent;
+import iqq.app.ui.manager.ChatManager;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
 import iqq.app.util.XmlUtils;
@@ -22,7 +24,7 @@ import java.io.IOException;
 
 /**
  * 皮肤设置界面
- *
+ * <p/>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-5
@@ -73,17 +75,17 @@ public class SkinFrame extends IMFrame implements Skin {
 
     private WebPanel createMiddle() {
         middlePanel.setOpaque(false);
-        final WebImageGallery wig = new WebImageGallery ();
+        final WebImageGallery wig = new WebImageGallery();
         // skin目录下的所有背景
         File dir = new File(SkinServiceImpl.DEFAULT_SKIN_DIR + "skin" + File.separator + "bg");
-        for(int i=dir.listFiles().length; i>=0; i--) {
-            ImageIcon icon = new ImageIcon( dir.getAbsolutePath() + File.separator + i + ".9.png");
+        for (int i = dir.listFiles().length; i >= 0; i--) {
+            ImageIcon icon = new ImageIcon(dir.getAbsolutePath() + File.separator + i + ".9.png");
             icon = new ImageIcon(icon.getImage().getScaledInstance(80, 80, 100));
-            wig.addImage (icon);
+            wig.addImage(icon);
         }
 
-        wig.setPreferredColumnCount ( 3 );
-        wig.setTransferHandler ( new GalleryTransferHandler( wig ) );
+        wig.setPreferredColumnCount(3);
+        wig.setTransferHandler(new GalleryTransferHandler(wig));
         wig.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -97,7 +99,7 @@ public class SkinFrame extends IMFrame implements Skin {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                    SkinManager.installAll(skin);
+                    IMContext.getBean(SkinManager.class).installAll(skin);
                 }
             }
         });

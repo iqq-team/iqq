@@ -21,8 +21,7 @@ public class ResourceServiceImpl implements ResourceService {
     /**
      * 资源文件目录
      */
-    public static final String RESOURCES_DIR = System.getProperty("app.dir",
-            System.getProperty("user.dir")) + File.separator + "resources" + File.separator;
+    public static final String RESOURCES_DIR = System.getProperty("app.dir",  System.getProperty("user.dir")) + File.separator + "resources" + File.separator;
 
     public static final String USER_DIR = "user" + File.separator;
 

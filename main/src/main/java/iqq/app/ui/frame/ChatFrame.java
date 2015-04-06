@@ -1,7 +1,9 @@
 package iqq.app.ui.frame;
 
+import com.alee.utils.ImageUtils;
 import iqq.api.bean.IMBuddy;
 import iqq.api.bean.IMRoom;
+import iqq.app.core.context.IMContext;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.frame.panel.chat.BasicPanel;
@@ -57,7 +59,7 @@ public class ChatFrame extends IMFrame {
         setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
 
         // 更新每个tab中panel的皮肤
-        for(int i=0; i<tabbedPane.getTabCount(); i++) {
+        for (int i = 0; i < tabbedPane.getTabCount(); i++) {
             BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(i);
             entityPanel.installSkin(skinService);
         }
@@ -68,9 +70,8 @@ public class ChatFrame extends IMFrame {
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if(isVisible()) {
-                    if( tabbedPane.getTabCount( ) == 0)
-                    {
+                if (isVisible()) {
+                    if (tabbedPane.getTabCount() == 0) {
                         // 如是没有了，直接关闭窗口
                         dispose();
                     } else {
@@ -91,20 +92,20 @@ public class ChatFrame extends IMFrame {
                 BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(tabIndex);
 
                 tabbedPane.removeTabAt(tabIndex);
-                ChatManager.removeChat(entityPanel.getEntity());
+                IMContext.getBean(ChatManager.class).removeChat(entityPanel.getEntity());
             }
         });
     }
 
     public void addBuddyPane(IMBuddy buddy, UserPanel entityPanel) {
-        ImageIcon avatar = new ImageIcon(buddy.getAvatar());
+        ImageIcon avatar = ImageUtils.createPreviewIcon(buddy.getAvatar(), 18);
         tabbedPane.addTab(buddy.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", buddy.getNick()));
     }
 
     public void addRoomPane(IMRoom room, RoomPanel entityPanel) {
-        ImageIcon avatar =new ImageIcon(room.getAvatar());
+        ImageIcon avatar = ImageUtils.createPreviewIcon(room.getAvatar(), 18);
         tabbedPane.addTab(room.getNick(), avatar, entityPanel);
         tabbedPane.setSelectedComponent(entityPanel);
         setTitle(getI18nService().getMessage("conversationTitle", room.getNick()));
@@ -123,7 +124,7 @@ public class ChatFrame extends IMFrame {
 
     private void clearChats() {
         // 在管理器中清除当然所有对话
-        ChatManager.clearChats();
+        IMContext.getBean(ChatManager.class).clearChats();
 
         int count = tabbedPane.getTabCount();
         for (int i = 0; i < count; i++) {
