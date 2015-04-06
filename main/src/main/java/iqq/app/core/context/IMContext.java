@@ -17,7 +17,6 @@ package iqq.app.core.context;
  */
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * 客户端上下文，所有的创建的对象实例都由上下文管理，也可以从这个类得到任意对象
@@ -40,8 +39,13 @@ public class IMContext {
         return singleton;
     }
 
+    public static void init(ApplicationContext ctx) {
+        me().applicationContext = ctx;
+    }
+
     private IMContext() {
-        applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+//        applicationContext = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+//        applicationContext = new AnnotationConfigApplicationContext("iqq.app");
     }
 
     public static <T> T getBean(Class<T> clazz) {

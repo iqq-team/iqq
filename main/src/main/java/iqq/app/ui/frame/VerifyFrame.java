@@ -6,24 +6,17 @@ import com.alee.extended.panel.CenterPanel;
 import com.alee.extended.panel.EmptyPanel;
 import com.alee.extended.panel.GroupPanel;
 import com.alee.laf.button.WebButton;
-import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.rootpane.WebFrame;
 import com.alee.laf.text.WebTextField;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
-import iqq.app.ui.IMPanel;
 import iqq.app.ui.action.IMActionHandler;
 import iqq.app.ui.action.IMActionHandlerProxy;
 import iqq.app.ui.component.TitleComponent;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
  * Project  : iqq-projects

@@ -7,14 +7,18 @@ import iqq.app.core.service.EventService;
 import iqq.app.core.service.I18nService;
 import iqq.app.core.service.ResourceService;
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.event.UIEvent;
 import iqq.app.ui.event.UIEventDispatcher;
+import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
+
+import java.awt.*;
 
 /**
  * IM窗口抽象类，带阴影背景
  * 实现了皮肤接口
- * <p/>
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-4-15
@@ -35,20 +39,41 @@ public abstract class IMFrame extends WebFrame implements Skin {
         resourceService = IMContext.getBean(ResourceService.class);
         eventService = IMContext.getBean(EventService.class);
 
+        setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
+        getRootPane().setDoubleBuffered(true);
+        // 去了默认边框
+        setUndecorated(true);
+        // 把窗口设置为透明
+        AWTUtilities.setWindowOpaque(this, false);
+
         // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
         contentWrap = new IMFrameWrap();
         contentWrap.installSkin(getSkinService());
         super.setContentPane(contentWrap);
-
-        // 去了默认边框
-        setUndecorated(true);
-        setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
-        getRootPane().setDoubleBuffered(true);
-        // 把窗口设置为透明
-        AWTUtilities.setWindowOpaque(this, false);
+        setBackground(new Color(0, 0, 0, 0));
 
         UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
         eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
+
+    }
+
+    /**
+     * 广播 UIEvent
+     *
+     * @param uiEvent
+     */
+    public void broadcastUIEvent(UIEvent uiEvent) {
+        eventService.broadcast(uiEvent);
+    }
+
+    /**
+     * 广播 UIEvent
+     *
+     * @param type
+     * @param target
+     */
+    protected void broadcastEvent(UIEventType type, Object target) {
+        eventService.broadcast(new UIEvent(type, target));
     }
 
     /**
@@ -74,6 +99,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void show() {
         SkinManager skinManager = IMContext.getBean(SkinManager.class);
         // 注册皮肤管理
@@ -84,6 +110,7 @@ public abstract class IMFrame extends WebFrame implements Skin {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void hide() {
         SkinManager skinManager = IMContext.getBean(SkinManager.class);
         // 取消注册皮肤管理

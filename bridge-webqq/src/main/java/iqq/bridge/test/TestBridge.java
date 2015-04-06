@@ -36,7 +36,7 @@ public class TestBridge extends IMEventDispatcher implements IMBridge {
         account.setLoginName(loginRequest.getUsername());
         account.setPassword(loginRequest.getPassword());
 
-        broadcastIMEvent(new IMEvent(IMEventType.LOGIN_SUCCESS, account));
+        broadcastIMEvent(IMEventType.LOGIN_SUCCESS, account);
         broadcastIMEvent(IMEventType.CLIENT_ONLINE, account);
 
         doGetBuddyList();
@@ -55,9 +55,8 @@ public class TestBridge extends IMEventDispatcher implements IMBridge {
             }
             imCategories.add(buddyCategory);
         }
-        IMEvent imEvent = new IMEvent(IMEventType.BUDDY_LIST_UPDATE);
-        imEvent.setTarget(imCategories);
-        broadcastIMEvent(imEvent);
+        
+        broadcastIMEvent(IMEventType.BUDDY_LIST_UPDATE, imCategories);
     }
 
     protected void broadcastIMEvent(IMEvent event) {

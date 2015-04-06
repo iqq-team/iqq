@@ -11,7 +11,6 @@ import iqq.app.ui.IMPanel;
 import iqq.app.ui.IMTree;
 import iqq.app.ui.frame.MainFrame;
 import iqq.app.ui.manager.ChatManager;
-import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.renderer.BoddyTreeCellRenderer;
 import iqq.app.ui.renderer.RecentTreeCellRenderer;
 import iqq.app.ui.renderer.RoomTreeCellRenderer;

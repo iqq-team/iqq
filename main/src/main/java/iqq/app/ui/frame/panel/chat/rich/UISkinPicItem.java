@@ -31,7 +31,6 @@ package iqq.app.ui.frame.panel.chat.rich;
  import iqq.app.core.service.impl.SkinServiceImpl;
 
  import javax.swing.*;
- import java.awt.image.BufferedImage;
 
 /**
  *

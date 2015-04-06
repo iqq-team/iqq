@@ -5,6 +5,7 @@
 # Build artifacts
 artifacts
 target
+classes
 
 # IDE & module files
 .idea

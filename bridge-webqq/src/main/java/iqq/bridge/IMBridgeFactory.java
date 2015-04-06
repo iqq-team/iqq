@@ -2,7 +2,6 @@ package iqq.bridge;
 
 import iqq.api.bridge.IMBridge;
 import iqq.bridge.test.TestBridge;
-import org.json.Test;
 
 /**
  * Created by Tony on 4/6/15.

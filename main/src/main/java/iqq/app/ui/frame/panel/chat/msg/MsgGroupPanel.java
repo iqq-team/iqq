@@ -1,13 +1,12 @@
 package iqq.app.ui.frame.panel.chat.msg;
-import iqq.api.bean.IMMsg;
-import iqq.api.bean.IMUser;
-import iqq.app.ui.IMFrame;
-import java.awt.Color;
-import java.awt.Component;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.alee.extended.panel.GroupPanel;
+import iqq.api.bean.IMMsg;
+import iqq.api.bean.IMUser;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ChenZhiHui <6208317@qq.com>

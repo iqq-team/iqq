@@ -1,6 +1,5 @@
 package iqq.app.service;
 
-import com.alee.extended.painter.*;
 import com.alee.extended.painter.Painter;
 import iqq.app.core.service.SkinService;
 import iqq.app.core.service.impl.SkinServiceImpl;

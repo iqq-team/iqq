@@ -1,7 +1,6 @@
 package iqq.app.ui.border;
 
 import org.sexydock.tabs.jhrome.JhromeContentPanelBorder;
-import org.sexydock.tabs.jhrome.JhromeTabBorderAttributes;
 
 import java.awt.*;
 import java.awt.geom.Path2D;

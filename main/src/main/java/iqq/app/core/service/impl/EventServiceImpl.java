@@ -55,12 +55,10 @@ public class EventServiceImpl implements EventService{
             }
             list.add(listener);
         }
-
     }
 
     @Override
-    public void unregister(UIEventType[] intrestedEvents,
-                           UIEventListener listener) {
+    public void unregister(UIEventType[] intrestedEvents, UIEventListener listener) {
         for(UIEventType type: intrestedEvents){
             List<UIEventListener> list = lookup.get(type);
             if(list != null){
@@ -73,8 +71,6 @@ public class EventServiceImpl implements EventService{
     public void unregister(UIEventListener listener) {
         unregister(lookup.keySet().toArray(new UIEventType[0]), listener);
     }
-
-
 
     @Override
     public void broadcast(final UIEvent event){
@@ -103,7 +99,5 @@ public class EventServiceImpl implements EventService{
             }
         }
     }
-    
-    
-    
+
 }

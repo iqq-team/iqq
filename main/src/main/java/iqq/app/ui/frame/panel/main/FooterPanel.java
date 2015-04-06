@@ -1,6 +1,5 @@
 package iqq.app.ui.frame.panel.main;
 
-import com.alee.extended.painter.NinePatchStatePainter;
 import com.alee.laf.button.WebButton;
 import com.alee.laf.toolbar.ToolbarStyle;
 import com.alee.laf.toolbar.WebToolBar;

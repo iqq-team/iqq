@@ -25,10 +25,11 @@
  */
 package iqq.app.util;
 
-import java.util.Date;
-import java.util.Deque;
-import java.util.LinkedList;
-import org.slf4j.LoggerFactory;
+ import org.slf4j.LoggerFactory;
+
+ import java.util.Date;
+ import java.util.Deque;
+ import java.util.LinkedList;
 
  /**
  *

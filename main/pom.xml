@@ -39,18 +39,11 @@
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-            <groupId>pinyin4j</groupId>
-            <artifactId>pinyin4j</artifactId>
-            <version>2.0</version>
-            <scope>system</scope>
-            <systemPath>${lib.path}/pinyin4j.jar</systemPath>
-        </dependency>
-        <dependency>
             <groupId>weblaf</groupId>
             <artifactId>weblaf</artifactId>
-            <version>1.27</version>
+            <version>1.29</version>
             <scope>system</scope>
-            <systemPath>${lib.path}/weblaf-1.27.jar</systemPath>
+            <systemPath>${lib.path}/weblaf-1.29.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>Jhrome</groupId>
@@ -62,6 +55,22 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
+            <version>1.4.8</version>
+        </dependency>
+        <dependency>
+            <groupId>net.htmlparser</groupId>
+            <artifactId>jericho-html</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mortennobel</groupId>
+            <artifactId>java-image-scaling</artifactId>
+            <version>0.8.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.belerweb</groupId>
+            <artifactId>pinyin4j</artifactId>
+            <version>2.5.0</version>
         </dependency>
 
         <dependency>

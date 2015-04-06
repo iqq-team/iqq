@@ -26,11 +26,11 @@ import java.awt.event.ActionEvent;
  * 这只是一个登录界面模型，使用代码布局，如果使用IDE部分是不可以的，不好控制和使用组件
  * 那个背景图片可以使用现在QQ平时更换的背景图片，处理一下就可以换了哈
  * 这个界面的好处是可以随时更新背景图片
- * <p/>
+ * <p>
  * 存在问题：
  * LINUX下放大后再还原会那个背景出现问题，正想办法解决，重新设置背景或者怎么的
  * 现在这个问题设置不能最大化，先这样子处理
- * <p/>
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-4-15
@@ -61,9 +61,9 @@ public class LoginFrame extends IMFrame {
 
     @Override
     public void installSkin(SkinService skinService) {
-        setIconImage(getSkinService().getIconByKey("window/titleWIcon").getImage());
-        this.contentPane.installSkin(skinService);
         super.installSkin(skinService);
+        this.contentPane.installSkin(skinService);
+        setIconImage(getSkinService().getIconByKey("window/titleWIcon").getImage());
     }
 
     @IMActionHandler
@@ -77,7 +77,7 @@ public class LoginFrame extends IMFrame {
         event.setType(UIEventType.LOGIN_REQUEST);
         event.setTarget(param);
 
-        eventService.broadcast(event);
+        broadcastUIEvent(event);
     }
 
     @UIEventHandler(UIEventType.LOGIN_ERROR)

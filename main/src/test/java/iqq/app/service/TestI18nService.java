@@ -7,8 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Locale;
-
 /**
  * Created by Administrator on 2014/4/17.
  */

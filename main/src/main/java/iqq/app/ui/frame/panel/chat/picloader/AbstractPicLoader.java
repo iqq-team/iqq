@@ -33,6 +33,7 @@ package iqq.app.ui.frame.panel.chat.picloader;
  import iqq.app.core.service.impl.ResourceServiceImpl;
  import iqq.app.core.service.impl.TaskServiceImpl;
  import org.apache.log4j.Logger;
+
  import javax.imageio.ImageIO;
  import java.awt.*;
  import java.awt.image.BufferedImage;

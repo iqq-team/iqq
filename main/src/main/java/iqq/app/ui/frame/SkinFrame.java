@@ -9,7 +9,6 @@ import iqq.app.core.service.impl.SkinServiceImpl;
 import iqq.app.ui.IMContentPane;
 import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.TitleComponent;
-import iqq.app.ui.manager.ChatManager;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
 import iqq.app.util.XmlUtils;

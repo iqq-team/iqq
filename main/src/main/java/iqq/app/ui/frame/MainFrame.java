@@ -49,9 +49,9 @@ public class MainFrame extends IMFrame {
      */
     @Override
     public void installSkin(SkinService skinService) {
-        setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
-        this.contentPane.installSkin(skinService);
         super.installSkin(skinService);
+        this.contentPane.installSkin(skinService);
+        setIconImage(skinService.getIconByKey("window/titleWIcon").getImage());
     }
 
     @UIEventHandler(UIEventType.SELF_FACE_UPDATE)

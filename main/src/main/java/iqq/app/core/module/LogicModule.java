@@ -33,14 +33,14 @@ import iqq.app.ui.event.UIEventHandler;
 import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.event.args.LoginInfoParam;
 import iqq.bridge.IMBridgeFactory;
-import iqq.bridge.test.TestBridge;
-//import iqq.im.QQException;
 import iqq.im.QQException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
+
+//import iqq.im.QQException;
 
 /**
  * QQ主模块，负责底层和QQ核心通信，如QQ登陆，发送消息，接受消息等

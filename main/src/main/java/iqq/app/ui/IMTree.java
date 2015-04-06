@@ -1,17 +1,13 @@
 package iqq.app.ui;
 
 import com.alee.extended.tree.WebAsyncTree;
-import com.alee.laf.StyleConstants;
 import com.alee.laf.tree.WebTreeUI;
-import com.alee.utils.LafUtils;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.skin.Skin;
 
-import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
-import java.util.*;
 
 /**
  * 树组件，继承于weblaf的异步加载树组件
