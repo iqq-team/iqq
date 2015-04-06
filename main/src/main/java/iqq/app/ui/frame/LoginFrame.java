@@ -16,6 +16,7 @@ import iqq.app.ui.event.args.LoginInfoParam;
 import iqq.app.ui.frame.panel.login.LoginPane;
 import iqq.app.ui.manager.FrameManager;
 import iqq.app.ui.manager.MainManager;
+import iqq.app.util.UIUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,8 +54,12 @@ public class LoginFrame extends IMFrame {
         setIMContentPane(contentPane);
         setTitle(getI18nService().getMessage("app.name"));
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(400, 290));        // 首选大小
+        // 居中
+        Dimension screenSize = UIUtils.getScreenSize(); // 获取屏幕的尺寸
+        int screenWidth = screenSize.width / 2;         // 获取屏幕的宽
+        int screenHeight = screenSize.height / 2;       // 获取屏幕的高
+        setLocation(screenWidth - getPreferredSize().width / 2, screenHeight - getPreferredSize().height / 2);
         pack();
 
     }

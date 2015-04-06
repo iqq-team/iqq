@@ -9,6 +9,7 @@ import iqq.app.ui.event.UIEvent;
 import iqq.app.ui.event.UIEventHandler;
 import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.frame.panel.main.MainPane;
+import iqq.app.util.UIUtils;
 
 import java.awt.*;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 
 /**
  * 主界面，分为上/中/下的内容面板
- * <p/>
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-4
@@ -37,8 +38,12 @@ public class MainFrame extends IMFrame {
         setIMContentPane(contentPane);
         setTitle(getI18nService().getMessage("app.name"));
         setDefaultCloseOperation(IMFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(300, 650));        // 首选大小
+        // 居中
+        Dimension screenSize = UIUtils.getScreenSize(); // 获取屏幕的尺寸
+        int screenWidth = (int) (screenSize.width / 1.2);         // 获取屏幕的宽
+        int screenHeight = screenSize.height / 2;       // 获取屏幕的高
+        setLocation(screenWidth - getPreferredSize().width / 2, screenHeight - getPreferredSize().height / 2);
         pack();
     }
 

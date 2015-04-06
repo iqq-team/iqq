@@ -11,6 +11,7 @@ import iqq.app.ui.frame.panel.chat.ChatPane;
 import iqq.app.ui.frame.panel.chat.RoomPanel;
 import iqq.app.ui.frame.panel.chat.UserPanel;
 import iqq.app.ui.manager.ChatManager;
+import iqq.app.util.UIUtils;
 import org.sexydock.tabs.ITabCloseButtonListener;
 import org.sexydock.tabs.jhrome.JhromeTabbedPaneUI;
 import org.slf4j.Logger;
@@ -44,6 +45,11 @@ public class ChatFrame extends IMFrame {
         setIMContentPane(contentPane);
         setTitle("与 承∮诺 的对话");
         setPreferredSize(new Dimension(660, 580));        // 首选大小
+        // 居中
+        Dimension screenSize = UIUtils.getScreenSize(); // 获取屏幕的尺寸
+        int screenWidth = (int) (screenSize.width / 2.2);         // 获取屏幕的宽
+        int screenHeight = screenSize.height / 2;       // 获取屏幕的高
+        setLocation(screenWidth - getPreferredSize().width / 2, screenHeight - getPreferredSize().height / 2);
         pack();
     }
 

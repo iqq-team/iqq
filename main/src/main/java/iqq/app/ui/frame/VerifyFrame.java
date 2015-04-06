@@ -15,6 +15,7 @@ import iqq.app.ui.IMFrame;
 import iqq.app.ui.action.IMActionHandler;
 import iqq.app.ui.action.IMActionHandlerProxy;
 import iqq.app.ui.component.TitleComponent;
+import iqq.app.util.UIUtils;
 
 import java.awt.*;
 
@@ -57,7 +58,11 @@ public class VerifyFrame extends IMFrame {
         setDefaultCloseOperation(WebFrame.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);                      // 居中
-        setPreferredSize(new Dimension(300, 200));        // 首选大小
+        // 居中
+        Dimension screenSize = UIUtils.getScreenSize(); // 获取屏幕的尺寸
+        int screenWidth = screenSize.width / 2;         // 获取屏幕的宽
+        int screenHeight = screenSize.height / 2;       // 获取屏幕的高
+        setLocation(screenWidth - getPreferredSize().width / 2, screenHeight - getPreferredSize().height / 2);
         pack();
     }
 

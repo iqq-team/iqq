@@ -1,6 +1,7 @@
 package iqq.app.ui;
 
 import com.alee.laf.rootpane.WebFrame;
+import com.alee.utils.SystemUtils;
 import com.sun.awt.AWTUtilities;
 import iqq.app.core.context.IMContext;
 import iqq.app.core.service.EventService;
@@ -13,6 +14,7 @@ import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -41,20 +43,28 @@ public abstract class IMFrame extends WebFrame implements Skin {
 
         setDefaultCloseOperation(WebFrame.DISPOSE_ON_CLOSE);
         getRootPane().setDoubleBuffered(true);
+        // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
+        contentWrap = new IMFrameWrap();
+        contentWrap.installSkin(getSkinService());
+        super.setContentPane(contentWrap);
+
         // 去了默认边框
         setUndecorated(true);
         // 把窗口设置为透明
         AWTUtilities.setWindowOpaque(this, false);
 
-        // 创建wrap，并设置为默认面板(该面板为窗口阴影面板)
-        contentWrap = new IMFrameWrap();
-        contentWrap.installSkin(getSkinService());
-        super.setContentPane(contentWrap);
-        setBackground(new Color(0, 0, 0, 0));
-
         UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
         eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
 
+    }
+
+    @Override
+    public void setPreferredSize(Dimension preferredSize) {
+        // mac下忽略背影，减去背影部分 @IMFrameWrap
+        if (SystemUtils.isMac()) {
+            preferredSize.setSize(preferredSize.getWidth() - 20, preferredSize.getHeight() - 10);
+        }
+        super.setPreferredSize(preferredSize);
     }
 
     /**

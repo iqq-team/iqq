@@ -40,12 +40,12 @@ public class UIUtils {
 
         public static List<UIRichItem> toRichItem(List<IMContentItem> items) {
             List<UIRichItem> contents = new ArrayList<UIRichItem>();
-            for(IMContentItem item : items) {
+            for (IMContentItem item : items) {
                 switch (item.getType()) {
                     case TEXT:
                         contents.add(new UITextItem(((IMTextItem) item).getText()));
                         break;
-                    case  FACE:
+                    case FACE:
                         break;
                     case PIC:
                         break;
@@ -56,8 +56,8 @@ public class UIUtils {
 
         public static List<IMContentItem> toIMItem(List<UIRichItem> items) {
             List<IMContentItem> contents = new ArrayList<IMContentItem>();
-            for(UIRichItem item : items) {
-                if(item instanceof UITextItem) {
+            for (UIRichItem item : items) {
+                if (item instanceof UITextItem) {
                     UITextItem it = (UITextItem) item;
                     contents.add(new IMTextItem(it.getText()));
                 }
@@ -65,23 +65,27 @@ public class UIUtils {
             return contents;
         }
 
-        public static List<UIRichItem> parseLink(String text){
+        public static List<UIRichItem> parseLink(String text) {
             text = text.replaceAll("\r", "\n");
             List<UIRichItem> items = new ArrayList<UIRichItem>();
             Pattern pt = Pattern.compile(LINK_REGXP);
             Matcher mc = pt.matcher(text);
             int current = 0;
-            while(mc.find()){
-                if(mc.start() > current){
+            while (mc.find()) {
+                if (mc.start() > current) {
                     items.add(new UITextItem(text.substring(current, mc.start())));
                 }
                 current = mc.end();
                 items.add(new UILinkItem(mc.group(0)));
             }
-            if(current < text.length()){
+            if (current < text.length()) {
                 items.add(new UITextItem(text.substring(current)));
             }
             return items;
         }
+    }
+
+    public static Dimension getScreenSize() {
+        return Toolkit.getDefaultToolkit().getScreenSize();   // 获取屏幕的尺寸
     }
 }

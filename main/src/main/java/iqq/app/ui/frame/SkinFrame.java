@@ -11,6 +11,7 @@ import iqq.app.ui.IMFrame;
 import iqq.app.ui.component.TitleComponent;
 import iqq.app.ui.manager.SkinManager;
 import iqq.app.ui.skin.Skin;
+import iqq.app.util.UIUtils;
 import iqq.app.util.XmlUtils;
 import org.dom4j.DocumentException;
 
@@ -23,7 +24,7 @@ import java.io.IOException;
 
 /**
  * 皮肤设置界面
- * <p/>
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-5
@@ -47,8 +48,12 @@ public class SkinFrame extends IMFrame implements Skin {
 
         setTitle(getI18nService().getMessage("app.skinSetting"));
         setIMContentPane(contentPane);
-        setLocationRelativeTo(null);                      // 居中
         setPreferredSize(new Dimension(380, 280));        // 首选大小
+        // 居中
+        Dimension screenSize = UIUtils.getScreenSize(); // 获取屏幕的尺寸
+        int screenWidth = screenSize.width / 2;         // 获取屏幕的宽
+        int screenHeight = screenSize.height / 2;       // 获取屏幕的高
+        setLocation(screenWidth - getPreferredSize().width / 2, screenHeight - getPreferredSize().height / 2);
         pack();
     }
 
