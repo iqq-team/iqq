@@ -311,7 +311,7 @@ public class SkinServiceImpl implements SkinService, InitializingBean {
                 try {
                     in.close();
                 } catch (IOException e) {
-                    LOG.warn("close font file error!", e);
+                    LOG.warn("closeChat font file error!", e);
                 }
             }
         }

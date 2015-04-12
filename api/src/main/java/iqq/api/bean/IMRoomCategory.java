@@ -1,5 +1,6 @@
 package iqq.api.bean;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * License  : Apache License 2.0
  */
 public class IMRoomCategory extends IMCategory {
-    private List<IMRoom> roomList;
+    private List<IMRoom> roomList = new LinkedList<>();
 
     public List<IMRoom> getRoomList() {
         return roomList;

@@ -134,7 +134,7 @@ public enum IMEventType {
 	RECV_CHAT_MSG,		//请求保存消息到历史记录中
 	SHOW_INFO_MSG,		//保存一些信息类的消息
 	UPDATE_UIMSG,		//更新一条消息数据到历史记录中
-	RECV_QQ_MSG,		//接受到原始的消息
+	RECV_RAW_MSG,		//接受到原始的消息
 	MSG_HISTORY_UPDATE,	//消息历史记录更新
 	MSG_HISTORY_FIND,	//查找历史消息记录
 	MSG_SHOWED,			//消息已经显示

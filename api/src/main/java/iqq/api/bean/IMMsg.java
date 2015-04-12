@@ -106,6 +106,21 @@ public class IMMsg implements Serializable {
         this.owner = owner;
     }
 
+    @Override
+    public String toString() {
+        return "IMMsg{" +
+                "id=" + id +
+                ", sender=" + sender +
+                ", contents=" + contents +
+                ", date=" + date +
+                ", state=" + state +
+                ", direction=" + direction +
+                ", category=" + category +
+                ", font=" + font +
+                ", owner=" + owner +
+                '}';
+    }
+
     /***
      *
      * 消息状态枚举

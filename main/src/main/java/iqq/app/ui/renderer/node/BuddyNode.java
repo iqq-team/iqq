@@ -4,6 +4,7 @@ import com.alee.extended.image.WebDecoratedImage;
 import com.alee.extended.panel.CenterPanel;
 import com.alee.extended.panel.GroupPanel;
 import com.alee.laf.label.WebLabel;
+import com.alee.utils.ImageUtils;
 import iqq.api.bean.IMBuddy;
 import iqq.app.ui.IMPanel;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +15,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * 好友显示节点
- *
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-10
@@ -50,7 +51,7 @@ public class BuddyNode extends EntityNode {
         textGroup.setMargin(0, 5, 0, 5);
 
         view.add(avatarImage, BorderLayout.WEST);
-        view.add(new CenterPanel(textGroup, false , true), BorderLayout.CENTER);
+        view.add(new CenterPanel(textGroup, false, true), BorderLayout.CENTER);
         view.setMargin(5);
     }
 
@@ -68,15 +69,14 @@ public class BuddyNode extends EntityNode {
      * @return
      */
     public IMPanel getView() {
-        if(avatar == null || !avatar.equals(buddy.getAvatar())) {
+        if (avatar == null || !avatar.equals(buddy.getAvatar())) {
             avatar = buddy.getAvatar();
-            ImageIcon icon = new ImageIcon(buddy.getAvatar());
-            avatarImage.setIcon(icon);
+            avatarImage.setIcon(ImageUtils.createPreviewIcon(avatar, 40));
         }
-        if(!StringUtils.equals(nickLbl.getText(), buddy.getNick())) {
+        if (!StringUtils.equals(nickLbl.getText(), buddy.getNick())) {
             nickLbl.setText(buddy.getNick());
         }
-        if(!StringUtils.equals(signLbl.getText(), buddy.getSign())) {
+        if (!StringUtils.equals(signLbl.getText(), buddy.getSign())) {
             signLbl.setText(buddy.getSign());
         }
         return view;

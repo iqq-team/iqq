@@ -37,19 +37,22 @@ import java.util.Map;
  * License  : Apache License 2.0
  */
 @Service
-public class EventServiceImpl implements EventService{
+public class EventServiceImpl implements EventService {
     private static final Logger LOG = LoggerFactory.getLogger(EventServiceImpl.class);
-    /**Type => list<listener> **/
+    /**
+     * Type => list<listener> *
+     */
     private Map<UIEventType, List<UIEventListener>> lookup;
-    public EventServiceImpl(){
-        lookup = new HashMap<UIEventType, List<UIEventListener>>();
+
+    public EventServiceImpl() {
+        lookup = new HashMap<>();
     }
 
     @Override
     public void register(UIEventType[] intrestedEvents, UIEventListener listener) {
-        for(UIEventType type: intrestedEvents){
+        for (UIEventType type : intrestedEvents) {
             List<UIEventListener> list = lookup.get(type);
-            if(list == null){
+            if (list == null) {
                 list = new ArrayList<UIEventListener>();
                 lookup.put(type, list);
             }
@@ -59,9 +62,9 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public void unregister(UIEventType[] intrestedEvents, UIEventListener listener) {
-        for(UIEventType type: intrestedEvents){
+        for (UIEventType type : intrestedEvents) {
             List<UIEventListener> list = lookup.get(type);
-            if(list != null){
+            if (list != null) {
                 list.remove(listener);
             }
         }
@@ -73,10 +76,10 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void broadcast(final UIEvent event){
-        if(EventQueue.isDispatchThread()){
+    public void broadcast(final UIEvent event) {
+        if (EventQueue.isDispatchThread()) {
             doBroadcast(event);
-        }else{
+        } else {
             EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     doBroadcast(event);
@@ -85,12 +88,12 @@ public class EventServiceImpl implements EventService{
         }
     }
 
-    private void doBroadcast(UIEvent event){
+    private void doBroadcast(UIEvent event) {
         List<UIEventListener> list = lookup.get(event.getType());
-        LOG.debug("Broadcast UIEvent: " + event.getType()+", listeners: " + (list != null ? list.size(): 0));
-        if(list != null && list.size() > 0){
+        LOG.debug("Broadcast UIEvent: " + event.getType() + ", listeners: " + (list != null ? list.size() : 0));
+        if (list != null && list.size() > 0) {
             list = new ArrayList<UIEventListener>(list);
-            for(UIEventListener listener: list){
+            for (UIEventListener listener : list) {
                 try {
                     listener.onUIEvent(event);
                 } catch (Throwable e) {

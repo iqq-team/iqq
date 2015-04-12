@@ -96,6 +96,7 @@ public class ChatFrame extends IMFrame {
             public void tabCloseButtonPressed(JTabbedPane tabbedPane, int tabIndex) {
                 // 关闭了一个tab，相当于关闭了一个对话
                 BasicPanel entityPanel = (BasicPanel) tabbedPane.getComponentAt(tabIndex);
+                entityPanel.closeChat();
 
                 tabbedPane.removeTabAt(tabIndex);
                 IMContext.getBean(ChatManager.class).removeChat(entityPanel.getEntity());

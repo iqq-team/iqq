@@ -1,6 +1,7 @@
 package iqq.app.ui.renderer.node;
 
 import com.alee.laf.label.WebLabel;
+import com.alee.utils.ImageUtils;
 import iqq.api.bean.IMRoom;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * 聊天室显示节点
- *
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-10
@@ -44,14 +45,12 @@ public class RoomNode extends EntityNode {
      * @return
      */
     public WebLabel getView(int iconWidth, int iconHeight) {
-        if(!view.getText().equals(room.getNick())) {
+        if (!view.getText().equals(room.getNick())) {
             view.setText(room.getNick());
         }
-        if(avatar == null || !avatar.equals(room.getAvatar())) {
+        if (avatar == null || !avatar.equals(room.getAvatar())) {
             avatar = room.getAvatar();
-            ImageIcon icon = new ImageIcon(avatar);
-            view.setIcon(icon);
-
+            view.setIcon(ImageUtils.createPreviewIcon(avatar, 43));
         }
         return view;
     }

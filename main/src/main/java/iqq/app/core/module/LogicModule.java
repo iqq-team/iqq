@@ -17,13 +17,16 @@ package iqq.app.core.module;
  */
 
 import iqq.api.annotation.IMEventHandler;
+import iqq.api.bean.IMAccount;
 import iqq.api.bean.IMBuddy;
+import iqq.api.bean.IMBuddyCategory;
 import iqq.api.bridge.IMApp;
 import iqq.api.bridge.IMBridge;
 import iqq.api.event.IMEvent;
 import iqq.api.event.IMEventDispatcher;
 import iqq.api.event.IMEventType;
 import iqq.api.event.args.LoginRequest;
+import iqq.app.core.query.AccountQuery;
 import iqq.app.core.query.BuddyQuery;
 import iqq.app.core.query.GroupQuery;
 import iqq.app.core.service.EventService;
@@ -50,11 +53,12 @@ import java.util.List;
  * License  : Apache License 2.0
  */
 @Service
-public class LogicModule extends IMEventDispatcher implements BuddyQuery, GroupQuery, IMApp {
+public class LogicModule extends IMEventDispatcher implements AccountQuery, BuddyQuery, GroupQuery, IMApp {
     //    @Inject
     private IMBridge imBridge;
     @Resource
     private EventService eventService;
+    private IMAccount account;
 
     @PostConstruct
     public void init() {
@@ -63,9 +67,27 @@ public class LogicModule extends IMEventDispatcher implements BuddyQuery, GroupQ
 
         UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
         eventService.register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
-
     }
 
+    @Override
+    public IMAccount getOwner() {
+        return account;
+    }
+
+    @Override
+    public IMBuddy findById(long id) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<IMBuddy> findAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @UIEventHandler(UIEventType.SEND_MSG_REQUEST)
+    private void onSendMsgEvent(UIEvent uiEvent) {
+        imBridge.onIMEvent(new IMEvent(IMEventType.SEND_MSG_REQUEST, uiEvent.getTarget()));
+    }
 
     @UIEventHandler(UIEventType.LOGIN_REQUEST)
     private void onLoginEvent(UIEvent uiEvent) {
@@ -79,19 +101,9 @@ public class LogicModule extends IMEventDispatcher implements BuddyQuery, GroupQ
         imBridge.onIMEvent(new IMEvent(IMEventType.LOGIN_REQUEST, req));
     }
 
-
-    @Override
-    public IMBuddy findById(long id) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<IMBuddy> findAll() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     @IMEventHandler(IMEventType.LOGIN_SUCCESS)
     protected void processLoginSuccess(IMEvent imEvent) {
+        account = (IMAccount) imEvent.getTarget();
         eventService.broadcast(new UIEvent(UIEventType.LOGIN_SUCCESS));
     }
 
@@ -131,5 +143,19 @@ public class LogicModule extends IMEventDispatcher implements BuddyQuery, GroupQ
         eventService.broadcast(new UIEvent(UIEventType.USER_FACE_UPDATE, imEvent.getTarget()));
     }
 
+    @IMEventHandler(IMEventType.GROUP_LIST_UPDATE)
+    protected void processGroupListUpdate(IMEvent imEvent) {
+        eventService.broadcast(new UIEvent(UIEventType.GROUP_LIST_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.RECENT_LIST_UPDATE)
+    protected void processRecentListUpdate(IMEvent imEvent) {
+        eventService.broadcast(new UIEvent(UIEventType.RECENT_LIST_UPDATE, imEvent.getTarget()));
+    }
+
+    @IMEventHandler(IMEventType.RECV_RAW_MSG)
+    protected void processRecvRawMsg(IMEvent imEvent) {
+        eventService.broadcast(new UIEvent(UIEventType.RECV_RAW_MSG, imEvent.getTarget()));
+    }
 
 }

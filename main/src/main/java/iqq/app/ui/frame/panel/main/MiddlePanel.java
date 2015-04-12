@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * 主界面，主要是包含了一个Tab控件
  * 显示：好友列表/群/最近列表
- * <p/>
+ * <p>
  * Project  : iqq-projects
  * Author   : 承∮诺 < 6208317@qq.com >
  * Created  : 14-5-8
@@ -169,7 +169,6 @@ public class MiddlePanel extends IMPanel {
             }
         }
 
-
         DefaultTreeModel groupModel = new DefaultTreeModel(root);
         groupsTree.setModel(groupModel);
     }
@@ -282,6 +281,38 @@ public class MiddlePanel extends IMPanel {
         contactsTree.setModel(buddyModel);
     }
 
+    public void updateGroupList(List<IMRoomCategory> roomCategories) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+        BufferedImage defaultAvatar = getDefaultAvatar();
+        for (IMRoomCategory cate : roomCategories) {
+            CategoryNode cateNode = new CategoryNode(cate);
+            for (IMRoom room : cate.getRoomList()) {
+                if (room.getAvatar() == null) {
+                    room.setAvatar(defaultAvatar);
+                }
+                cateNode.add(new RoomNode(room));
+            }
+            root.add(cateNode);
+        }
+
+        DefaultTreeModel groupModel = new DefaultTreeModel(root);
+        groupsTree.setModel(groupModel);
+    }
+
+    public void updateRecentList(List<IMBuddy> buddies) {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+        BufferedImage defaultAvatar = getDefaultRoomAvatar();
+        for (IMBuddy buddy : buddies) {
+            if (buddy.getAvatar() == null) {
+                buddy.setAvatar(defaultAvatar);
+            }
+            root.add(new BuddyNode(buddy));
+        }
+
+        DefaultTreeModel groupModel = new DefaultTreeModel(root);
+        recentTree.setModel(groupModel);
+    }
+
     public void updateUserFace(IMUser imUser) {
         DefaultTreeModel model = (DefaultTreeModel) contactsTree.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
@@ -297,10 +328,21 @@ public class MiddlePanel extends IMPanel {
         }
     }
 
-
     private BufferedImage getDefaultAvatar() {
         try {
             File file = frame.getResourceService().getFile("icons/login/avatar2.png");
+            return ImageIO.read(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private BufferedImage getDefaultRoomAvatar() {
+        try {
+            File file = frame.getResourceService().getFile("icons/login/group.png");
             return ImageIO.read(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

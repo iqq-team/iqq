@@ -1,7 +1,9 @@
 package iqq.app.ui.frame;
 
 
+import iqq.api.bean.IMBuddy;
 import iqq.api.bean.IMBuddyCategory;
+import iqq.api.bean.IMRoomCategory;
 import iqq.api.bean.IMUser;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMFrame;
@@ -88,4 +90,15 @@ public class MainFrame extends IMFrame {
         contentPane.getMiddlePanel().updateUserFace(imUser);
     }
 
+    @UIEventHandler(UIEventType.GROUP_LIST_UPDATE)
+    public void processGroupUpdate(UIEvent uiEvent) {
+        List<IMRoomCategory> roomCategories = (List<IMRoomCategory>) uiEvent.getTarget();
+        contentPane.getMiddlePanel().updateGroupList(roomCategories);
+    }
+
+    @UIEventHandler(UIEventType.RECENT_LIST_UPDATE)
+    public void processRecentUpdate(UIEvent uiEvent) {
+        List<IMBuddy> buddies = (List<IMBuddy>) uiEvent.getTarget();
+        contentPane.getMiddlePanel().updateRecentList(buddies);
+    }
 }

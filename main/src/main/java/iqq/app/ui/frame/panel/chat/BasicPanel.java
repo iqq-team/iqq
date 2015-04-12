@@ -12,9 +12,15 @@ import com.alee.laf.toolbar.WebToolBar;
 import com.alee.utils.ImageUtils;
 import iqq.api.bean.IMEntity;
 import iqq.api.bean.IMMsg;
-import iqq.api.bean.IMUser;
+import iqq.app.core.context.IMContext;
+import iqq.app.core.module.LogicModule;
+import iqq.app.core.service.EventService;
 import iqq.app.core.service.SkinService;
 import iqq.app.ui.IMPanel;
+import iqq.app.ui.event.UIEvent;
+import iqq.app.ui.event.UIEventDispatcher;
+import iqq.app.ui.event.UIEventHandler;
+import iqq.app.ui.event.UIEventType;
 import iqq.app.ui.frame.panel.chat.msg.MsgGroupPanel;
 import iqq.app.ui.frame.panel.chat.msg.MsgPane;
 import iqq.app.ui.frame.panel.chat.rich.RichTextPane;
@@ -78,6 +84,8 @@ public abstract class BasicPanel extends IMPanel {
     protected MsgGroupPanel msgGroupPanel = new MsgGroupPanel();
     protected boolean isAppendMsg = false;
 
+    protected UIEventDispatcher uiEventDispatcher = new UIEventDispatcher(this);
+
     public BasicPanel(IMEntity entity) {
         this.entity = entity;
 
@@ -86,6 +94,8 @@ public abstract class BasicPanel extends IMPanel {
         createInput();
 
         update();
+
+        getEventService().register(uiEventDispatcher.getEventTypes(), uiEventDispatcher);
     }
 
     public IMEntity getEntity() {
@@ -196,13 +206,17 @@ public abstract class BasicPanel extends IMPanel {
     }
 
     private void sendMsg(List<UIRichItem> richItems) {
+        LogicModule logicModule = IMContext.getBean(LogicModule.class);
         IMMsg msg = new IMMsg();
-        msg.setSender((IMUser) entity);
+        msg.setSender(logicModule.getOwner());
         msg.setContents(UIUtils.Bean.toIMItem(richItems));
         msg.setDate(new Date());
         msg.setState(IMMsg.State.PENDING);
         msg.setDirection(IMMsg.Direction.SEND);
+        msg.setOwner(entity);
         showMsg(msg);
+
+        getEventService().broadcast(new UIEvent(UIEventType.SEND_MSG_REQUEST, msg));
     }
 
     public void showMsg(IMMsg msg) {
@@ -241,5 +255,29 @@ public abstract class BasicPanel extends IMPanel {
         contentInput.setBackground(new Color(250, 250, 250));
         headerPanel.setPainter(skinService.getPainterByKey("chat/navBg"));
 
+    }
+
+    @UIEventHandler(UIEventType.SEND_MSG_SUCCESS)
+    public void onSentSuccessEvent(UIEvent uiEvent) {
+
+    }
+
+    @UIEventHandler(UIEventType.SEND_MSG_ERROR)
+    public void onSentErrorEvent(UIEvent uiEvent) {
+
+    }
+
+    @UIEventHandler(UIEventType.RECV_RAW_MSG)
+    public void onRecvMsgEvent(UIEvent uiEvent) {
+        IMMsg msg = (IMMsg) uiEvent.getTarget();
+        showMsg(msg);
+    }
+
+    protected EventService getEventService() {
+        return IMContext.getBean(EventService.class);
+    }
+
+    public void closeChat() {
+        getEventService().unregister(uiEventDispatcher);
     }
 }

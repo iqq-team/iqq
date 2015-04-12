@@ -6,7 +6,10 @@ import iqq.api.bean.IMMsg;
 import iqq.api.bean.IMUser;
 import iqq.api.bean.content.IMContentItem;
 import iqq.api.bean.content.IMTextItem;
+import iqq.app.core.context.IMContext;
+import iqq.app.core.service.EventService;
 import iqq.app.core.service.SkinService;
+import iqq.app.ui.event.UIEventDispatcher;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +27,7 @@ public class UserPanel extends BasicPanel {
     public UserPanel(IMUser entity) {
         super(entity);
 
-        test();
+//        test();
     }
 
     private void test() {
@@ -65,4 +68,5 @@ public class UserPanel extends BasicPanel {
 
         shakeBtn.setIcon(skinService.getIconByKey("chat/toolbar/shake"));
     }
+
 }
